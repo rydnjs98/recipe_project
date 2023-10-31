@@ -54,7 +54,7 @@
         tools:srcCompat="@tools:sample/avatars" />
 
     <Button
-        android:id="@+id/search_button"
+        android:id="@+id/search_search_btn"
         android:layout_width="142dp"
         android:layout_height="53dp"
         android:text="Button"
@@ -62,15 +62,15 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/search_button2"
+        android:id="@+id/search_main_btn"
         android:layout_width="128dp"
         android:layout_height="48dp"
         android:text="Button"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/search_button" />
+        app:layout_constraintStart_toEndOf="@+id/search_search_btn" />
 
     <Button
-        android:id="@+id/search_button3"
+        android:id="@+id/search_favotie_btn"
         android:layout_width="128dp"
         android:layout_height="54dp"
         android:text="Button"
