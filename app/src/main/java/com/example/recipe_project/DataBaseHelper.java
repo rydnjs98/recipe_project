@@ -17,11 +17,14 @@ public class DataBaseHelper extends SQLiteOpenHelper{
     private final static String TAG = "DataBaseHelper"; // Logcat에 출력할 태그이름
     // database 의 파일 경로
     private static String DB_PATH = "";
-    private static String DB_NAME = "student_db.db";
+    private static String DB_NAME = "recipe_db.db";
     private SQLiteDatabase mDataBase;
     private Context mContext;
 
-    public static  final String TABLE_NAME = "student";
+    public static final String Ingre_t = "Ingrediant";
+
+
+    public static  final String TABLE_NAME = "Ingrediant";
 
     public static final String Col1 = "Time";
 
