@@ -18,6 +18,7 @@ public class MainActivity extends AppCompatActivity {
 
     Button tosearch;
     Button tofavorite;
+    Button login;
     ImageButton recepices_btn1;
 
     @Override
@@ -27,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
        tosearch = findViewById(R.id.main_search_btn);
        tofavorite = findViewById(R.id.main_favorite_btn);
         recepices_btn1=findViewById(R.id.recepices_btn1);
+        login=findViewById(R.id.main_login_btn);
 
         ViewPager2 viewPager_idol = findViewById(R.id.viewPager_idol);
         viewPager_idol.setAdapter(new ViewPagerAdapter(getIdolList()));
@@ -52,6 +54,13 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, Favorite.class);
+                startActivity(intent);
+            }
+        });
+        login.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, Login.class);
                 startActivity(intent);
             }
         });
