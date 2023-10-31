@@ -10,7 +10,7 @@
         android:id="@+id/search_edt"
         android:layout_width="match_parent"
         android:layout_height="170px"
-        android:text="입력할 검색어 혹은 태그를 적어주세요."
+        android:hint="입력할 검색어 혹은 태그를 적어주세요."
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
     <ImageView
@@ -118,11 +118,12 @@
         app:layout_constraintStart_toEndOf="@+id/search_textView"
         app:layout_constraintTop_toBottomOf="@+id/search_edt" />
 
-    <ImageView
-        android:id="@+id/search_imageView5"
+    <ImageButton
+        android:id="@+id/search_image_btn"
         android:layout_width="64dp"
         android:layout_height="54dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@android:drawable/ic_menu_search" />
+        app:srcCompat="@android:drawable/ic_menu_search"
+        />
 </androidx.constraintlayout.widget.ConstraintLayout>
