@@ -2,11 +2,21 @@ package com.example.recipe_project;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class StartAct  extends AppCompatActivity {
 
@@ -82,6 +92,41 @@ public class StartAct  extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(StartAct.this, MainActivity.class);
                 startActivity(intent);
+            }
+        });
+        postFirebaseDatabase(true);
+    }
+    int ID = 21;
+    String name = "밥";
+    String link = "";
+    String IDs = "";
+    String tag = "";
+    String info = "";
+    DatabaseReference mPostReference = null;
+
+    public void postFirebaseDatabase(boolean add){
+        mPostReference = FirebaseDatabase.getInstance("https://recipe-2023-team2-default-rtdb.firebaseio.com").getReference();
+        Map<String, Object> childUpdates = new HashMap<>();
+        Map<String, Object> postValues = null;
+        if(add){
+            Recipe_Post post = new Recipe_Post(ID, name, link, IDs, tag, info);
+            postValues = post.toMap();
+        }
+        childUpdates.put("/recipe/" + ID, postValues);
+        mPostReference.updateChildren(childUpdates);
+        mPostReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // This method is called once with the initial value and again
+                // whenever data at this location is updated.
+                String value = dataSnapshot.getValue().toString();
+                Log.d("Database", "Value is: " + value);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // Failed to read value
+                Log.w("Database", "Failed to read value.", error.toException());
             }
         });
     }
