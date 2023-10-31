@@ -5,13 +5,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.ViewHolder> {
+public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.ViewHolder>{
 
     private ArrayList<FindItem> mFindList;
 
@@ -37,7 +38,9 @@ public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.Vi
         return mFindList.size();
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder {
+
+
+    class ViewHolder extends RecyclerView.ViewHolder{
         ImageView profile;
         TextView name;
 
@@ -48,6 +51,14 @@ public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.Vi
             profile = (ImageView) itemView.findViewById(R.id.item_img);
             name = (TextView) itemView.findViewById(R.id.item_text);
 
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Toast.makeText(itemView.getContext(), "텍스트", Toast.LENGTH_SHORT).show();
+
+                }
+            });
+
         }
 
         void onBind(FindItem item){
@@ -55,5 +66,7 @@ public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.Vi
             name.setText(item.getName());
 
         }
+
+
     }
 }
