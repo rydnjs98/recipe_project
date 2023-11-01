@@ -25,7 +25,28 @@ public class Recipe_Post {
         this.tag = tag;
         this.info = info;
     }
+    public int Recipe_getID() {
+        return this.ID;
+    }
+    public String Recipe_getname() {
+        return this.name;
+    }
 
+    public String Recipe_getlink() {
+        return this.link;
+    }
+
+    public String Recipe_getIDs() {
+        return this.IDs;
+    }
+
+    public String Recipe_gettag() {
+        return this.tag;
+    }
+
+    public String Recipe_getinfo() {
+        return this.info;
+    }
     @Exclude
     public Map<String, Object> toMap() {
         HashMap<String, Object> result = new HashMap<>();

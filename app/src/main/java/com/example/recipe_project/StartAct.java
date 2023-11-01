@@ -7,12 +7,16 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.HashMap;
@@ -108,25 +112,41 @@ public class StartAct  extends AppCompatActivity {
         mPostReference = FirebaseDatabase.getInstance("https://recipe-2023-team2-default-rtdb.firebaseio.com").getReference();
         Map<String, Object> childUpdates = new HashMap<>();
         Map<String, Object> postValues = null;
+        Recipe_Post post = new Recipe_Post(ID, name, link, IDs, tag, info);
         if(add){
-            Recipe_Post post = new Recipe_Post(ID, name, link, IDs, tag, info);
             postValues = post.toMap();
         }
         childUpdates.put("/recipe/" + ID, postValues);
         mPostReference.updateChildren(childUpdates);
-        mPostReference.addValueEventListener(new ValueEventListener() {
+//        mPostReference.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//                // This method is called once with the initial value and again
+//                // whenever data at this location is updated.
+//                String value = dataSnapshot.getValue().toString();
+//                Log.d("Database", "Value is: " + value);
+//            }
+//
+//            @Override
+//            public void onCancelled(DatabaseError error) {
+//                // Failed to read value
+//                Log.w("Database", "Failed to read value.", error.toException());
+//            }
+//        });
+        int UID = post.Recipe_getID();
+        Query myQuery = mPostReference.child("recipe").child(String.valueOf(UID))
+                .orderByChild("recipe_name");
+
+        myQuery.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                // This method is called once with the initial value and again
-                // whenever data at this location is updated.
-                String value = dataSnapshot.getValue().toString();
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                String value = snapshot.getValue().toString();
                 Log.d("Database", "Value is: " + value);
             }
 
             @Override
-            public void onCancelled(DatabaseError error) {
-                // Failed to read value
-                Log.w("Database", "Failed to read value.", error.toException());
+            public void onCancelled(@NonNull DatabaseError error) {
+
             }
         });
     }
