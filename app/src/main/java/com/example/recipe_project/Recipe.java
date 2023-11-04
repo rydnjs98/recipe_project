@@ -3,6 +3,7 @@ package com.example.recipe_project;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.MediaController;
 import android.widget.VideoView;
@@ -10,51 +11,55 @@ import android.widget.VideoView;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 public class Recipe extends AppCompatActivity {
 
     VideoView vv;
+    DatabaseReference databaseReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.recepices);
+        setContentView(R.layout.recipes);
 
-        vv= findViewById(R.id.vv);
-        //Video Uri
-        Uri videoUri= Uri.parse("http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4");
+        vv = findViewById(R.id.vv);
 
-        //비디오뷰의 재생, 일시정지 등을 할 수 있는 '컨트롤바'를 붙여주는 작업
-        vv.setMediaController(new MediaController(this));
-
-        //VideoView가 보여줄 동영상의 경로 주소(Uri) 설정하기
-        vv.setVideoURI(videoUri);
-
-        //동영상을 읽어오는데 시간이 걸리므로..
-        //비디오 로딩 준비가 끝났을 때 실행하도록..
-        //리스너 설정
-        vv.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+        // Video Uri
+        String recipeId = "recipe1";
+        databaseReference = FirebaseDatabase.getInstance().getReference().child("0").child("recipe_link").child(recipeId);
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onPrepared(MediaPlayer mediaPlayer) {
-                //비디오 시작
-                vv.start();
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    String videoUrl = dataSnapshot.getValue(String.class);
+                    Uri videoUri = Uri.parse(videoUrl);
+
+                    // URI를 로그에 출력
+                    Log.d("RecipeActivity", "Video URI: " + videoUri.toString());
+
+                    // VideoView에 동영상 설정
+                    vv.setVideoURI(videoUri);
+
+                    // 동영상 로딩 준비가 끝났을 때 재생 시작
+                    vv.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+                        @Override
+                        public void onPrepared(MediaPlayer mediaPlayer) {
+                            // 비디오 시작
+                            vv.start();
+                        }
+                    });
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.e("RecipeActivity", "Error fetching data: " + databaseError.getMessage());
             }
         });
-
-    }//onCreate ..
-
-    //화면에 안보일때...
-    @Override
-    protected void onPause() {
-        super.onPause();
-
-        //비디오 일시 정지
-        if(vv!=null && vv.isPlaying()) vv.pause();
-    }
-    //액티비티가 메모리에서 사라질때..
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        //
-        if(vv!=null) vv.stopPlayback();
     }
 }

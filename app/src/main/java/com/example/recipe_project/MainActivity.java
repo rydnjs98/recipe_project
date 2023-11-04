@@ -28,9 +28,12 @@ public class MainActivity extends AppCompatActivity {
     TextView user_details;
     Button tosearch;
     Button tofavorite;
-    Button login, logout;
+    ImageButton login;
+    Button  logout;
     ImageButton recepices_btn1;
 
+    Button main_btn1,main_btn2,main_btn3,main_btn4;
+    private boolean isFullHeart = false;
     String cu;
 
     @Override
@@ -46,6 +49,13 @@ public class MainActivity extends AppCompatActivity {
        auth = FirebaseAuth.getInstance();
        user = auth.getCurrentUser();
        user_details = findViewById(R.id.user_details);
+
+        Button button = findViewById(R.id.main_btn1);
+        Button button2 = findViewById(R.id.main_btn2);
+        Button button3 = findViewById(R.id.main_btn3);
+        Button button4 = findViewById(R.id.main_btn4);
+
+
 
        if(user != null){
            user_details.setText(user.getEmail());
@@ -106,6 +116,18 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (isFullHeart) {
+                    button.setBackgroundResource(R.drawable.ic_emptyheart);
+                } else {
+                    button.setBackgroundResource(R.drawable.ic_fullheart);
+                }
+                isFullHeart = !isFullHeart;     //하트 변경
+            }
+        });
+
 
     }
 
@@ -116,6 +138,7 @@ public class MainActivity extends AppCompatActivity {
         itemList.add(R.drawable.idol3);
         return itemList;
     }
+
 
 
 }
