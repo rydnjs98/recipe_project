@@ -75,8 +75,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:src="@android:drawable/btn_star"
-                        tools:src="@drawable/korean" />
+                        android:src="@drawable/korean" />
 
                     <Button
                         android:id="@+id/main_btn1"
@@ -100,8 +99,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:src="@android:drawable/btn_star"
-                        tools:src="@drawable/chinese" />
+                        android:src="@drawable/chinese" />
 
                     <Button
                         android:id="@+id/main_btn2"
@@ -137,8 +135,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:src="@android:drawable/btn_star"
-                        tools:src="@drawable/weston" />
+                        android:src="@drawable/weston" />
 
                     <Button
                         android:id="@+id/main_btn3"
@@ -160,8 +157,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:src="@android:drawable/btn_star"
-                        tools:src="@drawable/japanese" />
+                        android:src="@drawable/japanese" />
 
                     <Button
                         android:id="@+id/main_btn4"

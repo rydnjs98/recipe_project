@@ -6,7 +6,8 @@
     android:orientation="vertical"
     android:gravity="center"
     android:padding="15dp"
-    tools:context=".Login">
+    tools:context=".Login"
+    android:background="#D5EEEE">
 
     <TextView
         android:text="@string/login"
