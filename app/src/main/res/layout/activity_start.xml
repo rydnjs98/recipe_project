@@ -3,18 +3,30 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:background="@drawable/search_backgr"
     android:layout_height="match_parent">
 
-    <ImageView
-        android:id="@+id/start_img4"
-        android:layout_width="0dp"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardview4"
+        android:layout_width="150dp"
         android:layout_height="150dp"
+        android:padding="0sp"
         android:layout_marginEnd="40dp"
         android:layout_marginBottom="176dp"
-        android:src="@drawable/korean"
+        android:scaleType="centerCrop"
+        app:cardCornerRadius="30dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/start_img3" />
+        app:layout_constraintStart_toEndOf="@+id/cardview3" >
+        <ImageView
+            android:id="@+id/start_img4"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/korean"
+            android:padding="0sp"
+            android:scaleType="centerCrop" />
+    </androidx.cardview.widget.CardView>
+
 
     <TextView
         android:id="@+id/start_txt4"
@@ -23,21 +35,32 @@
         android:text="한식"
         android:textAlignment="center"
         android:textSize="30dp"
-        app:layout_constraintEnd_toEndOf="@+id/start_img4"
-        app:layout_constraintStart_toStartOf="@+id/start_img4"
-        app:layout_constraintTop_toBottomOf="@+id/start_img4" />
+        app:layout_constraintEnd_toEndOf="@+id/cardview4"
+        app:layout_constraintStart_toStartOf="@+id/cardview4"
+        app:layout_constraintTop_toBottomOf="@+id/cardview4" />
 
-    <ImageView
-        android:id="@+id/start_img3"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardview3"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
         android:layout_marginStart="31dp"
         android:layout_marginEnd="40dp"
         android:src="@drawable/chinese"
+        android:padding="0sp"
+        android:scaleType="centerCrop"
+        app:cardCornerRadius="30dp"
         app:layout_constraintBottom_toTopOf="@+id/start_txt3"
-        app:layout_constraintEnd_toStartOf="@+id/start_img4"
+        app:layout_constraintEnd_toStartOf="@+id/cardview4"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/start_img4" />
+        app:layout_constraintTop_toTopOf="@+id/cardview4" >
+        <ImageView
+            android:id="@+id/start_img3"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/chinese"
+            android:padding="0sp"
+            android:scaleType="centerCrop" />
+    </androidx.cardview.widget.CardView>
 
     <TextView
         android:id="@+id/start_txt3"
@@ -47,22 +70,63 @@
         android:textAlignment="center"
         android:textSize="30dp"
         app:layout_constraintBottom_toBottomOf="@+id/start_txt4"
-        app:layout_constraintEnd_toEndOf="@+id/start_img3"
-        app:layout_constraintStart_toStartOf="@+id/start_img3"
-        app:layout_constraintTop_toBottomOf="@+id/start_img4" />
+        app:layout_constraintEnd_toEndOf="@+id/cardview3"
+        app:layout_constraintStart_toStartOf="@+id/cardview3"
+        app:layout_constraintTop_toBottomOf="@+id/cardview4" />
 
-    <ImageView
-        android:id="@+id/start_img2"
-        android:layout_width="0dp"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardview2"
+        android:layout_width="150dp"
         android:layout_height="150dp"
-        android:layout_marginTop="124dp"
+        android:padding="0sp"
+        android:scaleType="centerCrop"
+        app:cardCornerRadius="30dp"
         android:layout_marginEnd="40dp"
         android:layout_marginBottom="123dp"
-        android:src="@drawable/japanese"
-        app:layout_constraintBottom_toTopOf="@+id/start_img4"
+        app:layout_constraintBottom_toTopOf="@+id/cardview4"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/start_img1"
-        app:layout_constraintTop_toTopOf="@+id/start_banner" />
+        app:layout_constraintStart_toEndOf="@+id/cardview1">
+        <ImageView
+            android:id="@+id/start_img2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/japanese"
+            android:padding="0sp"
+            android:scaleType="centerCrop" />
+    </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:id="@+id/start_txt2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="일식"
+        android:textAlignment="center"
+        android:textSize="30dp"
+        app:layout_constraintEnd_toEndOf="@+id/cardview2"
+        app:layout_constraintStart_toStartOf="@+id/cardview2"
+        app:layout_constraintTop_toBottomOf="@+id/cardview2" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardview1"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginStart="31dp"
+        android:layout_marginEnd="40dp"
+        android:padding="0sp"
+        android:scaleType="centerCrop"
+        app:cardCornerRadius="30dp"
+        app:layout_constraintBottom_toTopOf="@+id/start_txt1"
+        app:layout_constraintEnd_toStartOf="@+id/cardview2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/cardview2">
+            <ImageView
+                android:id="@+id/start_img1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="0sp"
+                android:scaleType="centerCrop"
+                app:srcCompat="@drawable/weston" />
+    </androidx.cardview.widget.CardView>
 
     <TextView
         android:id="@+id/start_txt1"
@@ -72,45 +136,8 @@
         android:textAlignment="center"
         android:textSize="30dp"
         app:layout_constraintBottom_toBottomOf="@+id/start_txt2"
-        app:layout_constraintEnd_toEndOf="@+id/start_img1"
-        app:layout_constraintStart_toStartOf="@+id/start_img1"
-        app:layout_constraintTop_toBottomOf="@+id/start_img2" />
-
-    <TextView
-        android:id="@+id/start_txt2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="일식"
-        android:textAlignment="center"
-        android:textSize="30dp"
-        app:layout_constraintEnd_toEndOf="@+id/start_img2"
-        app:layout_constraintStart_toStartOf="@+id/start_img2"
-        app:layout_constraintTop_toBottomOf="@+id/start_img2" />
-
-    <ImageView
-        android:id="@+id/start_img1"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="31dp"
-        android:layout_marginEnd="40dp"
-        android:src="@drawable/weston"
-        app:layout_constraintBottom_toTopOf="@+id/start_txt1"
-        app:layout_constraintEnd_toStartOf="@+id/start_img2"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/start_img2" />
-
-    <TextView
-        android:id="@+id/start_banner"
-        android:layout_width="0dp"
-        android:layout_height="70dp"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="40dp"
-        android:text="레시피를 정해조!"
-        android:textAlignment="center"
-        android:textSize="40dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toEndOf="@+id/cardview1"
+        app:layout_constraintStart_toStartOf="@+id/cardview1"
+        app:layout_constraintTop_toBottomOf="@+id/cardview2" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
