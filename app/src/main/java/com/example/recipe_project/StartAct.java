@@ -118,21 +118,21 @@ public class StartAct  extends AppCompatActivity {
         }
         childUpdates.put("/recipe/" + ID, postValues);
         mPostReference.updateChildren(childUpdates);
-//        mPostReference.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//                // This method is called once with the initial value and again
-//                // whenever data at this location is updated.
-//                String value = dataSnapshot.getValue().toString();
-//                Log.d("Database", "Value is: " + value);
-//            }
-//
-//            @Override
-//            public void onCancelled(DatabaseError error) {
-//                // Failed to read value
-//                Log.w("Database", "Failed to read value.", error.toException());
-//            }
-//        });
+        mPostReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // This method is called once with the initial value and again
+                // whenever data at this location is updated.
+                String value = dataSnapshot.getValue().toString();
+                Log.d("Database", "Value is: " + value);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // Failed to read value
+                Log.w("Database", "Failed to read value.", error.toException());
+            }
+        });
         int UID = post.Recipe_getID();
         Query myQuery = mPostReference.child("recipe").child(String.valueOf(UID))
                 .orderByChild("recipe_name");

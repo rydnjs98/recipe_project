@@ -15,11 +15,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
-            <Button
-                android:id="@+id/main_back_btn"
-                android:layout_width="54dp"
-                android:layout_height="38dp"
-                android:text="Button" />
+
             <View
                 android:layout_width="0dp"
                 android:layout_height="0dp"
@@ -28,17 +24,21 @@
                 android:id="@+id/user_details"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
-            <Button
-                android:id="@+id/main_login_btn"
-                android:layout_width="54dp"
-                android:layout_height="38dp"
-                android:text="Login" />
+
             <Button
                 android:id="@+id/main_logout_btn"
                 android:visibility="gone"
                 android:layout_width="54dp"
                 android:layout_height="38dp"
                 android:text="Logout" />
+
+            <ImageButton
+                android:id="@+id/main_login_btn"
+                android:layout_width="95dp"
+                android:layout_height="38dp"
+                android:background="@color/white"
+                android:text="Login"
+                app:srcCompat="@drawable/login_img" />
         </LinearLayout>
 
 
@@ -75,7 +75,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:src="@android:drawable/btn_star" />
+                        android:src="@android:drawable/btn_star"
+                        tools:src="@drawable/korean" />
 
                     <Button
                         android:id="@+id/main_btn1"
@@ -83,7 +84,8 @@
                         android:layout_height="60dp"
                         android:layout_alignParentTop="true"
                         android:layout_alignParentRight="true"
-                        android:text="My Button" />
+                        android:background="@drawable/heart"
+                   />
 
                 </FrameLayout>
 
@@ -97,7 +99,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:src="@android:drawable/btn_star" />
+                        android:src="@android:drawable/btn_star"
+                        tools:src="@drawable/chinese" />
 
                     <Button
                         android:id="@+id/main_btn2"
@@ -105,7 +108,8 @@
                         android:layout_height="60dp"
                         android:layout_alignParentTop="true"
                         android:layout_alignParentRight="true"
-                        android:text="My Button" />
+
+                        android:background="@drawable/heart"/>
 
                 </FrameLayout>
 
@@ -132,7 +136,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:src="@android:drawable/btn_star" />
+                        android:src="@android:drawable/btn_star"
+                        tools:src="@drawable/weston" />
 
                     <Button
                         android:id="@+id/main_btn3"
@@ -140,7 +145,7 @@
                         android:layout_height="60dp"
                         android:layout_alignParentTop="true"
                         android:layout_alignParentRight="true"
-                        android:text="My Button" />
+                        android:background="@drawable/heart"/>
 
                 </FrameLayout>
 
@@ -154,7 +159,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:src="@android:drawable/btn_star" />
+                        android:src="@android:drawable/btn_star"
+                        tools:src="@drawable/japanese" />
 
                     <Button
                         android:id="@+id/main_btn4"
@@ -162,7 +168,7 @@
                         android:layout_height="60dp"
                         android:layout_alignParentTop="true"
                         android:layout_alignParentRight="true"
-                        android:text="My Button" />
+                        android:background="@drawable/heart"/>
 
                 </FrameLayout>
 

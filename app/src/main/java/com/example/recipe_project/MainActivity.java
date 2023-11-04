@@ -1,8 +1,11 @@
 package com.example.recipe_project;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
 import androidx.viewpager2.widget.ViewPager2;
 
+import android.app.Notification;
+import android.app.NotificationManager;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -11,6 +14,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -24,8 +28,13 @@ public class MainActivity extends AppCompatActivity {
     TextView user_details;
     Button tosearch;
     Button tofavorite;
-    Button login, logout;
+    ImageButton login;
+    Button  logout;
     ImageButton recepices_btn1;
+
+    Button main_btn1,main_btn2,main_btn3,main_btn4;
+    private boolean isFullHeart = false;
+    String cu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +49,13 @@ public class MainActivity extends AppCompatActivity {
        auth = FirebaseAuth.getInstance();
        user = auth.getCurrentUser();
        user_details = findViewById(R.id.user_details);
+
+        Button button = findViewById(R.id.main_btn1);
+        Button button2 = findViewById(R.id.main_btn2);
+        Button button3 = findViewById(R.id.main_btn3);
+        Button button4 = findViewById(R.id.main_btn4);
+
+
 
        if(user != null){
            user_details.setText(user.getEmail());
@@ -91,12 +107,30 @@ public class MainActivity extends AppCompatActivity {
         tofavorite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, Favorite.class);
-                startActivity(intent);
+                if(user != null) {
+                    Intent intent = new Intent(MainActivity.this, Favorite.class);
+                    startActivity(intent);
+                }
+                else {
+                    Toast.makeText(MainActivity.this, "로그인을 먼저 해주세요.", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (isFullHeart) {
+                    button.setBackgroundResource(R.drawable.ic_emptyheart);
+                } else {
+                    button.setBackgroundResource(R.drawable.ic_fullheart);
+                }
+                isFullHeart = !isFullHeart;     //하트 변경
             }
         });
 
+
     }
+
     private ArrayList<Integer> getIdolList() {
         ArrayList<Integer> itemList = new ArrayList<>();
         itemList.add(R.drawable.idol1);
@@ -104,6 +138,7 @@ public class MainActivity extends AppCompatActivity {
         itemList.add(R.drawable.idol3);
         return itemList;
     }
+
 
 
 }
