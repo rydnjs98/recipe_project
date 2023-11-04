@@ -2,7 +2,7 @@
     <!-- Base application theme. -->
     <style name="Base.Theme.Recipe_Project" parent="Theme.AppCompat.Light">
         <item name="android:button">@color/pink_700</item>
-        <item name="android:background">#D5EEEE</item>
+
 
     </style>
 
