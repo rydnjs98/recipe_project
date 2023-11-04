@@ -1,8 +1,11 @@
 package com.example.recipe_project;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
 import androidx.viewpager2.widget.ViewPager2;
 
+import android.app.Notification;
+import android.app.NotificationManager;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -11,6 +14,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -26,6 +30,8 @@ public class MainActivity extends AppCompatActivity {
     Button tofavorite;
     Button login, logout;
     ImageButton recepices_btn1;
+
+    String cu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,12 +97,18 @@ public class MainActivity extends AppCompatActivity {
         tofavorite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, Favorite.class);
-                startActivity(intent);
+                if(user != null) {
+                    Intent intent = new Intent(MainActivity.this, Favorite.class);
+                    startActivity(intent);
+                }
+                else {
+                    Toast.makeText(MainActivity.this, "로그인을 먼저 해주세요.", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
     }
+
     private ArrayList<Integer> getIdolList() {
         ArrayList<Integer> itemList = new ArrayList<>();
         itemList.add(R.drawable.idol1);
