@@ -116,18 +116,23 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-        button.setOnClickListener(new View.OnClickListener() {
+        View.OnClickListener clickListener = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (isFullHeart) {
-                    button.setBackgroundResource(R.drawable.ic_emptyheart);
-                } else {
-                    button.setBackgroundResource(R.drawable.ic_fullheart);
-                }
-                isFullHeart = !isFullHeart;     //하트 변경
-            }
-        });
 
+                Button clickedButton = (Button) view;
+                if (isFullHeart) {
+                    clickedButton.setBackgroundResource(R.drawable.ic_emptyheart);
+                } else {
+                    clickedButton.setBackgroundResource(R.drawable.ic_fullheart);
+                }
+                isFullHeart = !isFullHeart;
+            }
+        };
+        button.setOnClickListener(clickListener);
+        button2.setOnClickListener(clickListener);
+        button3.setOnClickListener(clickListener);
+        button4.setOnClickListener(clickListener);
 
     }
 
