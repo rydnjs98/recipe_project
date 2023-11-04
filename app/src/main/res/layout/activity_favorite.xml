@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Favorite">
+    tools:context=".Favorite"
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -13,95 +14,184 @@
 
         <LinearLayout
             android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1"/>
+            <TextView
+                android:id="@+id/user_details"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <Button
+                android:id="@+id/Favorite_logout_btn"
+                android:visibility="gone"
+                android:layout_width="wrap_content"
+                android:layout_height="38dp"
+                android:layout_weight="1"
+                android:text="Logout"
+                android:layout_gravity="right"/>
+
+            <Button
+                android:id="@+id/Favorite_login_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="38dp"
+                android:background="@color/white"
+                android:text="Login"
+                android:layout_gravity="right"/>
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
 
 
-            <Space
+            <TextView
                 android:layout_width="match_parent"
-                android:layout_height="36dp" />
+                android:layout_height="wrap_content"
+                android:text="Favorite"
+                android:textSize="30dp"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:textAlignment="center"
+                />
 
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp">
 
-                <FrameLayout
-                    android:layout_width="24dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="250dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
 
                     <ImageButton
                         android:id="@+id/favorite_btn1"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:src="@android:drawable/btn_star" />
+                        android:src="@drawable/japanese"
+                        android:layout_margin="15dp"
+                        android:contentDescription="Recipe_img"
+                        android:scaleType="centerCrop"
+                        />
 
-                </FrameLayout>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Recipe_name"
+                        android:textSize="15dp"
+                        android:textStyle="bold"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginEnd="15dp"/>
 
-                <FrameLayout
-                    android:layout_width="43dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1">
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="250dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
 
                     <ImageButton
-                        android:id="@+id/favorite_image_btn2"
+                        android:id="@+id/favorite_btn2"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:src="@android:drawable/btn_star" />
+                        android:src="@drawable/chinese"
+                        android:layout_margin="15dp"
+                        android:contentDescription="Recipe_img"
+                        android:scaleType="centerCrop"/>
 
-                </FrameLayout>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Recipe_name"
+                        android:textSize="15dp"
+                        android:textStyle="bold"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginEnd="15dp"/>
+
+                </LinearLayout>
 
             </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="42dp"
-                android:orientation="vertical"></LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp">
 
-                <FrameLayout
-                    android:layout_width="24dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="250dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
 
                     <ImageButton
-                        android:id="@+id/favorite_image_btn3"
+                        android:id="@+id/favorite_btn3"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:src="@android:drawable/btn_star" />
+                        android:src="@drawable/korean"
+                        android:layout_margin="15dp"
+                        android:contentDescription="Recipe_img"
+                        android:scaleType="centerCrop"/>
 
-                </FrameLayout>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Recipe_name"
+                        android:textSize="15dp"
+                        android:textStyle="bold"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginEnd="15dp"/>
 
-                <FrameLayout
-                    android:layout_width="43dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1">
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="250dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
 
                     <ImageButton
-                        android:id="@+id/favorite_image_btn4"
+                        android:id="@+id/favorite_btn4"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:src="@android:drawable/btn_star" />
+                        android:src="@drawable/weston"
+                        android:layout_margin="15dp"
+                        android:contentDescription="Recipe_img"
+                        android:scaleType="centerCrop"/>
 
-                </FrameLayout>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Recipe_name"
+                        android:textSize="15dp"
+                        android:textStyle="bold"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginEnd="15dp"/>
+
+                </LinearLayout>
 
             </LinearLayout>
 
             <Space
                 android:layout_width="match_parent"
-                android:layout_height="36dp" />
+                android:layout_height="wrap_content" />
 
             <LinearLayout
                 android:layout_width="match_parent"
