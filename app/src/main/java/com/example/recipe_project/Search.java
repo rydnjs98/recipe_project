@@ -13,7 +13,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Search extends AppCompatActivity {
 
@@ -24,6 +29,10 @@ public class Search extends AppCompatActivity {
     String gotedt;
 
     TextView tag1, tag2, tag3, tag4;
+    private boolean isCode = false;
+    private boolean isEmail = false;
+    private boolean isUsername = false;
+    private HashMap<String, Object> hashMap = new HashMap<>();
 
 
     @Override
@@ -44,6 +53,7 @@ public class Search extends AppCompatActivity {
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         ArrayList<FindItem> mfindItems = new ArrayList<>();
+        DatabaseReference fbdb = FirebaseDatabase.getInstance().getReference("recipe");
         for(int i=1;i<=10;i++){
             if(i%2==0)
                 mfindItems.add(new FindItem(R.drawable.ic_launcher_foreground,i+"번째 사람",i+"번째 상태메시지"));
@@ -104,4 +114,9 @@ public class Search extends AppCompatActivity {
 
 
     }
+
+
+
+
+
 }
