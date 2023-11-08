@@ -4,11 +4,15 @@ import static com.example.recipe_project.DataAdapter.TAG;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 
 
@@ -41,8 +45,13 @@ public class Search extends AppCompatActivity {
 
     EditText getedt;
     String gotedt;
-
+    ImageButton dosearch;
     TextView tag1, tag2, tag3, tag4;
+
+    List<FindItem> searchlist = new ArrayList<>();
+    List<FindItem> gotlist = new ArrayList<>();
+
+
     private boolean isCode = false;
     private boolean isEmail = false;
     private boolean isUsername = false;
@@ -55,9 +64,18 @@ public class Search extends AppCompatActivity {
         setContentView(R.layout.activity_search);
 
 
+        tomain = findViewById(R.id.search_main_btn);
+        tofavorite = findViewById(R.id.search_favotie_btn);
+        getedt = findViewById(R.id.search_edt);
+        tag1 = findViewById(R.id.search_textView);
+        tag2 = findViewById(R.id.search_textView2);
+        tag3 = findViewById(R.id.search_textView3);
+        tag4 = findViewById(R.id.search_textView4);
+        dosearch = findViewById(R.id.search_image_btn);
 
 
-       RecyclerView mRecyclerView = (RecyclerView) findViewById(R.id.recyclerView);
+
+        RecyclerView mRecyclerView = (RecyclerView) findViewById(R.id.recyclerView);
 
         /* initiate adapter */
         MyRecyclerAdapter mRecyclerAdapter = new MyRecyclerAdapter();
@@ -65,15 +83,17 @@ public class Search extends AppCompatActivity {
         /* initiate recyclerview */
         mRecyclerView.setAdapter(mRecyclerAdapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-
         ArrayList<FindItem> mfindItems = new ArrayList<>();
+
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         CollectionReference docref = db.collection("recipe");
+
+
         docref.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if(task.isSuccessful()){
-                    List<FindItem> searchlist = new ArrayList<>();
+
                     for (QueryDocumentSnapshot doc : task.getResult())
                     {
                         FindItem item = doc.toObject(FindItem.class);
@@ -84,31 +104,81 @@ public class Search extends AppCompatActivity {
                         Log.d(TAG, "recipe name = " + item.getRecipe_Name());
                         Log.d(TAG, "recipe tag = " + item.getRecipe_ID());
                     }
-                    mRecyclerAdapter.setFindList(searchlist);
 
+                    mRecyclerAdapter.setFindList(searchlist);
 
                 }else{
                     Log.d(TAG, "GET FAILED" + task.getException());
                 }
             }
         });
-//        for(int i=1;i<=10;i++){
-//            if(i%2==0)
-//                mfindItems.add(new FindItem(R.drawable.ic_launcher_foreground,i+"번째 사람",i+"번째 상태메시지"));
-//            else
-//                mfindItems.add(new FindItem(R.drawable.ic_launcher_foreground,i+"번째 사람",i+"번째 상태메시지"));
-//
-//        }
         mRecyclerAdapter.setFindList(mfindItems);
+        getedt.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                String text = getedt.getText().toString();
 
 
-        tomain = findViewById(R.id.search_main_btn);
-        tofavorite = findViewById(R.id.search_favotie_btn);
-        getedt = findViewById(R.id.search_edt);
-        tag1 = findViewById(R.id.search_textView);
-        tag2 = findViewById(R.id.search_textView2);
-        tag3 = findViewById(R.id.search_textView3);
-        tag4 = findViewById(R.id.search_textView4);
+                gotlist.clear();
+                if(text.equals("")){
+                    mRecyclerAdapter.setFindList(searchlist);
+                }
+                else{
+                    if(text.equals("일식")){
+                        for(int i=0; i<searchlist.size(); i++){
+                            if(searchlist.get(i).recipe_tag.contains(text)){
+                                gotlist.add(searchlist.get(i));
+                            }
+                            mRecyclerAdapter.setFindList(gotlist);
+                        }
+                    }else if(text.equals("양식")){
+                        for(int i=0; i<searchlist.size(); i++){
+                            if(searchlist.get(i).recipe_tag.contains(text)){
+                                gotlist.add(searchlist.get(i));
+                            }
+                            mRecyclerAdapter.setFindList(gotlist);
+                        }
+                    }else if(text.equals("한식")){
+                        for(int i=0; i<searchlist.size(); i++){
+                            if(searchlist.get(i).recipe_tag.contains(text)){
+                                gotlist.add(searchlist.get(i));
+                            }
+                            mRecyclerAdapter.setFindList(gotlist);
+                        }
+                    }else if(text.equals("중식")){
+                        for(int i=0; i<searchlist.size(); i++){
+                            if(searchlist.get(i).recipe_tag.contains(text)){
+                                gotlist.add(searchlist.get(i));
+                            }
+                            mRecyclerAdapter.setFindList(gotlist);
+                        }
+                    }else{
+                        for(int i=0; i<searchlist.size(); i++){
+                            if(searchlist.get(i).recipe_name.contains(text)){
+                                gotlist.add(searchlist.get(i));
+                            }
+                            mRecyclerAdapter.setFindList(gotlist);
+                        }
+                    }
+
+                }
+            }
+        });
+
+
+
+
+
         tomain.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -127,31 +197,39 @@ public class Search extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 getedt.setText(tag1.getText().toString());
+                gotedt = getedt.getText().toString();
             }
         });
         tag2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 getedt.setText(tag2.getText().toString());
+                gotedt = getedt.getText().toString();
             }
         });
         tag3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 getedt.setText(tag3.getText().toString());
+                gotedt = getedt.getText().toString();
             }
         });
         tag4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 getedt.setText(tag4.getText().toString());
+                gotedt = getedt.getText().toString();
             }
         });
 
-        gotedt = getedt.getText().toString();
+
+
 
 
     }
+
+
+
 
 
 

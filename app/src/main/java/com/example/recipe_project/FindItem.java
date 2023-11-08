@@ -35,7 +35,7 @@ public class FindItem {
         return recipe_name;
     }
 
-    public String getrecipe_Link() {
+    public String getRecipe_Link() {
         return recipe_link;
     }
     public String getRecipe_IngrediantIDs() {
