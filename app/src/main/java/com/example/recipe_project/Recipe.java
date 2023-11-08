@@ -23,7 +23,7 @@ public class Recipe extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.recipes);
+        setContentView(R.layout.activity_recipe);
 
         youTubePlayerView = findViewById(R.id.youtube_player_view);
 
