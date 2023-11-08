@@ -13,13 +13,6 @@
         android:id="@+id/layout1"
         app:layout_constraintTop_toTopOf="parent">
 
-        <Button
-            android:id="@+id/button"
-            android:layout_width="55dp"
-            android:layout_height="50dp"
-            android:layout_margin="10dp"
-            android:text="<" />
-
         <TextView
             android:id="@+id/textView1"
             android:layout_width="match_parent"
