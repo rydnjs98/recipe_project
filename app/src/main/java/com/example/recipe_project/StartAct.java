@@ -1,5 +1,7 @@
 package com.example.recipe_project;
 
+import static com.example.recipe_project.DataAdapter.TAG;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,15 +13,27 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class StartAct  extends AppCompatActivity {
@@ -98,56 +112,32 @@ public class StartAct  extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        postFirebaseDatabase(true);
-    }
-    int ID = 21;
-    String name = "밥";
-    String link = "";
-    String IDs = "";
-    String tag = "";
-    String info = "";
-    DatabaseReference mPostReference = null;
 
-    public void postFirebaseDatabase(boolean add){
-        mPostReference = FirebaseDatabase.getInstance("https://recipe-2023-team2-default-rtdb.firebaseio.com").getReference();
-        Map<String, Object> childUpdates = new HashMap<>();
-        Map<String, Object> postValues = null;
-        Recipe_Post post = new Recipe_Post(ID, name, link, IDs, tag, info);
-        if(add){
-            postValues = post.toMap();
-        }
-        childUpdates.put("/recipe/" + ID, postValues);
-        mPostReference.updateChildren(childUpdates);
-        mPostReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                // This method is called once with the initial value and again
-                // whenever data at this location is updated.
-                String value = dataSnapshot.getValue().toString();
-               // Log.d("Database", "Value is: " + value);
-            }
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        String TAG = "start";
 
-            @Override
-            public void onCancelled(DatabaseError error) {
-                // Failed to read value
-                Log.w("Database", "Failed to read value.", error.toException());
-            }
-        });
-        int UID = post.Recipe_getID();
-        Query myQuery = mPostReference.child("recipe").child(String.valueOf(UID))
-                .orderByChild("recipe_name");
-
-        myQuery.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                String value = snapshot.getValue().toString();
-                Log.d("Database", "Value is: " + value);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
+        db.collection("recipe")
+                .whereEqualTo("recipe_ID", 2)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            List<Recipe_Post> list2 = new ArrayList<>();
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Log.d(TAG, document.getId() + " => " + document.getData());
+                                Recipe_Post recipe2 = document.toObject(Recipe_Post.class);
+                                Log.d(TAG, "value : " + recipe2.Recipe_getname());
+                                list2.add(recipe2);
+                            }
+                            for (Recipe_Post recipe2 : list2){
+                                Log.d(TAG, "recipe name = " + recipe2.Recipe_getname());
+                                Log.d(TAG, "recipe tag = " + recipe2.Recipe_gettag());
+                            }
+                        } else {
+                            Log.d(TAG, "Error getting documents: ", task.getException());
+                        }
+                    }
+                });
     }
 }
