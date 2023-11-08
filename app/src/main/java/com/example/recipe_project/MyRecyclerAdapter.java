@@ -62,8 +62,8 @@ public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.Vi
         }
 
         void onBind(FindItem item){
-            profile.setImageResource(item.getResourceId());
-            name.setText(item.getName());
+            profile.setImageResource(item.getRecipe_ID());
+            name.setText(item.getRecipe_Name());
 
         }
 
