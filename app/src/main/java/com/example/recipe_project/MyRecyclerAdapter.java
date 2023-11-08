@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.ViewHolder>{
 
@@ -28,8 +29,10 @@ public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.Vi
         holder.onBind(mFindList.get(position));
     }
 
-    public void setFindList(ArrayList<FindItem> list){
-        this.mFindList = list;
+    public void setFindList(List<FindItem> list){
+
+        this.mFindList =new ArrayList<>(list);
+
         notifyDataSetChanged();
     }
 
@@ -62,7 +65,7 @@ public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.Vi
         }
 
         void onBind(FindItem item){
-            profile.setImageResource(item.getRecipe_ID());
+            //profile.setImageResource(item.getRecipe_ID());
             name.setText(item.getRecipe_Name());
 
         }

@@ -78,11 +78,13 @@ public class Search extends AppCompatActivity {
                     {
                         FindItem item = doc.toObject(FindItem.class);
                         searchlist.add(item);
+
                     }
                     for (FindItem item : searchlist){
                         Log.d(TAG, "recipe name = " + item.getRecipe_Name());
                         Log.d(TAG, "recipe tag = " + item.getRecipe_ID());
                     }
+                    mRecyclerAdapter.setFindList(searchlist);
 
 
                 }else{
