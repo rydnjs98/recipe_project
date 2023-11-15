@@ -29,6 +29,7 @@ android {
     }
 }
 
+
 dependencies {
     //파이어베이스
     implementation platform('com.google.firebase:firebase-bom:32.4.0')
@@ -48,6 +49,14 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
 
     implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:core:12.1.0'
+
+//웹크롤링
+    implementation 'org.jsoup:jsoup:1.11.3'
+    implementation 'io.github.ParkSangGwon:tedpermission-normal:3.3.0'
+    implementation 'io.github.ParkSangGwon:tedpermission-coroutine:3.3.0'
+    implementation 'io.github.ParkSangGwon:tedpermission-rx2:3.3.0'
+    implementation 'io.github.ParkSangGwon:tedpermission-rx3:3.3.0'
+
 
 
 }
