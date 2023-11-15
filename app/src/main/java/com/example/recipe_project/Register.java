@@ -19,6 +19,12 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class Register extends AppCompatActivity {
 
@@ -27,6 +33,8 @@ public class Register extends AppCompatActivity {
     FirebaseAuth mAuth;
     ProgressBar progressBar;
     TextView textview;
+
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     @Override
     public void onStart() {
@@ -84,13 +92,30 @@ public class Register extends AppCompatActivity {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
+                                    Map<String, Object> data = new HashMap<>();
+                                    List<String> stringArray = Arrays.asList();
+
+                                    data.put("user_id", email);
+                                    data.put("recipe_ID", stringArray);
+
                                     progressBar.setVisibility(View.GONE);
                                     Toast.makeText(Register.this, "Account Created.",
                                             Toast.LENGTH_SHORT).show();
                                     FirebaseUser user = mAuth.getCurrentUser();
-                                    getWindow().getDecorView().setImportantForAutofill(View.IMPORTANT_FOR_AUTOFILL_NO_EXCLUDE_DESCENDANTS);
 
-                                    Intent intent = new Intent(getApplicationContext(), Login.class);
+                                    db.collection("favorite")
+                                            .document()
+                                            .set(data)
+                                            .addOnSuccessListener(aVoid -> {
+                                                // 데이터 추가 성공 시 처리
+                                                System.out.println("Data added successfully!");
+                                            })
+                                            .addOnFailureListener(e -> {
+                                                // 데이터 추가 실패 시 처리
+                                                System.out.println("Error adding data: " + e.getMessage());
+                                            });
+
+                                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                                     startActivity(intent);
                                     finish();
 
