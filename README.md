@@ -1,3 +1,66 @@
+# recipe_project 2023-11-15
+-레시피 제목 Firestore연결
+
+![image](https://github.com/vahallla/recipe_project/assets/89891803/0854040d-7996-4623-a303-f19cb4ae4afd) 
+
+현재 동영상과 연결중
+
+
+
+
+
+-Favorite 테이블 및 오류수정
+
+![image](https://github.com/vahallla/recipe_project/assets/89891803/5d689754-dacc-452d-9795-04cd7d18a7d4)
+
+favorite.java에서 읽어오는 방법 수정
+회원가입 시 favorite 테이블에 user_id, recipe_ID 생성 가능하게 만들었고, 페이지 넘어가지 않던 오류 수정
+
+
+-Search 정보수집 및 웹크롤링 추가
+
+서치 페이지 현재 시간가져오기 + 현재 (익산)날씨 가져오기 <- 웹크롤링을 사용
+레시피 테이블 태그 살짝 수정. 야식, 점심, 아침등 시간에 따라 추가. 날씨에 따라는 추가예정
+
+구현 예정 현재 가져온 시간과 날씨를 기반으로 현재의 검색버튼을 오늘의 추천 레시피 버튼으로 변경후
+클릭시 시간과 날씨를 기준으로 바로 레시피 페이지로 이동하게 만들예정
+
+
+
+
+
+
+
+
+# recipe_project 2023-11-08
+# 기능 구현
+-Youtube Video 기능 구현
+
+![동영상1](https://github.com/vahallla/recipe_project/assets/89891803/a4548006-aef8-41fb-9a47-6dfc0390fe1f)
+
+https://github.com/PierfrancescoSoffritti/android-youtube-player
+을 사용하여 유튜브 연결
+
+- Search 기능 구현
+
+![레시피_검색_1](https://github.com/vahallla/recipe_project/assets/89891803/310bbd91-94f7-4d00-8952-c9e7c6ad567f) ![레시피_검색결과(일식)](https://github.com/vahallla/recipe_project/assets/89891803/5bb871a8-70b4-436c-9047-52bd0a188948)
+![레시피_찜하기_로그](https://github.com/vahallla/recipe_project/assets/89891803/32ee62a1-e058-49fb-a3ea-c7b8f5267894)
+
+
+
+- Favorite 기능 구현
+
+![레시피_찜하기](https://github.com/vahallla/recipe_project/assets/89891803/7c3c8da6-043a-478e-b9af-e91c4ed186b5) ![레시피_찜하기_로그](https://github.com/vahallla/recipe_project/assets/89891803/9e1fad02-987b-43b0-ab99-67326611e381)
+
+
+
+
+
+
+
+
+
+
 # recipe_project 2023-11-04
 # 디자인 수정
 ![image](https://github.com/rydnjs98/recipe_project/assets/89891055/46e5a99e-477f-4493-add3-9682d920f5d1) ![image](https://github.com/rydnjs98/recipe_project/assets/89891055/2226a65d-d4c2-46d0-8bf8-0012e4a4817f)
@@ -5,6 +68,7 @@
 ![image](https://github.com/rydnjs98/recipe_project/assets/89891055/e84c34c6-5998-414d-90d4-34908e649b3a) ![image](https://github.com/rydnjs98/recipe_project/assets/89891055/3dc98005-061b-4a61-8708-5d30fadfa7ab)
 
 ![image](https://github.com/rydnjs98/recipe_project/assets/89891055/8b3130c4-a8c3-4398-b73c-4002d910482b) ![image](https://github.com/rydnjs98/recipe_project/assets/89891055/a57afabd-1d88-47a4-9403-e55ab0330870) 
+
 
 
 # recipe_project 2023-11-01
