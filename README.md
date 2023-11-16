@@ -1,3 +1,12 @@
+# recipe_project 2023-11-16
+-Firestore 재료테이블 array 번호 삽입
+![image](https://github.com/vahallla/recipe_project/assets/89891803/9e3ea9ec-9a44-4983-8968-38ffe6edcf49)
+
+
+
+
+
+
 # recipe_project 2023-11-15
 -레시피 제목 Firestore연결
 
