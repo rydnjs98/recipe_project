@@ -1,5 +1,6 @@
 package com.example.recipe_project;
 
+
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.TextView;
@@ -8,7 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.FirebaseApp;
-import com.google.firebase.firestore.DocumentSnapshot;
+
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.ListenerRegistration;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer;
@@ -27,6 +28,21 @@ public class Recipe extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe);
+
+
+        // 서치에서 보내준 인텐트. 이걸로 레시피 아이디 받을수 있음
+//        Intent intent = getIntent();
+//        FindItem selectedItem = (FindItem) intent.getSerializableExtra("selectedItem");
+//
+//        // 받은 데이터 사용
+//        if (selectedItem != null) {
+//            // TODO: 사용할 코드 작성
+//            int recipeId = selectedItem.getRecipe_ID();
+//            // 다른 필요한 작업 수행
+//        }
+//
+
+
 
         FirebaseApp.initializeApp(this);  // Firebase 초기화
 

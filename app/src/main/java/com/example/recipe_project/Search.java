@@ -4,8 +4,7 @@ import static com.example.recipe_project.DataAdapter.TAG;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.AsyncTask;
-import android.os.Build;
+
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -14,10 +13,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.ListView;
+
 import android.widget.TextView;
-import android.widget.Toast;
+
 
 
 import androidx.annotation.NonNull;
@@ -94,6 +92,7 @@ public class Search extends AppCompatActivity {
         tag4 = findViewById(R.id.search_textView4);
         dosearch = findViewById(R.id.search_image_btn);
 
+        //스레드 기능을 활용하여 네이버날씨에서 날씨를 크롤링해오는 부분
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -115,6 +114,7 @@ public class Search extends AppCompatActivity {
             }
         }).start();
 
+        //리사이클뷰 어뎁터
         RecyclerView mRecyclerView = (RecyclerView) findViewById(R.id.recyclerView);
 
         /* initiate adapter */
@@ -125,10 +125,21 @@ public class Search extends AppCompatActivity {
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         ArrayList<FindItem> mfindItems = new ArrayList<>();
 
+        //파이어베이스의 파이어스토어 db연결
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         CollectionReference docref = db.collection("recipe");
 
 
+        //뷰 항목 클릭시 레시피 페이지로 인텐트 전달
+        mRecyclerAdapter.setOnItemClickListener(new MyRecyclerAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(FindItem item) {
+                Intent intent = new Intent(Search.this, Recipe.class);
+                intent.putExtra("selectedItem", item);
+                startActivity(intent);
+            }
+        });
+        //앱 실행시 리스트에 파이어스토어에서 가져온 레시피 관련 값 저장후 리사이클뷰에 반영
         docref.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -152,6 +163,8 @@ public class Search extends AppCompatActivity {
             }
         });
         mRecyclerAdapter.setFindList(mfindItems);
+
+        //edit 텍스트가 변경될때마다 edit 텍스트에 적힌 값에 따라 리사이클뷰 변경
         getedt.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -235,6 +248,7 @@ public class Search extends AppCompatActivity {
         });
 
 
+        //버튼이벤트
         tomain.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -278,6 +292,7 @@ public class Search extends AppCompatActivity {
             }
         });
 
+        // 현재 시간과 날씨에 따라 랜덤 메뉴 추천 현재 시간에 따라서만 기동.
 
         dosearch.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -299,8 +314,23 @@ public class Search extends AppCompatActivity {
                     if (hourOfDay >= 6 && hourOfDay < 12) {
                         System.out.println("아침");
 
+                        for(int i=0; i< searchlist.size();i++)
+                        {
+                            if (searchlist.get(i).recipe_tag.contains("점심")) {
+                                gotlist.add(searchlist.get(i));
+                            }
+                        }
 
 
+                        ran = r.nextInt(gotlist.size()-1);
+                        //mRecyclerAdapter.setFindList(gotlist);
+                        Intent intent = new Intent(Search.this, Recipe.class);
+
+                        // 데이터를 인텐트에 추가
+                        intent.putExtra("selectedItem", gotlist.get(ran).getRecipe_ID());
+
+                        // 다른 액티비티 시작
+                        startActivity(intent);
 
                     }
 
@@ -314,7 +344,15 @@ public class Search extends AppCompatActivity {
                             }
                         }
                         ran = r.nextInt(gotlist.size()-1);
-                        mRecyclerAdapter.setFindList(gotlist);
+                        //mRecyclerAdapter.setFindList(gotlist);
+                        Intent intent = new Intent(Search.this, Recipe.class);
+
+                        // 데이터를 인텐트에 추가
+                        intent.putExtra("selectedItem", gotlist.get(ran).getRecipe_ID());
+
+                        // 다른 액티비티 시작
+                       startActivity(intent);
+
                     } else {
                         System.out.println("저녁");
 
@@ -326,7 +364,14 @@ public class Search extends AppCompatActivity {
                             }
                         }
                         ran = r.nextInt(gotlist.size()-1);
-                        mRecyclerAdapter.setFindList(gotlist);
+                       // mRecyclerAdapter.setFindList(gotlist);
+                        Intent intent = new Intent(Search.this, Recipe.class);
+
+                        // 데이터를 인텐트에 추가
+                        intent.putExtra("selectedItem", gotlist.get(ran).getRecipe_ID());
+
+                        // 다른 액티비티 시작
+                        startActivity(intent);
                     }
 
                 } catch (Exception e) {

@@ -1,8 +1,9 @@
 package com.example.recipe_project;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class FindItem {
+public class FindItem implements Serializable {
     String recipe_name;
     String recipe_info;
     String recipe_link;
