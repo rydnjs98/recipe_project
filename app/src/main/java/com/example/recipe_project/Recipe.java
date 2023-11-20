@@ -21,7 +21,7 @@ public class Recipe extends AppCompatActivity {
     private FirebaseFirestore db;
     private ListenerRegistration listenerRegistration;
     private YouTubePlayerView youTubePlayerView;
-    private String videoId = "0bnFoRQebq0"; // YouTube 동영상의 ID
+    private YouTubePlayer youTubePlayer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,16 +35,31 @@ public class Recipe extends AppCompatActivity {
 
         youTubePlayerView = findViewById(R.id.youtube_player_view);
 
-        // YouTubePlayer 초기화 및 동영상 로딩
+        // YouTubePlayer 초기화
         getLifecycle().addObserver(youTubePlayerView);
         youTubePlayerView.addYouTubePlayerListener(new AbstractYouTubePlayerListener() {
             @Override
-            public void onReady(@NonNull YouTubePlayer youTubePlayer) {
-                youTubePlayer.loadVideo(videoId, 0); // 동영상 ID와 시작 시간 (0초) 지정
+            public void onReady(@NonNull YouTubePlayer player) {
+                youTubePlayer = player; // YouTubePlayer 인스턴스 저장
+                loadYouTubeVideo("YOUR_VIDEO_ID");
+                setupDatabaseListener();
             }
         });
+    }
 
-        // Firebase 데이터베이스에서 recipe_name을 가져와 textView1에 할당
+    private void loadYouTubeVideo(String videoId) {
+        if (youTubePlayer != null) {
+            youTubePlayer.loadVideo(videoId, 0);
+        }
+    }
+
+    private void setupDatabaseListener() {
+        // ListenerRegistration이 이미 존재하면 제거
+        if (listenerRegistration != null) {
+            listenerRegistration.remove();
+        }
+
+        // Firebase 데이터베이스에서 recipe_name, recipe_link을 가져와 동영상 및 텍스트 업데이트
         listenerRegistration = db.collection("recipe").document("QBadFEdMEXQ8fkUPK5BI").addSnapshotListener((documentSnapshot, error) -> {
             if (error != null) {
                 Log.e("RecipeActivity", "데이터 읽기 실패", error);
@@ -53,11 +68,14 @@ public class Recipe extends AppCompatActivity {
 
             if (documentSnapshot != null && documentSnapshot.exists()) {
                 String recipeName = documentSnapshot.getString("recipe_name");
-                if (recipeName != null) {
-                    Log.d("RecipeActivity", "onEvent 호출됨");
+                String videoId = documentSnapshot.getString("recipe_link");
+
+                if (recipeName != null && videoId != null) {
+                    Log.d("RecipeActivity", "onEvent 호출");
                     textView1.setText(recipeName);
+                    loadYouTubeVideo(videoId);
                 } else {
-                    Log.e("RecipeActivity", "레시피 이름이 null입니다");
+                    Log.e("RecipeActivity", "레시피 이름 또는 동영상 ID가 null");
                 }
             }
         });
