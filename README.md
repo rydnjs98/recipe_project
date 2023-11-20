@@ -1,3 +1,14 @@
+# recipe_project 2023-11-20
+- 메인 페이지 버튼들 동적 생성
+  
+![image](https://github.com/rydnjs98/recipe_project/assets/89891055/cf9f9455-2c8a-4886-94b9-44d7976654f1)
+
+- Firestore 연동 동영상 재생 기능 수정
+
+![image](https://github.com/rydnjs98/recipe_project/assets/89891055/b102374c-c461-4d40-904c-ffd5e1410618)
+
+
+
 # recipe_project 2023-11-16
 -Firestore 재료테이블 array 번호 삽입
 ![image](https://github.com/vahallla/recipe_project/assets/89891803/9e3ea9ec-9a44-4983-8968-38ffe6edcf49)
