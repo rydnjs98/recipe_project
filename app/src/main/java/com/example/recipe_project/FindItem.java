@@ -1,5 +1,7 @@
 package com.example.recipe_project;
 
+import java.util.ArrayList;
+
 public class FindItem {
     String recipe_name;
     String recipe_info;
@@ -7,14 +9,14 @@ public class FindItem {
 
     String recipe_tag;
 
-    String recipe_ingrediantIDs;
+    ArrayList<Integer> recipe_ingrediantIDs;
 
     int recipe_ID;
 
     public FindItem(){
 
     }
-    public FindItem(int recipe_ID, String recipe_info,  String recipe_ingrediantIDs, String recipe_link, String recipe_name,   String recipe_tag) {
+    public FindItem(int recipe_ID, String recipe_info,  ArrayList<Integer> recipe_ingrediantIDs, String recipe_link, String recipe_name,   String recipe_tag) {
         this.recipe_ID = recipe_ID;
         this.recipe_name = recipe_name;
         this.recipe_info= recipe_info;
@@ -38,7 +40,7 @@ public class FindItem {
     public String getRecipe_Link() {
         return recipe_link;
     }
-    public String getRecipe_IngrediantIDs() {
+    public ArrayList<Integer> getRecipe_IngrediantIDs() {
         return recipe_ingrediantIDs;
     }
     public String getRecipe_Tag() {
@@ -55,7 +57,7 @@ public class FindItem {
     public void setRecipe_Link(String recipe_link) {
         this.recipe_link = recipe_link;
     }
-    public void setRecipe_IngrediantIDs(String recipe_ingrediantIDs) {
+    public void setRecipe_IngrediantIDs(ArrayList<Integer> recipe_ingrediantIDs) {
         this.recipe_ingrediantIDs = recipe_ingrediantIDs;
     }
     public void setRecipe_Tag(String recipe_tag) {
