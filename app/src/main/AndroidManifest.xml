@@ -25,11 +25,7 @@
         <activity
             android:name=".StartAct"
             android:exported="true">
-        <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
 
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
         </activity>
         <activity
             android:name=".Register"
@@ -50,7 +46,14 @@
 <!--            android:name=".MainActivity2"-->
 <!--            android:exported="false" />-->
         <activity
-            android:name=".MainActivity"/>
+            android:name=".MainActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity android:name=".Search" />
         <activity android:name=".Favorite" />
         <activity android:name=".Recipe" />

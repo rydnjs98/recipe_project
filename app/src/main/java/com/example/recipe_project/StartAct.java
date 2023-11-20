@@ -38,77 +38,85 @@ import java.util.Map;
 
 public class StartAct  extends AppCompatActivity {
 
-    ImageView img1, img2, img3, img4;
+    ImageView imgWes, imgJap, imgChi, imgKor;
 
-    TextView txt1, txt2, txt3, txt4;
+    TextView txtWes, txtJap, txtChi, txtKor;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
 
-        img1 = findViewById(R.id.start_img1);
-        img2 = findViewById(R.id.start_img2);
-        img3 = findViewById(R.id.start_img3);
-        img4 = findViewById(R.id.start_img4);
+        imgWes = findViewById(R.id.start_imgWes);
+        imgJap = findViewById(R.id.start_imgJap);
+        imgChi = findViewById(R.id.start_imgChi);
+        imgKor = findViewById(R.id.start_imgKor);
 
-        txt1 = findViewById(R.id.start_txt1);
-        txt2 = findViewById(R.id.start_txt2);
-        txt3 = findViewById(R.id.start_txt3);
-        txt4 = findViewById(R.id.start_txt4);
+        txtWes = findViewById(R.id.start_txtWes);
+        txtJap = findViewById(R.id.start_txtJap);
+        txtChi = findViewById(R.id.start_txtChi);
+        txtKor = findViewById(R.id.start_txtKor);
 
-        img1.setOnClickListener(new View.OnClickListener() {
+        imgWes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(StartAct.this, MainActivity.class);
+                intent.putExtra("태그", "양식");
                 startActivity(intent);
             }
         });
-        img2.setOnClickListener(new View.OnClickListener() {
+        imgJap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(StartAct.this, MainActivity.class);
+                intent.putExtra("태그", "일식");
                 startActivity(intent);
             }
         });
-        img3.setOnClickListener(new View.OnClickListener() {
+        imgChi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(StartAct.this, MainActivity.class);
+                intent.putExtra("태그", "중식");
                 startActivity(intent);
             }
         });
-        img4.setOnClickListener(new View.OnClickListener() {
+        imgKor.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(StartAct.this, MainActivity.class);
+                intent.putExtra("태그", "한식");
                 startActivity(intent);
             }
         });
 
-        txt1.setOnClickListener(new View.OnClickListener() {
+        txtWes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(StartAct.this, MainActivity.class);
+                intent.putExtra("태그", "양식");
                 startActivity(intent);
             }
         });
-        txt2.setOnClickListener(new View.OnClickListener() {
+        txtJap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(StartAct.this, MainActivity.class);
+                intent.putExtra("태그", "일식");
                 startActivity(intent);
             }
         });
-        txt3.setOnClickListener(new View.OnClickListener() {
+        txtChi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(StartAct.this, MainActivity.class);
+                intent.putExtra("태그", "중식");
                 startActivity(intent);
             }
         });
-        txt4.setOnClickListener(new View.OnClickListener() {
+        txtKor.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(StartAct.this, MainActivity.class);
+                intent.putExtra("태그", "한식");
                 startActivity(intent);
             }
         });
