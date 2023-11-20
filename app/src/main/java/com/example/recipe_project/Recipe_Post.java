@@ -2,6 +2,7 @@ package com.example.recipe_project;
 
 import com.google.firebase.database.Exclude;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -10,7 +11,7 @@ public class Recipe_Post {
 
     public String recipe_name;
     public String recipe_link;
-    public String recipe_ingrediantIDs;
+    public ArrayList<Integer> recipe_ingrediantIDs;
     public String recipe_tag;
     public String recipe_info;
 
@@ -18,7 +19,7 @@ public class Recipe_Post {
         // Default constructor required for calls to DataSnapshot.getValue(FirebasePost.class)
     }
 
-    public Recipe_Post(int recipe_ID, String recipe_name, String recipe_link, String recipe_ingrediantIDs, String recipe_tag, String recipe_info) {
+    public Recipe_Post(int recipe_ID, String recipe_name, String recipe_link, ArrayList<Integer> recipe_ingrediantIDs, String recipe_tag, String recipe_info) {
         this.recipe_ID = recipe_ID;
         this.recipe_name = recipe_name;
         this.recipe_info = recipe_info;
@@ -37,7 +38,7 @@ public class Recipe_Post {
         return this.recipe_link;
     }
 
-    public String Recipe_getIDs() {
+    public ArrayList<Integer> Recipe_getIDs() {
         return this.recipe_ingrediantIDs;
     }
 
@@ -58,7 +59,7 @@ public class Recipe_Post {
         this.recipe_link = recipe_link;
     }
 
-    public void Recipe_setIDs(String recipe_ingrediantIDs) { this.recipe_ingrediantIDs = recipe_ingrediantIDs; }
+    public void Recipe_setIDs(ArrayList<Integer> recipe_ingrediantIDs) { this.recipe_ingrediantIDs = recipe_ingrediantIDs; }
 
     public void Recipe_settag(String recipe_tag) {
         this.recipe_tag = recipe_tag;

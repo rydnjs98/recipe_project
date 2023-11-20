@@ -14,6 +14,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -22,7 +23,7 @@ public class Start extends AppCompatActivity {
     int ID = 21;
     String name = "밥";
     String link = "";
-    String IDs = "";
+    ArrayList<Integer> IDs;
     String tag = "";
     String info = "";
     DatabaseReference mPostReference = null;

@@ -54,6 +54,7 @@ import org.jsoup.select.Elements;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Search extends AppCompatActivity {
 
@@ -285,7 +286,8 @@ public class Search extends AppCompatActivity {
                 try {
                     // 예제로 사용할 날짜와 시간을 설정합니다.
 
-
+                    int ran=0;
+                    Random r = new Random();
                     // Calendar 객체를 생성하고 날짜 및 시간을 설정합니다.
                     Calendar calendar = Calendar.getInstance();
                     calendar.setTime(mDate);
@@ -296,10 +298,32 @@ public class Search extends AppCompatActivity {
                     // 아침, 점심, 저녁으로 나누어 처리합니다.
                     if (hourOfDay >= 6 && hourOfDay < 12) {
                         System.out.println("아침");
-                    } else if (hourOfDay >= 12 && hourOfDay < 18) {
+
+
+
+                        ran = r.nextInt(searchlist.size()-1);
+                        if (searchlist.get(ran).recipe_tag.contains("아침")) {
+                            gotlist.add(searchlist.get(ran));
+                        }
+                        mRecyclerAdapter.setFindList(gotlist);
+                    }
+
+                     else if (hourOfDay >= 12 && hourOfDay < 18) {
                         System.out.println("점심" + result);
+
+                        ran = r.nextInt(searchlist.size()-1);
+                        if (searchlist.get(ran).recipe_tag.contains("점심")) {
+                            gotlist.add(searchlist.get(ran));
+                        }
+                        mRecyclerAdapter.setFindList(gotlist);
                     } else {
                         System.out.println("저녁");
+
+                        ran = r.nextInt(searchlist.size()-1);
+                        if (searchlist.get(ran).recipe_tag.contains("야식")) {
+                            gotlist.add(searchlist.get(ran));
+                        }
+                        mRecyclerAdapter.setFindList(gotlist);
                     }
 
                 } catch (Exception e) {
