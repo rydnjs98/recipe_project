@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -108,36 +109,44 @@ public class Favorite extends AppCompatActivity {
                                                             for (QueryDocumentSnapshot document : task.getResult()) {
                                                                 Log.d(TAG, document.getId() + "=>" + document.getData().get("recipe_name"));
                                                                 String recipeName = document.getString("recipe_name");
+                                                                int recipeID = document.getLong("recipe_ID").intValue();
 
                                                                 layout.addView(currentLayout);
                                                                 // 버튼 생성
-                                                                Button button = new Button(Favorite.this);
+                                                                ImageView imageView = new ImageView(Favorite.this);
                                                                 TextView textView = new TextView(Favorite.this);
                                                                 textView.setText(recipeName);
                                                                 textView.setTextSize(20);
 
-                                                                button.setBackgroundResource(R.drawable.korean);
+                                                                String imageName = "recipe_" + recipeID;
+                                                                int imageResource = getResources().getIdentifier(imageName, "drawable", getPackageName());
+
+
+                                                                imageView.setBackgroundResource(imageResource);
+                                                                imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
 
                                                                 LinearLayout.LayoutParams buttonParams = new LinearLayout.LayoutParams(
                                                                         LinearLayout.LayoutParams.MATCH_PARENT,
                                                                         LinearLayout.LayoutParams.WRAP_CONTENT
                                                                 );
+                                                                buttonParams.setMargins(100, 20, 100, 0);
 
-                                                                button.setLayoutParams(buttonParams);
+                                                                imageView.setLayoutParams(buttonParams);
 
                                                                 LinearLayout.LayoutParams textViewParams = new LinearLayout.LayoutParams(
                                                                         LinearLayout.LayoutParams.MATCH_PARENT,
                                                                         LinearLayout.LayoutParams.WRAP_CONTENT
                                                                 );
+                                                                textViewParams.setMargins(100, 0, 0, 0);
 
-                                                                button.setLayoutParams(buttonParams);
+                                                                imageView.setLayoutParams(buttonParams);
                                                                 textView.setLayoutParams(textViewParams);
 
-                                                                currentLayout.addView(button);
+                                                                currentLayout.addView(imageView);
                                                                 currentLayout.addView(textView);
 
                                                                 // 버튼 클릭 이벤트 처리
-                                                                button.setOnClickListener(clickListener);
+                                                                imageView.setOnClickListener(clickListener);
                                                             }
                                                         } else {
                                                             Log.d(TAG, "Error getting documents: ", task.getException());
