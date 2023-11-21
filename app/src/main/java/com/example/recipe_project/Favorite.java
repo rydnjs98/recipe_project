@@ -98,7 +98,7 @@ public class Favorite extends AppCompatActivity {
                                                             LinearLayout currentLayout = null;
 
                                                             currentLayout = new LinearLayout(Favorite.this);
-                                                            currentLayout.setOrientation(LinearLayout.VERTICAL);
+                                                            currentLayout.setOrientation(LinearLayout.HORIZONTAL);
                                                             LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
                                                                     LinearLayout.LayoutParams.MATCH_PARENT,
                                                                     LinearLayout.LayoutParams.WRAP_CONTENT
@@ -117,6 +117,7 @@ public class Favorite extends AppCompatActivity {
                                                                 TextView textView = new TextView(Favorite.this);
                                                                 textView.setText(recipeName);
                                                                 textView.setTextSize(20);
+                                                                textView.setGravity(2);
 
                                                                 String imageName = "recipe_" + recipeID;
                                                                 int imageResource = getResources().getIdentifier(imageName, "drawable", getPackageName());
@@ -125,13 +126,10 @@ public class Favorite extends AppCompatActivity {
                                                                 imageView.setBackgroundResource(imageResource);
                                                                 imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
 
-                                                                LinearLayout.LayoutParams buttonParams = new LinearLayout.LayoutParams(
-                                                                        LinearLayout.LayoutParams.MATCH_PARENT,
-                                                                        LinearLayout.LayoutParams.WRAP_CONTENT
-                                                                );
-                                                                buttonParams.setMargins(100, 20, 100, 0);
+                                                                LinearLayout.LayoutParams imageViewParams = new LinearLayout.LayoutParams(500, 500);
+                                                                imageViewParams.setMargins(100, 20, 100, 0);
 
-                                                                imageView.setLayoutParams(buttonParams);
+                                                                imageView.setLayoutParams(imageViewParams);
 
                                                                 LinearLayout.LayoutParams textViewParams = new LinearLayout.LayoutParams(
                                                                         LinearLayout.LayoutParams.MATCH_PARENT,
@@ -139,7 +137,7 @@ public class Favorite extends AppCompatActivity {
                                                                 );
                                                                 textViewParams.setMargins(100, 0, 0, 0);
 
-                                                                imageView.setLayoutParams(buttonParams);
+                                                                imageView.setLayoutParams(imageViewParams);
                                                                 textView.setLayoutParams(textViewParams);
 
                                                                 currentLayout.addView(imageView);
