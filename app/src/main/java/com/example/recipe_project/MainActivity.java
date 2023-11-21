@@ -15,7 +15,9 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -147,55 +149,109 @@ public class MainActivity extends AppCompatActivity {
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
+//        Query query = db.collection("recipe")
+//                .orderBy("recipe_like", Query.Direction.DESCENDING);
+//
+//        query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+//            @Override
+//            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+//                if (task.isSuccessful()) {
+//                    LinearLayout layout = findViewById(R.id.main_btnlayout); // 레이아웃의 ID를 가져옵니다.
+//
+//                    int count = 0;
+//                    LinearLayout currentLayout = null;
+//                    for (QueryDocumentSnapshot document : task.getResult()) {
+//                        // 버튼 생성 및 화면에 추가하는 코드 작성
+//                        if (count % 2 == 0) {
+//                            // 새로운 줄을 만듭니다.
+//                            currentLayout = new LinearLayout(MainActivity.this);
+//                            currentLayout.setOrientation(LinearLayout.HORIZONTAL);
+//                            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
+//                                    LinearLayout.LayoutParams.MATCH_PARENT,
+//                                    LinearLayout.LayoutParams.WRAP_CONTENT
+//                            );
+//                            currentLayout.setLayoutParams(layoutParams);
+//                            layout.addView(currentLayout);
+//                        }
+//
+//                        // 버튼 생성
+//                        Button button = new Button(MainActivity.this);
+//                        String recipeName = document.getString("recipe_name");
+//                        button.setText(recipeName);
+//
+//                        LinearLayout.LayoutParams buttonParams = new LinearLayout.LayoutParams(
+//                                LinearLayout.LayoutParams.MATCH_PARENT,
+//                                LinearLayout.LayoutParams.WRAP_CONTENT, 1.0f
+//                        );
+//                        button.setLayoutParams(buttonParams);
+//
+//                        currentLayout.addView(button);
+//
+//                        count++;
+//
+//                        // 버튼 클릭 이벤트 처리
+//                        button.setOnClickListener(clickListener);
+//                    }
+//                } else {
+//                    Log.d(TAG, "Error getting documents: ", task.getException());
+//                }
+//            }
+//        });
         Query query = db.collection("recipe")
                 .orderBy("recipe_like", Query.Direction.DESCENDING);
 
         query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if (task.isSuccessful()) {
-                    LinearLayout layout = findViewById(R.id.main_btnlayout); // 레이아웃의 ID를 가져옵니다.
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            LinearLayout layout = findViewById(R.id.main_btnlayout); // 레이아웃의 ID를 가져옵니다.
 
-                    int count = 0;
-                    LinearLayout currentLayout = null;
-                    for (QueryDocumentSnapshot document : task.getResult()) {
-                        // 버튼 생성 및 화면에 추가하는 코드 작성
-                        if (count % 2 == 0) {
-                            // 새로운 줄을 만듭니다.
-                            currentLayout = new LinearLayout(MainActivity.this);
-                            currentLayout.setOrientation(LinearLayout.HORIZONTAL);
-                            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
-                                    LinearLayout.LayoutParams.MATCH_PARENT,
-                                    LinearLayout.LayoutParams.WRAP_CONTENT
-                            );
-                            currentLayout.setLayoutParams(layoutParams);
-                            layout.addView(currentLayout);
+                        int count = 0;
+                        LinearLayout currentLayout = null;
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                if (count % 2 == 0) {
+                                    // 새로운 줄을 만듭니다.
+                                    currentLayout = new LinearLayout(MainActivity.this);
+                                    currentLayout.setOrientation(LinearLayout.HORIZONTAL);
+                                    LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
+                                            LinearLayout.LayoutParams.MATCH_PARENT,
+                                            LinearLayout.LayoutParams.WRAP_CONTENT
+                                    );
+                                    currentLayout.setLayoutParams(layoutParams);
+                                    layout.addView(currentLayout);
+                                }
+                                int recipeID = document.getLong("recipe_ID").intValue(); // recipe_ID 필드 값(int) 가져오기
+
+                                // recipe_ID 값을 기반으로 이미지 리소스 ID 가져오기
+                                String imageName = "recipe_" + recipeID;
+                                int imageResource = getResources().getIdentifier(imageName, "drawable", getPackageName());
+
+                                ImageButton imageButton = new ImageButton(MainActivity.this);
+                                imageButton.setScaleType(ImageView.ScaleType.CENTER_CROP);
+                                imageButton.setImageResource(imageResource);
+
+                                LinearLayout.LayoutParams buttonParams = new LinearLayout.LayoutParams(
+                                        LinearLayout.LayoutParams.MATCH_PARENT,
+                                        300, 1.0f
+                                );
+                                imageButton.setLayoutParams(buttonParams);
+
+                                currentLayout.addView(imageButton);
+
+                                count++;
+                                // ImageButton을 클릭했을 때의 동작을 설정하려면 OnClickListener를 추가합니다.
+                                imageButton.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        // ImageButton이 클릭됐을 때의 동작을 정의합니다.
+                                    }
+                                });
+                            }
+                        } else {
+                            Log.d(TAG, "Error getting documents: ", task.getException());
                         }
-
-                        // 버튼 생성
-                        Button button = new Button(MainActivity.this);
-                        String recipeName = document.getString("recipe_name");
-                        button.setText(recipeName);
-
-                        LinearLayout.LayoutParams buttonParams = new LinearLayout.LayoutParams(
-                                LinearLayout.LayoutParams.MATCH_PARENT,
-                                LinearLayout.LayoutParams.WRAP_CONTENT, 1.0f
-                        );
-                        button.setLayoutParams(buttonParams);
-
-                        currentLayout.addView(button);
-
-                        count++;
-
-                        // 버튼 클릭 이벤트 처리
-                        button.setOnClickListener(clickListener);
                     }
-                } else {
-                    Log.d(TAG, "Error getting documents: ", task.getException());
-                }
-            }
-        });
-
+                });
     }
 
     private ArrayList<Integer> getIdolList() {
