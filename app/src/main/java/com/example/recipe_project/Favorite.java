@@ -50,6 +50,15 @@ public class Favorite extends AppCompatActivity {
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
+        View.OnClickListener clickListener = new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Favorite.this, Recipe.class);
+                startActivity(intent);
+            }
+        };
+
+
         if(user != null){
             user_details.setText(user.getEmail());
             login.setVisibility(View.GONE);
@@ -67,6 +76,8 @@ public class Favorite extends AppCompatActivity {
                             if(task.isSuccessful()) {
                                 List<String> dataArray = new ArrayList<>();
 
+                                LinearLayout layout = findViewById(R.id.Favirute_layout); // 레이아웃의 ID를 가져옵니다.
+
                                 for (QueryDocumentSnapshot document : task.getResult()) {
                                     Log.d(TAG, document.getId() + "=>" + document.getData());
                                     List<String> arrayData = (List<String>) document.get("recipe_ID");
@@ -83,9 +94,50 @@ public class Favorite extends AppCompatActivity {
                                                     @Override
                                                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                                                         if (task.isSuccessful()) {
+                                                            LinearLayout currentLayout = null;
+
+                                                            currentLayout = new LinearLayout(Favorite.this);
+                                                            currentLayout.setOrientation(LinearLayout.VERTICAL);
+                                                            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
+                                                                    LinearLayout.LayoutParams.MATCH_PARENT,
+                                                                    LinearLayout.LayoutParams.WRAP_CONTENT
+                                                            );
+                                                            currentLayout.setLayoutParams(layoutParams);
+
+
                                                             for (QueryDocumentSnapshot document : task.getResult()) {
                                                                 Log.d(TAG, document.getId() + "=>" + document.getData().get("recipe_name"));
+                                                                String recipeName = document.getString("recipe_name");
 
+                                                                layout.addView(currentLayout);
+                                                                // 버튼 생성
+                                                                Button button = new Button(Favorite.this);
+                                                                TextView textView = new TextView(Favorite.this);
+                                                                textView.setText(recipeName);
+                                                                textView.setTextSize(20);
+
+                                                                button.setBackgroundResource(R.drawable.korean);
+
+                                                                LinearLayout.LayoutParams buttonParams = new LinearLayout.LayoutParams(
+                                                                        LinearLayout.LayoutParams.MATCH_PARENT,
+                                                                        LinearLayout.LayoutParams.WRAP_CONTENT
+                                                                );
+
+                                                                button.setLayoutParams(buttonParams);
+
+                                                                LinearLayout.LayoutParams textViewParams = new LinearLayout.LayoutParams(
+                                                                        LinearLayout.LayoutParams.MATCH_PARENT,
+                                                                        LinearLayout.LayoutParams.WRAP_CONTENT
+                                                                );
+
+                                                                button.setLayoutParams(buttonParams);
+                                                                textView.setLayoutParams(textViewParams);
+
+                                                                currentLayout.addView(button);
+                                                                currentLayout.addView(textView);
+
+                                                                // 버튼 클릭 이벤트 처리
+                                                                button.setOnClickListener(clickListener);
                                                             }
                                                         } else {
                                                             Log.d(TAG, "Error getting documents: ", task.getException());
