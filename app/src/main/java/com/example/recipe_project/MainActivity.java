@@ -200,9 +200,9 @@ public class MainActivity extends AppCompatActivity {
 
     private ArrayList<Integer> getIdolList() {
         ArrayList<Integer> itemList = new ArrayList<>();
-        itemList.add(R.drawable.idol1);
-        itemList.add(R.drawable.idol2);
-        itemList.add(R.drawable.idol3);
+        itemList.add(R.drawable.img_1);
+        itemList.add(R.drawable.img_14);
+        itemList.add(R.drawable.img_13);
         return itemList;
     }
 
