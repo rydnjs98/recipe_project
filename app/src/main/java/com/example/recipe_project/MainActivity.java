@@ -149,54 +149,6 @@ public class MainActivity extends AppCompatActivity {
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-//        Query query = db.collection("recipe")
-//                .orderBy("recipe_like", Query.Direction.DESCENDING);
-//
-//        query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-//            @Override
-//            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-//                if (task.isSuccessful()) {
-//                    LinearLayout layout = findViewById(R.id.main_btnlayout); // 레이아웃의 ID를 가져옵니다.
-//
-//                    int count = 0;
-//                    LinearLayout currentLayout = null;
-//                    for (QueryDocumentSnapshot document : task.getResult()) {
-//                        // 버튼 생성 및 화면에 추가하는 코드 작성
-//                        if (count % 2 == 0) {
-//                            // 새로운 줄을 만듭니다.
-//                            currentLayout = new LinearLayout(MainActivity.this);
-//                            currentLayout.setOrientation(LinearLayout.HORIZONTAL);
-//                            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
-//                                    LinearLayout.LayoutParams.MATCH_PARENT,
-//                                    LinearLayout.LayoutParams.WRAP_CONTENT
-//                            );
-//                            currentLayout.setLayoutParams(layoutParams);
-//                            layout.addView(currentLayout);
-//                        }
-//
-//                        // 버튼 생성
-//                        Button button = new Button(MainActivity.this);
-//                        String recipeName = document.getString("recipe_name");
-//                        button.setText(recipeName);
-//
-//                        LinearLayout.LayoutParams buttonParams = new LinearLayout.LayoutParams(
-//                                LinearLayout.LayoutParams.MATCH_PARENT,
-//                                LinearLayout.LayoutParams.WRAP_CONTENT, 1.0f
-//                        );
-//                        button.setLayoutParams(buttonParams);
-//
-//                        currentLayout.addView(button);
-//
-//                        count++;
-//
-//                        // 버튼 클릭 이벤트 처리
-//                        button.setOnClickListener(clickListener);
-//                    }
-//                } else {
-//                    Log.d(TAG, "Error getting documents: ", task.getException());
-//                }
-//            }
-//        });
         Query query = db.collection("recipe")
                 .orderBy("recipe_like", Query.Direction.DESCENDING);
 
@@ -244,6 +196,8 @@ public class MainActivity extends AppCompatActivity {
                                     @Override
                                     public void onClick(View v) {
                                         // ImageButton이 클릭됐을 때의 동작을 정의합니다.
+                                        Intent intent = new Intent(MainActivity.this, Recipe.class);
+                                        startActivity(intent);
                                     }
                                 });
                             }
