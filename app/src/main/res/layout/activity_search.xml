@@ -1,114 +1,137 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
-    android:background="@drawable/search_backgr">
+    android:background="@drawable/search_backgr"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="0px"
+        android:layout_weight="2">
+
+        <EditText
+            android:id="@+id/search_edt"
+            android:layout_width="301dp"
+            android:layout_height="53dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/edt_back"
+            android:hint="Search"
+            android:paddingLeft="20dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/search_textView"
+            android:layout_width="40dp"
+            android:layout_height="25dp"
+            android:layout_marginStart="28dp"
+            android:layout_marginTop="84dp"
+            android:background="@drawable/search_back"
+            android:gravity="center"
+            android:text="양식"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/search_textView2"
+            android:layout_width="40dp"
+            android:layout_height="25dp"
+            android:layout_marginStart="96dp"
+            android:layout_marginTop="84dp"
+            android:background="@drawable/search_back"
+            android:gravity="center"
+            android:text="중식"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/search_textView4"
+            android:layout_width="40dp"
+            android:layout_height="25dp"
+            android:layout_marginStart="172dp"
+            android:layout_marginTop="84dp"
+            android:background="@drawable/search_back"
+            android:gravity="center"
+            android:text="한식"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/search_textView3"
+            android:layout_width="40dp"
+            android:layout_height="25dp"
+            android:layout_marginTop="84dp"
+            android:layout_marginEnd="120dp"
+            android:background="@drawable/search_back"
+            android:gravity="center"
+            android:text="일식"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageButton
+            android:id="@+id/search_image_btn"
+            android:layout_width="65dp"
+            android:layout_height="51dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/search_back"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@android:drawable/ic_menu_search" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-    <EditText
-        android:id="@+id/search_edt"
-        android:layout_width="301dp"
-        android:layout_height="53dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:background="@drawable/edt_back"
-        android:paddingLeft="20dp"
-        android:hint="Search"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0px"
+        android:layout_weight="7"
+        android:orientation="vertical">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
-        android:layout_width="413dp"
-        android:layout_height="380dp"
-        android:layout_marginTop="124dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/search_search_btn"
-        android:layout_width="133dp"
-        android:layout_height="53dp"
-        android:text="Search"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+    </LinearLayout>
 
-    <Button
-        android:id="@+id/search_main_btn"
-        android:layout_width="133dp"
-        android:layout_height="53dp"
-        android:layout_marginEnd="140dp"
-        android:text="Main"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
 
-    <Button
-        android:id="@+id/search_favotie_btn"
-        android:layout_width="133dp"
-        android:layout_height="54dp"
-        android:text="Favorite"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0px"
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        android:paddingLeft="5dp"
+        tools:layout_editor_absoluteX="-94dp"
+        tools:layout_editor_absoluteY="656dp">
 
-    <TextView
-        android:id="@+id/search_textView"
-        android:layout_width="40dp"
-        android:layout_height="25dp"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="84dp"
-        android:background="@drawable/search_back"
-        android:gravity="center"
-        android:text="양식"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <Button
+            android:id="@+id/search_search_btn"
+            android:layout_width="133dp"
+            android:layout_height="53dp"
+            android:layout_marginBottom="24dp"
+            android:text="Search" />
 
-    <TextView
-        android:id="@+id/search_textView2"
-        android:layout_width="40dp"
-        android:layout_height="25dp"
-        android:layout_marginStart="96dp"
-        android:layout_marginTop="84dp"
-        android:background="@drawable/search_back"
-        android:gravity="center"
-        android:text="중식"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <Button
+            android:id="@+id/search_main_btn"
+            android:layout_width="133dp"
+            android:layout_height="53dp"
+            android:layout_marginBottom="16dp"
+            android:text="Main" />
 
-    <TextView
-        android:id="@+id/search_textView4"
-        android:layout_width="40dp"
-        android:layout_height="25dp"
-        android:layout_marginStart="172dp"
-        android:layout_marginTop="84dp"
-        android:background="@drawable/search_back"
-        android:gravity="center"
-        android:text="한식"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <Button
+            android:id="@+id/search_favotie_btn"
+            android:layout_width="133dp"
+            android:layout_height="54dp"
+            android:layout_marginBottom="16dp"
+            android:text="Favorite" />
+    </LinearLayout>
 
-    <TextView
-        android:id="@+id/search_textView3"
-        android:layout_width="40dp"
-        android:layout_height="25dp"
-        android:layout_marginTop="84dp"
-        android:layout_marginEnd="120dp"
-        android:background="@drawable/search_back"
-        android:gravity="center"
-        android:text="일식"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageButton
-        android:id="@+id/search_image_btn"
-        android:layout_width="65dp"
-        android:layout_height="51dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:background="@drawable/search_back"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@android:drawable/ic_menu_search" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>
