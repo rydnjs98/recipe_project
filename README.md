@@ -1,3 +1,15 @@
+# recipe_project 2023-11-21
+- 모든 페이지 이미지 동적 생성
+
+![image](https://github.com/rydnjs98/recipe_project/assets/89891055/43c7b4c2-56fa-4b21-aa7b-d6fb05e510e4) ![image](https://github.com/rydnjs98/recipe_project/assets/89891055/77c86564-60db-4c8a-9019-9965432e7bd2)
+![image](https://github.com/rydnjs98/recipe_project/assets/89891055/77bf7bb3-9c6c-4e8f-856e-bc531f5fdb14)
+
+- search 페이지 이미지 클릭시 recipe페이지로 이동 후 해당 레시피의 정보 로그로 출력
+
+![image](https://github.com/rydnjs98/recipe_project/assets/89891055/6fa70dc6-90df-43b1-835e-c2ab5222d348)
+
+
+
 # recipe_project 2023-11-20
 - 메인 페이지 버튼들 동적 생성
   
