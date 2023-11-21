@@ -226,21 +226,21 @@ public class MainActivity extends AppCompatActivity {
                                 String imageName = "recipe_" + recipeID;
                                 int imageResource = getResources().getIdentifier(imageName, "drawable", getPackageName());
 
-                                ImageButton imageButton = new ImageButton(MainActivity.this);
-                                imageButton.setScaleType(ImageView.ScaleType.CENTER_CROP);
-                                imageButton.setImageResource(imageResource);
+                                ImageView imageView = new ImageView(MainActivity.this);
+                                imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+                                imageView.setImageResource(imageResource);
 
                                 LinearLayout.LayoutParams buttonParams = new LinearLayout.LayoutParams(
                                         LinearLayout.LayoutParams.MATCH_PARENT,
                                         300, 1.0f
                                 );
-                                imageButton.setLayoutParams(buttonParams);
+                                imageView.setLayoutParams(buttonParams);
 
-                                currentLayout.addView(imageButton);
+                                currentLayout.addView(imageView);
 
                                 count++;
                                 // ImageButton을 클릭했을 때의 동작을 설정하려면 OnClickListener를 추가합니다.
-                                imageButton.setOnClickListener(new View.OnClickListener() {
+                                imageView.setOnClickListener(new View.OnClickListener() {
                                     @Override
                                     public void onClick(View v) {
                                         // ImageButton이 클릭됐을 때의 동작을 정의합니다.
