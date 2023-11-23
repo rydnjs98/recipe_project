@@ -1,3 +1,9 @@
+# recipe_project 2023-11-23
+- 메인 페이지 하트 버튼 및 텍스트 추가
+
+![image](https://github.com/rydnjs98/recipe_project/assets/89891055/cfed3dfd-b559-4ed6-b937-504fe51b7e54)
+
+
 # recipe_project 2023-11-21
 - 모든 페이지 이미지 동적 생성
 
