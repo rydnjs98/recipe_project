@@ -2,22 +2,21 @@ package com.example.recipe_project;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.NotificationCompat;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.viewpager2.widget.ViewPager2;
 
-import android.app.Notification;
-import android.app.NotificationManager;
 import android.content.Intent;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,7 +30,6 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     FirebaseAuth auth;
@@ -41,11 +39,7 @@ public class MainActivity extends AppCompatActivity {
     Button tofavorite;
     ImageButton login;
     Button  logout;
-    ImageButton recepices_btn1;
 
-    LinearLayout linearLayout;
-
-    Button main_btn1,main_btn2,main_btn3,main_btn4;
     private boolean isFullHeart = false;
     String cu;
     String TAG = "main";
@@ -62,6 +56,8 @@ public class MainActivity extends AppCompatActivity {
        auth = FirebaseAuth.getInstance();
        user = auth.getCurrentUser();
        user_details = findViewById(R.id.user_details);
+        // 폰트 리소스를 가져오기
+        Typeface typeface = ResourcesCompat.getFont(this, R.font.onepop);
 
 //        Button button = findViewById(R.id.main_btn1);
 //        Button button2 = findViewById(R.id.main_btn2);
@@ -129,19 +125,19 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-//        View.OnClickListener clickListener = new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//
-//                Button clickedButton = (Button) view;
-//                if (isFullHeart) {
-//                    clickedButton.setBackgroundResource(R.drawable.ic_emptyheart);
-//                } else {
-//                    clickedButton.setBackgroundResource(R.drawable.ic_fullheart);
-//                }
-//                isFullHeart = !isFullHeart;
-//            }
-//        };
+        View.OnClickListener heartclickListener = new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Button clickedButton = (Button) view;
+                if (isFullHeart) {
+                    clickedButton.setBackgroundResource(R.drawable.ic_emptyheart);
+                } else {
+                    clickedButton.setBackgroundResource(R.drawable.ic_fullheart);
+                }
+                isFullHeart = !isFullHeart;
+            }
+        };
 //        button.setOnClickListener(clickListener);
 //        button2.setOnClickListener(clickListener);
 //        button3.setOnClickListener(clickListener);
@@ -159,19 +155,38 @@ public class MainActivity extends AppCompatActivity {
                             LinearLayout layout = findViewById(R.id.main_btnlayout); // 레이아웃의 ID를 가져옵니다.
 
                         int count = 0;
-                        LinearLayout currentLayout = null;
+                            LinearLayout lineLayout = null;
+
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 if (count % 2 == 0) {
                                     // 새로운 줄을 만듭니다.
-                                    currentLayout = new LinearLayout(MainActivity.this);
-                                    currentLayout.setOrientation(LinearLayout.HORIZONTAL);
+                                    lineLayout = new LinearLayout(MainActivity.this);
+                                    lineLayout.setOrientation(LinearLayout.HORIZONTAL);
                                     LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
                                             LinearLayout.LayoutParams.MATCH_PARENT,
                                             LinearLayout.LayoutParams.WRAP_CONTENT
                                     );
-                                    currentLayout.setLayoutParams(layoutParams);
-                                    layout.addView(currentLayout);
+                                    layoutParams.setMargins(20,0,20,0);
+                                    lineLayout.setLayoutParams(layoutParams);
+                                    layout.addView(lineLayout);
                                 }
+                                LinearLayout line2Layout;
+                                line2Layout = new LinearLayout(MainActivity.this);
+                                LinearLayout.LayoutParams linelayoutParams = new LinearLayout.LayoutParams(
+                                        LinearLayout.LayoutParams.MATCH_PARENT,
+                                        LinearLayout.LayoutParams.WRAP_CONTENT, 1.0f
+                                );
+                                line2Layout.setLayoutParams(linelayoutParams);
+                                lineLayout.addView(line2Layout);
+                                FrameLayout currentLayout;
+                                currentLayout = new FrameLayout(MainActivity.this);
+                                FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(
+                                        FrameLayout.LayoutParams.MATCH_PARENT,
+                                        FrameLayout.LayoutParams.WRAP_CONTENT
+                                );
+                                layoutParams.setMargins(20,20,20,20);
+                                currentLayout.setLayoutParams(layoutParams);
+                                line2Layout.addView(currentLayout);
                                 int recipeID = document.getLong("recipe_ID").intValue(); // recipe_ID 필드 값(int) 가져오기
 
                                 // recipe_ID 값을 기반으로 이미지 리소스 ID 가져오기
@@ -182,24 +197,54 @@ public class MainActivity extends AppCompatActivity {
                                 imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
                                 imageView.setImageResource(imageResource);
 
-                                LinearLayout.LayoutParams buttonParams = new LinearLayout.LayoutParams(
-                                        LinearLayout.LayoutParams.MATCH_PARENT,
-                                        300, 1.0f
+                                FrameLayout.LayoutParams buttonParams = new FrameLayout.LayoutParams(
+                                        FrameLayout.LayoutParams.MATCH_PARENT,
+                                        400
                                 );
                                 imageView.setLayoutParams(buttonParams);
 
                                 currentLayout.addView(imageView);
 
-                                count++;
+
                                 // ImageButton을 클릭했을 때의 동작을 설정하려면 OnClickListener를 추가합니다.
                                 imageView.setOnClickListener(new View.OnClickListener() {
                                     @Override
                                     public void onClick(View v) {
                                         // ImageButton이 클릭됐을 때의 동작을 정의합니다.
                                         Intent intent = new Intent(MainActivity.this, Recipe.class);
+                                        intent.putExtra("main", recipeID);
                                         startActivity(intent);
                                     }
                                 });
+
+                                Button button = new Button(MainActivity.this);
+                                button.setBackgroundResource(R.drawable.heart);
+                                FrameLayout.LayoutParams heartbuttonParams = new FrameLayout.LayoutParams(
+                                        100,
+                                        100
+                                );
+                                // 버튼을 이미지 뷰의 왼쪽 위에 위치하도록 설정
+                                heartbuttonParams.gravity = Gravity.START | Gravity.TOP;
+                                heartbuttonParams.setMargins(0, 0, 20, 20); // 버튼의 여백 설정
+
+                                button.setOnClickListener(heartclickListener); //버튼의 클릭 리스너 설정
+
+                                currentLayout.addView(button, heartbuttonParams); // FrameLayout에 버튼 추가
+
+                                TextView textView = new TextView(MainActivity.this);
+                                String recipeName = document.getString("recipe_name");
+                                textView.setText(recipeName);
+                                FrameLayout.LayoutParams textParams = new FrameLayout.LayoutParams(
+                                        FrameLayout.LayoutParams.WRAP_CONTENT,
+                                        FrameLayout.LayoutParams.WRAP_CONTENT, 10
+                                );
+                                textView.setTextSize(20);
+                                textView.setTypeface(typeface);
+                                textView.setTextColor(Color.WHITE);
+                                textParams.gravity = Gravity.BOTTOM | Gravity.CENTER;
+                                currentLayout.addView(textView, textParams);
+
+                                count++;
                             }
                         } else {
                             Log.d(TAG, "Error getting documents: ", task.getException());
