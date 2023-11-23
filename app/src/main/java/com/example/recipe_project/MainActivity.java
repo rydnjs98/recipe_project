@@ -59,13 +59,6 @@ public class MainActivity extends AppCompatActivity {
         // 폰트 리소스를 가져오기
         Typeface typeface = ResourcesCompat.getFont(this, R.font.onepop);
 
-//        Button button = findViewById(R.id.main_btn1);
-//        Button button2 = findViewById(R.id.main_btn2);
-//        Button button3 = findViewById(R.id.main_btn3);
-//        Button button4 = findViewById(R.id.main_btn4);
-
-
-
        if(user != null){
            user_details.setText(user.getEmail());
            login.setVisibility(View.GONE);
@@ -96,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
         ViewPager2 viewPager_idol = findViewById(R.id.viewPager_idol);
         viewPager_idol.setAdapter(new ViewPagerAdapter(getIdolList()));
         viewPager_idol.setOrientation(ViewPager2.ORIENTATION_HORIZONTAL);
-
+        //검색 페이지 이동 버튼
         tosearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -104,6 +97,7 @@ public class MainActivity extends AppCompatActivity {
                startActivity(intent);
             }
         });
+        // 즐겨찾기 페이지 이동 버튼
         tofavorite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -116,6 +110,8 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+        
+        //하트 버튼 클릭 리스너
         View.OnClickListener heartclickListener = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -129,11 +125,8 @@ public class MainActivity extends AppCompatActivity {
                 isFullHeart = !isFullHeart;
             }
         };
-//        button.setOnClickListener(clickListener);
-//        button2.setOnClickListener(clickListener);
-//        button3.setOnClickListener(clickListener);
-//        button4.setOnClickListener(clickListener);
 
+        // recipe 컬렉션에서 recipe_like를 기준으로 내림차순으로 정렬
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
         Query query = db.collection("recipe")
@@ -147,7 +140,6 @@ public class MainActivity extends AppCompatActivity {
 
                         int count = 0;
                             LinearLayout lineLayout = null;
-
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 if (count % 2 == 0) {
                                     // 새로운 줄을 만듭니다.
@@ -161,6 +153,8 @@ public class MainActivity extends AppCompatActivity {
                                     lineLayout.setLayoutParams(layoutParams);
                                     layout.addView(lineLayout);
                                 }
+                                
+                                //weight 속성을 위해 레이아웃 추가
                                 LinearLayout line2Layout;
                                 line2Layout = new LinearLayout(MainActivity.this);
                                 LinearLayout.LayoutParams linelayoutParams = new LinearLayout.LayoutParams(
@@ -169,6 +163,8 @@ public class MainActivity extends AppCompatActivity {
                                 );
                                 line2Layout.setLayoutParams(linelayoutParams);
                                 lineLayout.addView(line2Layout);
+                                
+                                // 버튼과 텍스트뷰를 겹치기 위해 프레임 레이아웃 사용
                                 FrameLayout currentLayout;
                                 currentLayout = new FrameLayout(MainActivity.this);
                                 FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(
@@ -197,11 +193,10 @@ public class MainActivity extends AppCompatActivity {
                                 currentLayout.addView(imageView);
 
 
-                                // ImageButton을 클릭했을 때의 동작을 설정하려면 OnClickListener를 추가합니다.
+                                // imageView 클릭했을 때의 동작
                                 imageView.setOnClickListener(new View.OnClickListener() {
                                     @Override
                                     public void onClick(View v) {
-                                        // ImageButton이 클릭됐을 때의 동작을 정의합니다.
                                         Intent intent = new Intent(MainActivity.this, Recipe.class);
                                         intent.putExtra("main", recipeID);
                                         startActivity(intent);
@@ -222,6 +217,7 @@ public class MainActivity extends AppCompatActivity {
 
                                 currentLayout.addView(button, heartbuttonParams); // FrameLayout에 버튼 추가
 
+                                // textview 추가
                                 TextView textView = new TextView(MainActivity.this);
                                 String recipeName = document.getString("recipe_name");
                                 textView.setText(recipeName);
@@ -235,7 +231,7 @@ public class MainActivity extends AppCompatActivity {
                                 textParams.gravity = Gravity.BOTTOM | Gravity.CENTER;
                                 currentLayout.addView(textView, textParams);
 
-                                count++;
+                                count++; //2줄로 만들기 위한 변수
                             }
                         } else {
                             Log.d(TAG, "Error getting documents: ", task.getException());
