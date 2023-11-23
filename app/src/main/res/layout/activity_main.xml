@@ -55,7 +55,7 @@
                 android:id="@+id/viewPager_idol"
                 android:layout_width="match_parent"
                 android:layout_height="300dp"
-                android:layout_weight="3"/>
+                android:layout_weight="3" />
 
             <Space
                 android:layout_width="match_parent"
@@ -65,60 +65,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="7">
-            <LinearLayout
-                android:id="@+id/main_btnlayout"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
-
-<!--                <FrameLayout-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="match_parent"-->
-<!--                    android:layout_weight="1">-->
-
-<!--                    <ImageButton-->
-<!--                        android:id="@+id/recepices_btn1"-->
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:layout_height="match_parent"-->
-<!--                        android:layout_weight="1"-->
-<!--                        android:src="@drawable/korean" />-->
-
-<!--                    <Button-->
-<!--                        android:id="@+id/main_btn1"-->
-<!--                        android:layout_width="60dp"-->
-<!--                        android:layout_height="60dp"-->
-<!--                        android:layout_alignParentTop="true"-->
-<!--                        android:layout_alignParentRight="true"-->
-<!--                        android:background="@drawable/heart"-->
-
-<!--                   />-->
-
-<!--                </FrameLayout>-->
-
-<!--                <FrameLayout-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="match_parent"-->
-<!--                    android:layout_weight="1">-->
-
-<!--                    <ImageButton-->
-<!--                        android:id="@+id/main_image_btn2"-->
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:layout_height="match_parent"-->
-<!--                        android:layout_weight="1"-->
-<!--                        android:src="@drawable/chinese" />-->
-
-<!--                    <Button-->
-<!--                        android:id="@+id/main_btn2"-->
-<!--                        android:layout_width="60dp"-->
-<!--                        android:layout_height="60dp"-->
-<!--                        android:layout_alignParentTop="true"-->
-<!--                        android:layout_alignParentRight="true"-->
-
-<!--                        android:background="@drawable/heart"/>-->
-
-<!--                </FrameLayout>-->
-
-            </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/main_btnlayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+                </LinearLayout>
             </ScrollView>
 
             <Space

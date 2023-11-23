@@ -97,15 +97,6 @@ public class MainActivity extends AppCompatActivity {
         viewPager_idol.setAdapter(new ViewPagerAdapter(getIdolList()));
         viewPager_idol.setOrientation(ViewPager2.ORIENTATION_HORIZONTAL);
 
-
-        View.OnClickListener clickListener = new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, Recipe.class);
-                startActivity(intent);
-            }
-        };
-
         tosearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
