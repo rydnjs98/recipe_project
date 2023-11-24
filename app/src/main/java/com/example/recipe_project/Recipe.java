@@ -1,15 +1,25 @@
 package com.example.recipe_project;
 
+import static com.example.recipe_project.DataAdapter.TAG;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseApp;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.ListenerRegistration;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView;
@@ -24,20 +34,50 @@ public class Recipe extends AppCompatActivity {
     private ListenerRegistration listenerRegistration;
     private YouTubePlayerView youTubePlayerView;
     private YouTubePlayer youTubePlayer;
-
+    List<Ing_post> inglist = new ArrayList<>();
     private ArrayList<String> recipeIds = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe);
-
+        Button btn = findViewById(R.id.btnOne);
         // Firebase 초기화
         FirebaseApp.initializeApp(this);
 
         textView1 = findViewById(R.id.textView1);
         db = FirebaseFirestore.getInstance();
         youTubePlayerView = findViewById(R.id.youtube_player_view);
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        CollectionReference docref = db.collection("ingrediant");
+
+        docref.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+
+                    for (QueryDocumentSnapshot doc : task.getResult()) {
+                        Ing_post ing_item = doc.toObject(Ing_post.class);
+                        inglist.add(ing_item);
+
+                    }
+                    for (Ing_post ing_item : inglist) {
+                        Log.d(TAG, "ing name = " + ing_item.getingrediant_name());
+                        Log.d(TAG, "ing link = " + ing_item.getingrediant_link());
+                    }
+
+
+
+                } else {
+                    Log.d(TAG, "GET FAILED" + task.getException());
+                }
+            }
+        });
+
+
+
+
+
 
         // YouTubePlayer 초기화
         getLifecycle().addObserver(youTubePlayerView);
@@ -48,6 +88,19 @@ public class Recipe extends AppCompatActivity {
                 setupDatabaseListener();
             }
         });
+
+
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Recipe.this, Webview.class);
+                startActivity(intent);
+            }
+        });
+
+
+
+
     }
 
     private void loadYouTubeVideo(String videoId) {

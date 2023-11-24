@@ -134,10 +134,12 @@ public class Search extends AppCompatActivity {
         mRecyclerAdapter.setOnItemClickListener(new MyRecyclerAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(FindItem item) {
+                System.out.println("item = " + item);
                 Intent intent = new Intent(Search.this, Recipe.class);
                 int recipeId = item.getRecipe_ID();
                 intent.putExtra("recipeID", recipeId);
                 startActivity(intent);
+
             }
         });
         //앱 실행시 리스트에 파이어스토어에서 가져온 레시피 관련 값 저장후 리사이클뷰에 반영
