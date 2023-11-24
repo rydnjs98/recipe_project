@@ -135,7 +135,8 @@ public class Search extends AppCompatActivity {
             @Override
             public void onItemClick(FindItem item) {
                 Intent intent = new Intent(Search.this, Recipe.class);
-                intent.putExtra("selectedItem", item);
+                int recipeId = item.getRecipe_ID();
+                intent.putExtra("recipeID", recipeId);
                 startActivity(intent);
             }
         });

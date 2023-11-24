@@ -85,15 +85,15 @@ public class Recipe extends AppCompatActivity {
             Log.d("RecipeActivity", "Recipe IDs: " + recipeIds.toString());
 
             // 서치에서 보낸 인텐트 가져오기
-            Intent intent = getIntent();
-            FindItem selectedItem = (FindItem) intent.getSerializableExtra("selectedItem");
+//            Intent intent = getIntent();
+//            FindItem selectedItem = (FindItem) intent.getSerializableExtra("selectedItem");
+            int recipeID = getIntent().getIntExtra("recipeID",1);
 
             // 받은 데이터 사용
-            if (selectedItem != null) {
-                int selectedRecipeId = selectedItem.getRecipe_ID();
+            if (recipeID != 0) {
 
                 // recipeIds에서 해당하는 레시피 ID 찾기
-                int index = recipeIds.indexOf(String.valueOf(selectedRecipeId));
+                int index = recipeIds.indexOf(String.valueOf(recipeID));
                 if (index != -1) {
                     // 맞는 레시피 ID를 찾았을 때 해당 레시피 정보 가져오기
                     DocumentSnapshot selectedRecipe = queryDocumentSnapshots.getDocuments().get(index);
