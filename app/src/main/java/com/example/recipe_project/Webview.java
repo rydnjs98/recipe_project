@@ -1,5 +1,6 @@
 package com.example.recipe_project;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 
 
@@ -46,6 +47,32 @@ public class Webview  extends AppCompatActivity {
 
         //웹페이지 호출
 //        webView.loadUrl("http://www.naver.com");
-        webView.loadUrl(receivedMessage);
+
+
+        if (receivedMessage.startsWith("intent:")) {
+            try {
+                Intent intents = Intent.parseUri(receivedMessage, Intent.URI_INTENT_SCHEME);
+                Intent existPackage = getPackageManager().getLaunchIntentForPackage(intents.getPackage());
+                if (existPackage != null) {
+                    startActivity(intents);
+                } else {
+                    Intent marketIntent = new Intent(Intent.ACTION_VIEW);
+                    marketIntent.setData(Uri.parse("market://details?id=" + intents.getPackage()));
+                    startActivity(marketIntent);
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else {
+            webView.loadUrl(receivedMessage);
+        }
     }
+
+
+
+
+
+
+
 }
