@@ -199,7 +199,7 @@ public class Recipe extends AppCompatActivity {
                     lineLayout.setLayoutParams(layoutParams);
                     layout.addView(lineLayout);
                 }
-                String imageName = "recipe_" + id;
+                String imageName = "i_" + id;
                 int imageResource = getResources().getIdentifier(imageName, "drawable", getPackageName());
                 ImageView imageView = new ImageView(Recipe.this);
                 imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);

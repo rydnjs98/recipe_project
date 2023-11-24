@@ -171,6 +171,7 @@ public class MainActivity extends AppCompatActivity {
                                         FrameLayout.LayoutParams.MATCH_PARENT,
                                         FrameLayout.LayoutParams.WRAP_CONTENT
                                 );
+                                currentLayout.setBackgroundResource(R.drawable.round);
                                 layoutParams.setMargins(20,20,20,20);
                                 currentLayout.setLayoutParams(layoutParams);
                                 line2Layout.addView(currentLayout);
@@ -182,6 +183,7 @@ public class MainActivity extends AppCompatActivity {
 
                                 ImageView imageView = new ImageView(MainActivity.this);
                                 imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+                                imageView.setBackgroundResource(R.drawable.round);
                                 imageView.setImageResource(imageResource);
 
                                 FrameLayout.LayoutParams buttonParams = new FrameLayout.LayoutParams(
@@ -189,6 +191,7 @@ public class MainActivity extends AppCompatActivity {
                                         400
                                 );
                                 imageView.setLayoutParams(buttonParams);
+
 
                                 currentLayout.addView(imageView);
 
