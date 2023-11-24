@@ -53,6 +53,7 @@
             android:layout_weight="1"
             android:onClick="numClick"
             android:text="1"
+            android:background="@drawable/round"
             app:cornerRadius="@dimen/cardview_default_radius"
 
             />
