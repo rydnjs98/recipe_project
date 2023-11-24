@@ -1,3 +1,23 @@
+# recipe_project 2023-11-24
+- favorite페이지 LikeButton 클릭시 삭제 이벤트 구현
+
+![image](https://github.com/rydnjs98/recipe_project/assets/89891055/7c07e312-cceb-4b87-831d-d97d9b37ac7f)
+
+- 동영상 재생,h264으로 재생환경 변경
+
+![image](https://github.com/rydnjs98/recipe_project/assets/89891055/959a2b10-5567-4556-b536-0271b34373f3)
+
+- 레시피 상세 페이지 재료 버튼 동적 생성
+
+![image](https://github.com/rydnjs98/recipe_project/assets/89891055/d1fa180a-591d-4728-b73a-85da86a5a1c4)
+
+- 재료 버튼 클릭시 웹뷰 구현
+
+![image](https://github.com/rydnjs98/recipe_project/assets/89891055/f0224eb4-b0f8-4a24-baec-7bbac934a34b)
+
+
+
+
 # recipe_project 2023-11-23
 - 메인 페이지 하트 버튼 및 텍스트 추가
 
