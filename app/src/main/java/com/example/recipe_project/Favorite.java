@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -19,6 +20,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -51,14 +53,6 @@ public class Favorite extends AppCompatActivity {
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-        View.OnClickListener clickListener = new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(Favorite.this, Recipe.class);
-                startActivity(intent);
-            }
-        };
-
 
         if(user != null){
             user_details.setText(user.getEmail());
@@ -81,6 +75,8 @@ public class Favorite extends AppCompatActivity {
 
                                 for (QueryDocumentSnapshot document : task.getResult()) {
                                     Log.d(TAG, document.getId() + "=>" + document.getData());
+                                    String documentName = document.getId();
+                                    Log.d(TAG, document.getId() + "=>" + document.getId());
                                     List<String> arrayData = (List<String>) document.get("recipe_ID");
 
                                     if (arrayData != null) {
@@ -109,15 +105,22 @@ public class Favorite extends AppCompatActivity {
                                                             for (QueryDocumentSnapshot document : task.getResult()) {
                                                                 Log.d(TAG, document.getId() + "=>" + document.getData().get("recipe_name"));
                                                                 String recipeName = document.getString("recipe_name");
+
                                                                 int recipeID = document.getLong("recipe_ID").intValue();
+
+                                                                //레이아웃 동적생성
 
                                                                 layout.addView(currentLayout);
                                                                 // 버튼 생성
                                                                 ImageView imageView = new ImageView(Favorite.this);
                                                                 TextView textView = new TextView(Favorite.this);
+                                                                Button LikeButton = new Button((Favorite.this));
+
                                                                 textView.setText(recipeName);
                                                                 textView.setTextSize(20);
-                                                                textView.setGravity(2);
+                                                                textView.setGravity(1);
+
+                                                                LikeButton.setBackgroundResource(R.drawable.ic_fullheart);
 
                                                                 String imageName = "recipe_" + recipeID;
                                                                 int imageResource = getResources().getIdentifier(imageName, "drawable", getPackageName());
@@ -126,25 +129,57 @@ public class Favorite extends AppCompatActivity {
                                                                 imageView.setBackgroundResource(imageResource);
                                                                 imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
 
-                                                                LinearLayout.LayoutParams imageViewParams = new LinearLayout.LayoutParams(500, 500);
-                                                                imageViewParams.setMargins(100, 20, 100, 0);
+                                                                LinearLayout.LayoutParams imageViewParams = new LinearLayout.LayoutParams(300, 300);
+                                                                imageViewParams.setMargins(100, 20, 0, 0);
 
                                                                 imageView.setLayoutParams(imageViewParams);
 
                                                                 LinearLayout.LayoutParams textViewParams = new LinearLayout.LayoutParams(
-                                                                        LinearLayout.LayoutParams.MATCH_PARENT,
-                                                                        LinearLayout.LayoutParams.WRAP_CONTENT
+                                                                        FrameLayout.LayoutParams.WRAP_CONTENT,
+                                                                        300
                                                                 );
+
+                                                                FrameLayout.LayoutParams buttonParams = new FrameLayout.LayoutParams(
+                                                                        100,
+                                                                        100
+                                                                );
+
                                                                 textViewParams.setMargins(100, 0, 0, 0);
 
                                                                 imageView.setLayoutParams(imageViewParams);
                                                                 textView.setLayoutParams(textViewParams);
+                                                                LikeButton.setLayoutParams(buttonParams);
 
                                                                 currentLayout.addView(imageView);
+                                                                currentLayout.addView(LikeButton);
                                                                 currentLayout.addView(textView);
 
-                                                                // 버튼 클릭 이벤트 처리
-                                                                imageView.setOnClickListener(clickListener);
+                                                                // 이미지뷰 클릭 리스너
+                                                                imageView.setOnClickListener(new View.OnClickListener() {
+                                                                    @Override
+                                                                    public void onClick(View v) {
+                                                                        Intent intent = new Intent(Favorite.this, Recipe.class);
+                                                                        intent.putExtra("recipeID", recipeID);
+                                                                        startActivity(intent);
+                                                                    }
+                                                                });
+
+                                                                LinearLayout finalCurrentLayout = currentLayout;
+                                                                
+                                                                //하트 버튼 클릭시 리스트 삭제
+                                                                LikeButton.setOnClickListener(new View.OnClickListener() {
+                                                                    @Override
+                                                                    public void onClick(View view) {
+                                                                        LikeButton.setBackgroundResource(R.drawable.ic_emptyheart);
+                                                                        db.collection("favorite")
+                                                                                .document(documentName)
+                                                                                .update("recipe_ID", FieldValue.arrayRemove(recipeID));
+
+                                                                        if (finalCurrentLayout != null) {
+                                                                            ((LinearLayout) finalCurrentLayout.getParent()).removeView(finalCurrentLayout);
+                                                                        }
+                                                                    }
+                                                                });
                                                             }
                                                         } else {
                                                             Log.d(TAG, "Error getting documents: ", task.getException());
@@ -152,7 +187,6 @@ public class Favorite extends AppCompatActivity {
                                                     }
                                                 });
                                     }
-
                                 }
                             } else {
                                 Log.d(TAG, "Error getting documents: ", task.getException());
