@@ -3,8 +3,12 @@ package com.example.recipe_project;
 import static com.example.recipe_project.DataAdapter.TAG;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.util.Log;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -41,7 +45,7 @@ public class Recipe extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe);
-        Button btn = findViewById(R.id.btnOne);
+//        Button btn = findViewById(R.id.btnOne);
         // Firebase 초기화
         FirebaseApp.initializeApp(this);
 
@@ -74,11 +78,6 @@ public class Recipe extends AppCompatActivity {
             }
         });
 
-
-
-
-
-
         // YouTubePlayer 초기화
         getLifecycle().addObserver(youTubePlayerView);
         youTubePlayerView.addYouTubePlayerListener(new AbstractYouTubePlayerListener() {
@@ -88,20 +87,14 @@ public class Recipe extends AppCompatActivity {
                 setupDatabaseListener();
             }
         });
-
-
-        btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(Recipe.this, Webview.class);
-                startActivity(intent);
-            }
-        });
-
-
-
-
     }
+    View.OnClickListener ClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            Intent intent = new Intent(Recipe.this, Webview.class);
+            startActivity(intent);
+        }
+    };
 
     private void loadYouTubeVideo(String videoId) {
         if (youTubePlayer != null) {
@@ -188,6 +181,49 @@ public class Recipe extends AppCompatActivity {
         // 동영상 로드 및 텍스트 업데이트
         loadYouTubeVideo(recipeLink);
         textView1.setText(recipeName);
+
+        LinearLayout layout = findViewById(R.id.ingrediant_layout);
+        int count = 0;
+        LinearLayout lineLayout = null;
+        List<Object> ingredientIDsList = (List<Object>) ingredientIDsObject;
+            for (Object id : ingredientIDsList) {
+                if (count % 3 == 0) {
+                    // 새로운 줄을 만듭니다.
+                    lineLayout = new LinearLayout(Recipe.this);
+                    lineLayout.setOrientation(LinearLayout.HORIZONTAL);
+                    LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
+                            LinearLayout.LayoutParams.MATCH_PARENT,
+                            LinearLayout.LayoutParams.WRAP_CONTENT,1
+                    );
+                    layoutParams.setMargins(15,0,15,0);
+                    lineLayout.setLayoutParams(layoutParams);
+                    layout.addView(lineLayout);
+                }
+                String imageName = "recipe_" + id;
+                int imageResource = getResources().getIdentifier(imageName, "drawable", getPackageName());
+                ImageView imageView = new ImageView(Recipe.this);
+                imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+                imageView.setImageResource(imageResource);
+
+                // 화면 가로 크기 구하기
+                DisplayMetrics displayMetrics = new DisplayMetrics();
+                getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+                int screenWidth = displayMetrics.widthPixels;
+
+                // 버튼의 너비를 화면 가로 크기의 1/3로 설정하여 정사각형으로 만듭니다.
+                int buttonSize = (screenWidth / 3) - 50;
+                LinearLayout.LayoutParams buttonParams = new LinearLayout.LayoutParams(
+                        buttonSize,
+                        buttonSize
+                );
+                buttonParams.setMargins(20,20,20,20);
+                imageView.setBackgroundColor(Color.BLACK);
+                imageView.setLayoutParams(buttonParams);
+                imageView.setOnClickListener(ClickListener);
+                lineLayout.addView(imageView);
+                Log.d("RecipeActivity", "id: " + id);
+                count++;
+            }
 
         // 로그로 출력
         Log.d("RecipeActivity", "Recipe Info: " + recipeInfo);
