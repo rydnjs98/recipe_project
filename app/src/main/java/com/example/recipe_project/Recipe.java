@@ -3,7 +3,6 @@ package com.example.recipe_project;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -113,11 +112,6 @@ public class Recipe extends AppCompatActivity {
     private void processRecipeData(DocumentSnapshot recipeSnapshot) {
         String recipeInfo = recipeSnapshot.getString("recipe_info");
 
-        // 기존 버튼들을 포함하는 레이아웃 가져오기
-        LinearLayout layout2 = findViewById(R.id.layout2);
-
-        // 기존 버튼들을 모두 제거
-        layout2.removeAllViews();
 
         // recipe_ingrediantIDs를 가져올 때 타입을 확인하여 List<Long>으로 변환
         List<Long> recipeIngredientIDs = new ArrayList<>();
