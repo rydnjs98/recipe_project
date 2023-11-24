@@ -1,4 +1,5 @@
 package com.example.recipe_project;
+import android.content.Intent;
 import android.os.Bundle;
 
 
@@ -39,8 +40,12 @@ public class Webview  extends AppCompatActivity {
         webView.getSettings().setDomStorageEnabled(true);  // 로컬 스토리지 (localStorage) 사용여부
 
 
+        Intent intent = getIntent();
+        String receivedMessage = intent.getStringExtra("Ing_link");
+
+
         //웹페이지 호출
 //        webView.loadUrl("http://www.naver.com");
-        webView.loadUrl("https://eunoia3jy.tistory.com");
+        webView.loadUrl(receivedMessage);
     }
 }
