@@ -2,6 +2,7 @@ package com.example.recipe_project;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -125,14 +126,14 @@ public class Favorite extends AppCompatActivity {
                                                                 String imageName = "recipe_" + recipeID;
                                                                 int imageResource = getResources().getIdentifier(imageName, "drawable", getPackageName());
 
-
-                                                                imageView.setBackgroundResource(imageResource);
+                                                                imageView.setImageResource(imageResource);
                                                                 imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
 
                                                                 LinearLayout.LayoutParams imageViewParams = new LinearLayout.LayoutParams(300, 300);
-                                                                imageViewParams.setMargins(100, 20, 0, 0);
+                                                                imageViewParams.setMargins(100, 0, 0, 40);
 
                                                                 imageView.setLayoutParams(imageViewParams);
+
 
                                                                 LinearLayout.LayoutParams textViewParams = new LinearLayout.LayoutParams(
                                                                         FrameLayout.LayoutParams.WRAP_CONTENT,
@@ -144,7 +145,7 @@ public class Favorite extends AppCompatActivity {
                                                                         100
                                                                 );
 
-                                                                textViewParams.setMargins(100, 0, 0, 0);
+                                                                textViewParams.setMargins(70, 0, 0, 0);
 
                                                                 imageView.setLayoutParams(imageViewParams);
                                                                 textView.setLayoutParams(textViewParams);
@@ -153,6 +154,7 @@ public class Favorite extends AppCompatActivity {
                                                                 currentLayout.addView(imageView);
                                                                 currentLayout.addView(LikeButton);
                                                                 currentLayout.addView(textView);
+
 
                                                                 // 이미지뷰 클릭 리스너
                                                                 imageView.setOnClickListener(new View.OnClickListener() {
@@ -165,12 +167,12 @@ public class Favorite extends AppCompatActivity {
                                                                 });
 
                                                                 LinearLayout finalCurrentLayout = currentLayout;
-                                                                
+
+
                                                                 //하트 버튼 클릭시 리스트 삭제
                                                                 LikeButton.setOnClickListener(new View.OnClickListener() {
                                                                     @Override
                                                                     public void onClick(View view) {
-                                                                        LikeButton.setBackgroundResource(R.drawable.ic_emptyheart);
                                                                         db.collection("favorite")
                                                                                 .document(documentName)
                                                                                 .update("recipe_ID", FieldValue.arrayRemove(recipeID));
@@ -225,6 +227,7 @@ public class Favorite extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(Favorite.this, Search.class);
                 startActivity(intent);
+                finish();
             }
         });
         tomain.setOnClickListener(new View.OnClickListener() {
@@ -232,6 +235,7 @@ public class Favorite extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(Favorite.this, MainActivity.class);
                 startActivity(intent);
+                finish();
             }
         });
 
@@ -240,6 +244,7 @@ public class Favorite extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(Favorite.this, Favorite.class);
                 startActivity(intent);
+                finish();
             }
         });
 

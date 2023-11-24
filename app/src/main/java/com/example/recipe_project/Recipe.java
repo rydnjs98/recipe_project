@@ -40,7 +40,7 @@ public class Recipe extends AppCompatActivity {
     private YouTubePlayer youTubePlayer;
     List<Ing_post> inglist = new ArrayList<>();
     private ArrayList<String> recipeIds = new ArrayList<>();
-
+    List<Integer> ing_id = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,6 +48,8 @@ public class Recipe extends AppCompatActivity {
 //        Button btn = findViewById(R.id.btnOne);
         // Firebase 초기화
         FirebaseApp.initializeApp(this);
+
+
 
         textView1 = findViewById(R.id.textView1);
         db = FirebaseFirestore.getInstance();
@@ -91,6 +93,7 @@ public class Recipe extends AppCompatActivity {
     View.OnClickListener ClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
+
             Intent intent = new Intent(Recipe.this, Webview.class);
             startActivity(intent);
         }
@@ -169,6 +172,11 @@ public class Recipe extends AppCompatActivity {
                     recipeIngredientIDs.add((Long) id);
                 }
             }
+            for(int j=0; j<recipeIngredientIDs.size(); j++){
+
+                ing_id.add(Math.toIntExact(recipeIngredientIDs.get(j)));
+                System.out.println(ing_id.get(j));
+            }
         } else {
             Log.e("RecipeActivity", "recipe_ingrediantIDs의 타입이 List가 아니거나 null입니다.");
         }
@@ -219,7 +227,31 @@ public class Recipe extends AppCompatActivity {
                 buttonParams.setMargins(20,20,20,20);
                 imageView.setBackgroundColor(Color.BLACK);
                 imageView.setLayoutParams(buttonParams);
-                imageView.setOnClickListener(ClickListener);
+
+
+
+                imageView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        List<Ing_post> ing_link= new ArrayList<>();
+                        for(int i =0 ; i<inglist.size(); i++){
+                            if(inglist.get(i).ingrediant_ID == (int) (long) id){
+                                ing_link.add(inglist.get(i));
+                            }
+
+                        }
+
+
+                        Intent intent = new Intent(Recipe.this, Webview.class);
+                        intent.putExtra("Ing_link", ing_link.get(0).ingrediant_link );
+                        startActivity(intent);
+                    }
+                });
+
+
+
+
+
                 lineLayout.addView(imageView);
                 Log.d("RecipeActivity", "id: " + id);
                 count++;
