@@ -1,3 +1,17 @@
+# recipe_project 2023-11-26
+- 메인 페이지 출력시 favorite컬렉션 참조하여 하트 버튼 상태 설정
+- 하트 버튼 클릭시 찜하기/찜하기취소 기능 구현
+- 메인페이지 viewPager2 이미지 랜덤으로 출력
+
+![image](https://github.com/rydnjs98/recipe_project/assets/89891055/7159c7d6-c298-49bb-a890-5d748253d87a)
+
+- 검색페이지 네잎클로버 버튼 클릭시 추천 레시피로 이동
+
+![image](https://github.com/rydnjs98/recipe_project/assets/89891055/36a28c2b-02af-41e7-8b85-0de94a4e355a) ![image](https://github.com/rydnjs98/recipe_project/assets/89891055/0d10e2e8-34b6-4ebe-bfe6-303452304669)
+
+
+
+
 # recipe_project 2023-11-24
 - favorite페이지 LikeButton 클릭시 삭제 이벤트 구현
 
