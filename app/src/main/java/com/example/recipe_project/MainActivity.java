@@ -434,20 +434,6 @@ public class MainActivity extends AppCompatActivity {
                                         .update("recipe_ID", FieldValue.arrayRemove(r_id));
                             }
                         }
-
-                        // 업데이트할 데이터 생성
-                        Map<String, Object> updateData = new HashMap<>();
-                        updateData.put("recipe_id", recipeIds);
-
-                        // 'recipe_id' 배열 필드 업데이트
-                        documentSnapshot.getReference().update(updateData)
-                                .addOnSuccessListener(aVoid -> {
-                                    // 업데이트 성공 시 실행되는 부분
-                                })
-                                .addOnFailureListener(e -> {
-                                    // 업데이트 실패 시 실행되는 부분
-                                    // 에러 메시지 등을 처리할 수 있습니다.
-                                });
                     }
                 })
                 .addOnFailureListener(e -> {
