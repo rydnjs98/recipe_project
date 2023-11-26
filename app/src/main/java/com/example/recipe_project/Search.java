@@ -331,7 +331,7 @@ public class Search extends AppCompatActivity {
 
                         int rann = ran;
 
-                       Toast.makeText(getApplicationContext(),"현재 시간은" + hourOfDay + "시 입니다. 추천 메뉴 " + gotlist.get(rann).recipe_name , Toast.LENGTH_LONG).show();
+                       Toast.makeText(getApplicationContext(),"현재 " + hourOfDay + "시 입니다. 아침식사 추천 메뉴: " + gotlist.get(rann).recipe_name , Toast.LENGTH_LONG).show();
                         //mRecyclerAdapter.setFindList(gotlist);
                         Intent intent = new Intent(Search.this, Recipe.class);
 
@@ -356,7 +356,7 @@ public class Search extends AppCompatActivity {
                         int rann = ran;
                         //mRecyclerAdapter.setFindList(gotlist);
                         Intent intent = new Intent(Search.this, Recipe.class);
-                        Toast.makeText(getApplicationContext(),"현재 시간은" + hourOfDay + "시 입니다. 추천 메뉴 " + gotlist.get(rann).recipe_name , Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(),"현재 " + hourOfDay + "시 입니다. 점심식사 추천 메뉴: " + gotlist.get(rann).recipe_name , Toast.LENGTH_LONG).show();
 
                         // 데이터를 인텐트에 추가
                         intent.putExtra("recipeID", gotlist.get(rann).getRecipe_ID());
@@ -378,7 +378,7 @@ public class Search extends AppCompatActivity {
                         int rann = ran;
                        // mRecyclerAdapter.setFindList(gotlist);
                         Intent intent = new Intent(Search.this, Recipe.class);
-                        Toast.makeText(getApplicationContext(),"현재 시간은" + hourOfDay + "시 입니다. 추천 메뉴 " + gotlist.get(rann).recipe_name , Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(),"현재 " + hourOfDay + "시 입니다. 저녁식사 추천 메뉴: " + gotlist.get(rann).recipe_name , Toast.LENGTH_LONG).show();
                         // 데이터를 인텐트에 추가
                         intent.putExtra("recipeID", gotlist.get(rann).getRecipe_ID());
 

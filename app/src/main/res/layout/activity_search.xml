@@ -41,7 +41,7 @@
             android:id="@+id/search_textView2"
             android:layout_width="40dp"
             android:layout_height="25dp"
-            android:layout_marginStart="96dp"
+            android:layout_marginStart="120dp"
             android:layout_marginTop="84dp"
             android:background="@drawable/search_back"
             android:gravity="center"
@@ -53,7 +53,7 @@
             android:id="@+id/search_textView4"
             android:layout_width="40dp"
             android:layout_height="25dp"
-            android:layout_marginStart="172dp"
+            android:layout_marginStart="220dp"
             android:layout_marginTop="84dp"
             android:background="@drawable/search_back"
             android:gravity="center"
@@ -66,7 +66,7 @@
             android:layout_width="40dp"
             android:layout_height="25dp"
             android:layout_marginTop="84dp"
-            android:layout_marginEnd="120dp"
+            android:layout_marginEnd="52dp"
             android:background="@drawable/search_back"
             android:gravity="center"
             android:text="일식"
@@ -79,10 +79,10 @@
             android:layout_height="51dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
-            android:background="@drawable/search_back"
+            android:background="@drawable/lucky"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@android:drawable/ic_menu_search" />
+             />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
