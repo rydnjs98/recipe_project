@@ -4,7 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.viewpager2.widget.ViewPager2;
-import com.google.firebase.firestore.FieldValue;
+
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -31,11 +31,14 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.SetOptions;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Arrays;
+import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
     FirebaseAuth auth;
@@ -290,9 +293,20 @@ public class MainActivity extends AppCompatActivity {
 
     private ArrayList<Integer> getIdolList() {
         ArrayList<Integer> itemList = new ArrayList<>();
-        itemList.add(R.drawable.img_1);
-        itemList.add(R.drawable.img_14);
-        itemList.add(R.drawable.img_13);
+        Random random = new Random();
+        int ran[] = new int[3];
+        for (int i = 0;i<3;i++) {
+            int r = random.nextInt(20) + 1;
+            ran[i] = r;
+            for(int j = 0;j<i;j++) {
+                if(ran[j] == r) i--;
+            }
+        }
+        for(int i = 0;i<3;i++) {
+            String imageName = "img_" + ran[i];
+            int imageResource = getResources().getIdentifier(imageName, "drawable", getPackageName());
+            itemList.add(imageResource);
+        }
         return itemList;
     }
 
