@@ -15,7 +15,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 
 import android.widget.TextView;
-
+import android.widget.Toast;
 
 
 import androidx.annotation.NonNull;
@@ -76,6 +76,8 @@ public class Search extends AppCompatActivity {
     TextView textView1, textView2;
     String text1, text2, text3;
     String result;
+
+    Toast toast;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -319,18 +321,22 @@ public class Search extends AppCompatActivity {
 
                         for(int i=0; i< searchlist.size();i++)
                         {
-                            if (searchlist.get(i).recipe_tag.contains("점심")) {
+                            if (searchlist.get(i).recipe_tag.contains("아침")) {
                                 gotlist.add(searchlist.get(i));
                             }
                         }
 
 
                         ran = r.nextInt(gotlist.size()-1);
+
+                        int rann = ran;
+
+                       Toast.makeText(getApplicationContext(),"현재 시간은" + hourOfDay + "시 입니다. 추천 메뉴 " + gotlist.get(rann).recipe_name , Toast.LENGTH_LONG).show();
                         //mRecyclerAdapter.setFindList(gotlist);
                         Intent intent = new Intent(Search.this, Recipe.class);
 
                         // 데이터를 인텐트에 추가
-                        intent.putExtra("selectedItem", gotlist.get(ran).getRecipe_ID());
+                        intent.putExtra("recipeID", gotlist.get(rann).getRecipe_ID());
 
                         // 다른 액티비티 시작
                         startActivity(intent);
@@ -347,11 +353,13 @@ public class Search extends AppCompatActivity {
                             }
                         }
                         ran = r.nextInt(gotlist.size()-1);
+                        int rann = ran;
                         //mRecyclerAdapter.setFindList(gotlist);
                         Intent intent = new Intent(Search.this, Recipe.class);
+                        Toast.makeText(getApplicationContext(),"현재 시간은" + hourOfDay + "시 입니다. 추천 메뉴 " + gotlist.get(rann).recipe_name , Toast.LENGTH_LONG).show();
 
                         // 데이터를 인텐트에 추가
-                        intent.putExtra("selectedItem", gotlist.get(ran).getRecipe_ID());
+                        intent.putExtra("recipeID", gotlist.get(rann).getRecipe_ID());
 
                         // 다른 액티비티 시작
                        startActivity(intent);
@@ -367,11 +375,12 @@ public class Search extends AppCompatActivity {
                             }
                         }
                         ran = r.nextInt(gotlist.size()-1);
+                        int rann = ran;
                        // mRecyclerAdapter.setFindList(gotlist);
                         Intent intent = new Intent(Search.this, Recipe.class);
-
+                        Toast.makeText(getApplicationContext(),"현재 시간은" + hourOfDay + "시 입니다. 추천 메뉴 " + gotlist.get(rann).recipe_name , Toast.LENGTH_LONG).show();
                         // 데이터를 인텐트에 추가
-                        intent.putExtra("selectedItem", gotlist.get(ran).getRecipe_ID());
+                        intent.putExtra("recipeID", gotlist.get(rann).getRecipe_ID());
 
                         // 다른 액티비티 시작
                         startActivity(intent);
