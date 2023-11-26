@@ -28,12 +28,16 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.ListenerRegistration;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.firestore.SetOptions;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Recipe extends AppCompatActivity {
 
@@ -46,8 +50,10 @@ public class Recipe extends AppCompatActivity {
     private ArrayList<String> recipeIds = new ArrayList<>();
 
     Button heartButton;
+    private FirebaseUser user;
 
-    boolean isFullHeart = false; //빈 하트
+
+    private boolean isFullHeart = false; //빈 하트
     List<Integer> ing_id = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,22 +63,24 @@ public class Recipe extends AppCompatActivity {
         // Firebase 초기화
         FirebaseApp.initializeApp(this);
 
-        heartButton = findViewById(R.id.recipe_heart);
+        db = FirebaseFirestore.getInstance();
+        user = FirebaseAuth.getInstance().getCurrentUser();
+
+        Button heartButton = findViewById(R.id.recipe_heart);
         heartButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (isUserLoggedIn()) {
-                    if (isFullHeart) {
-                        heartButton.setBackgroundResource(R.drawable.ic_emptyheart); // 클릭할 때 빈 하트로 변경
-                    } else {
-                        heartButton.setBackgroundResource(R.drawable.ic_fullheart); // 클릭할 때 꽉 찬 하트로 변경
-                    }
-                    isFullHeart = !isFullHeart; // 상태를 토글
+                int recipeID = getIntent().getIntExtra("recipeID", -1);
+                String u_name = user.getEmail();
+
+                if (isFullHeart) {
+                    removeRecipeIdFromDocument(u_name, recipeID);
+                    heartButton.setBackgroundResource(R.drawable.ic_emptyheart);
                 } else {
-                    // 사용자가 로그인되어 있지 않은 경우 로그인을 유도하는 메시지를 출력
-                    // 예: Toast 메시지를 사용하여 간단한 팝업 메시지를 표시
-                    Toast.makeText(Recipe.this, "로그인이 필요합니다.", Toast.LENGTH_SHORT).show();
+                    addDataToFirestore(recipeID, u_name);
+                    heartButton.setBackgroundResource(R.drawable.ic_fullheart);
                 }
+                isFullHeart = !isFullHeart;
             }
         });
 
@@ -222,68 +230,68 @@ public class Recipe extends AppCompatActivity {
         int count = 0;
         LinearLayout lineLayout = null;
         List<Object> ingredientIDsList = (List<Object>) ingredientIDsObject;
-            for (Object id : ingredientIDsList) {
-                if (count % 3 == 0) {
-                    // 새로운 줄을 만듭니다.
-                    lineLayout = new LinearLayout(Recipe.this);
-                    lineLayout.setOrientation(LinearLayout.HORIZONTAL);
-                    LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
-                            LinearLayout.LayoutParams.MATCH_PARENT,
-                            LinearLayout.LayoutParams.WRAP_CONTENT,1
-                    );
-                    layoutParams.setMargins(15,0,15,0);
-                    lineLayout.setLayoutParams(layoutParams);
-                    layout.addView(lineLayout);
-                }
-                String imageName = "i_" + id;
-                int imageResource = getResources().getIdentifier(imageName, "drawable", getPackageName());
-                ImageView imageView = new ImageView(Recipe.this);
-                imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-                imageView.setImageResource(imageResource);
-
-                // 화면 가로 크기 구하기
-                DisplayMetrics displayMetrics = new DisplayMetrics();
-                getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
-                int screenWidth = displayMetrics.widthPixels;
-
-                // 버튼의 너비를 화면 가로 크기의 1/3로 설정하여 정사각형으로 만듭니다.
-                int buttonSize = (screenWidth / 3) - 50;
-                LinearLayout.LayoutParams buttonParams = new LinearLayout.LayoutParams(
-                        buttonSize,
-                        buttonSize
+        for (Object id : ingredientIDsList) {
+            if (count % 3 == 0) {
+                // 새로운 줄을 만듭니다.
+                lineLayout = new LinearLayout(Recipe.this);
+                lineLayout.setOrientation(LinearLayout.HORIZONTAL);
+                LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
+                        LinearLayout.LayoutParams.MATCH_PARENT,
+                        LinearLayout.LayoutParams.WRAP_CONTENT,1
                 );
-                buttonParams.setMargins(20,20,20,20);
-                imageView.setBackgroundColor(Color.BLACK);
-                imageView.setLayoutParams(buttonParams);
+                layoutParams.setMargins(15,0,15,0);
+                lineLayout.setLayoutParams(layoutParams);
+                layout.addView(lineLayout);
+            }
+            String imageName = "i_" + id;
+            int imageResource = getResources().getIdentifier(imageName, "drawable", getPackageName());
+            ImageView imageView = new ImageView(Recipe.this);
+            imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+            imageView.setImageResource(imageResource);
+
+            // 화면 가로 크기 구하기
+            DisplayMetrics displayMetrics = new DisplayMetrics();
+            getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+            int screenWidth = displayMetrics.widthPixels;
+
+            // 버튼의 너비를 화면 가로 크기의 1/3로 설정하여 정사각형으로 만듭니다.
+            int buttonSize = (screenWidth / 3) - 50;
+            LinearLayout.LayoutParams buttonParams = new LinearLayout.LayoutParams(
+                    buttonSize,
+                    buttonSize
+            );
+            buttonParams.setMargins(20,20,20,20);
+            imageView.setBackgroundColor(Color.BLACK);
+            imageView.setLayoutParams(buttonParams);
 
 
 
-                imageView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        List<Ing_post> ing_link= new ArrayList<>();
-                        for(int i =0 ; i<inglist.size(); i++){
-                            if(inglist.get(i).ingrediant_ID == (int) (long) id){
-                                ing_link.add(inglist.get(i));
-                            }
-
+            imageView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    List<Ing_post> ing_link= new ArrayList<>();
+                    for(int i =0 ; i<inglist.size(); i++){
+                        if(inglist.get(i).ingrediant_ID == (int) (long) id){
+                            ing_link.add(inglist.get(i));
                         }
 
-
-                        Intent intent = new Intent(Recipe.this, Webview.class);
-                        intent.putExtra("Ing_link", ing_link.get(0).ingrediant_link );
-                        startActivity(intent);
                     }
-                });
+
+
+                    Intent intent = new Intent(Recipe.this, Webview.class);
+                    intent.putExtra("Ing_link", ing_link.get(0).ingrediant_link );
+                    startActivity(intent);
+                }
+            });
 
 
 
 
 
-                lineLayout.addView(imageView);
-                Log.d("RecipeActivity", "id: " + id);
-                count++;
-            }
+            lineLayout.addView(imageView);
+            Log.d("RecipeActivity", "id: " + id);
+            count++;
+        }
 
         // 로그로 출력
         Log.d("RecipeActivity", "Recipe Info: " + recipeInfo);
@@ -292,6 +300,8 @@ public class Recipe extends AppCompatActivity {
         Log.d("RecipeActivity", "Recipe Link: " + recipeLink);
         Log.d("RecipeActivity", "Recipe Name: " + recipeName);
         Log.d("RecipeActivity", "Recipe Tag: " + recipeTag);
+        int recipeID = getIntent().getIntExtra("recipeID", 1);
+        Log.d("RecipeActivity", "Recipe ID: " + recipeID);
     }
 
     @Override
@@ -303,8 +313,102 @@ public class Recipe extends AppCompatActivity {
             listenerRegistration.remove();
         }
     }
-    private boolean isUserLoggedIn() {
+    private boolean isUserLoggedIn() {// 사용자가 로그인한 상태인지 확인
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         return currentUser != null;
+    }
+    public void addDataToFirestore(int r_id,String u_name) {
+        // 데이터를 저장할 Map 생성
+        Map<String, Object> data = new HashMap<>();
+        data.put("recipe_ID", r_id);
+        data.put("user_id", u_name);
+        // 필요한 만큼의 필드를 추가
+
+        db.collection("favorite")
+                .whereEqualTo("user_id", u_name)
+                .get()
+                .addOnSuccessListener(queryDocumentSnapshots -> {
+                    if (queryDocumentSnapshots.isEmpty()) {
+                        // 문서가 없으면 새로운 문서를 추가
+                        Map<String, Object> newDocumentData = new HashMap<>();
+                        newDocumentData.put("user_id", u_name);
+                        newDocumentData.put("recipe_ID", Arrays.asList(r_id));
+
+                        // 'set()' 메서드를 사용하여 새로운 문서 추가
+                        db.collection("favorite")
+                                .document()
+                                .set(newDocumentData)
+                                .addOnSuccessListener(aVoid -> {
+                                    // 문서 추가 성공 시 실행되는 부분
+                                })
+                                .addOnFailureListener(e -> {
+                                    // 문서 추가 실패 시 실행되는 부분
+                                    // 에러 메시지 등을 처리할 수 있습니다.
+                                });
+                    } else {
+                        // 문서가 이미 존재하면 기존 문서를 업데이트
+                        DocumentSnapshot documentSnapshot = queryDocumentSnapshots.getDocuments().get(0);
+                        List<Integer> recipeIds = (List<Integer>) documentSnapshot.get("recipe_ID");
+
+                        // 새로운 값 추가
+                        if (recipeIds == null) {
+                            recipeIds = new ArrayList<>();
+                        }
+                        recipeIds.add(r_id);
+
+                        // 업데이트할 데이터 생성
+                        Map<String, Object> updateData = new HashMap<>();
+                        updateData.put("recipe_ID", recipeIds);
+
+                        // 'set()' 메서드를 사용하여 문서 업데이트 (기존 문서를 덮어쓰게 됨)
+                        documentSnapshot.getReference().set(updateData, SetOptions.merge())
+                                .addOnSuccessListener(aVoid -> {
+                                    // 업데이트 성공 시 실행되는 부분
+                                })
+                                .addOnFailureListener(e -> {
+                                    // 업데이트 실패 시 실행되는 부분
+                                    // 에러 메시지 등을 처리할 수 있습니다.
+                                });
+                    }
+                })
+                .addOnFailureListener(e -> {
+                    // 문서 가져오기 실패 시 실행되는 부분
+                    // 에러 메시지 등을 처리할 수 있습니다.
+                });
+    }
+    public void removeRecipeIdFromDocument(String u_name, int r_id) {
+        // Firestore의 특정 컬렉션에서 문서 가져오기
+        db.collection("your_collection_name")
+                .whereEqualTo("user_id", u_name)
+                .get()
+                .addOnSuccessListener(queryDocumentSnapshots -> {
+                    for (DocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
+                        // 'recipe_id' 배열 필드의 현재 값 가져오기
+                        List<String> recipeIds = (List<String>) documentSnapshot.get("recipe_id");
+
+                        // 특정 값 제거
+                        if (recipeIds != null && recipeIds.contains(r_id)) {
+                            recipeIds.remove(r_id);
+                        }
+
+                        // 업데이트할 데이터 생성
+                        Map<String, Object> updateData = new HashMap<>();
+                        updateData.put("recipe_id", recipeIds);
+
+                        // 'recipe_id' 배열 필드 업데이트
+                        documentSnapshot.getReference().update(updateData)
+                                .addOnSuccessListener(aVoid -> {
+                                    // 업데이트 성공 시 실행되는 부분
+                                })
+                                .addOnFailureListener(e -> {
+                                    // 업데이트 실패 시 실행되는 부분
+                                    // 에러 메시지 등을 처리할 수 있습니다.
+                                });
+                    }
+                })
+                .addOnFailureListener(e -> {
+                    // 문서 가져오기 실패 시 실행되는 부분
+                    // 에러 메시지 등을 처리할 수 있습니다.
+                });
     }
 }
