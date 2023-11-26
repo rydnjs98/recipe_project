@@ -4,7 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.viewpager2.widget.ViewPager2;
-
+import com.google.firebase.firestore.FieldValue;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -24,12 +24,18 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.firestore.SetOptions;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
     FirebaseAuth auth;
@@ -39,10 +45,14 @@ public class MainActivity extends AppCompatActivity {
     Button tofavorite;
     ImageButton login;
     Button  logout;
-
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
     private boolean isFullHeart = false;
     String cu;
     String TAG = "main";
+
+    int r_id;
+
+    String u_name;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -113,13 +123,19 @@ public class MainActivity extends AppCompatActivity {
         
         //하트 버튼 클릭 리스너
         View.OnClickListener heartclickListener = new View.OnClickListener() {
+
+
+
             @Override
             public void onClick(View view) {
+
+
 
                 Button clickedButton = (Button) view;
                 if (isFullHeart) {
                     clickedButton.setBackgroundResource(R.drawable.ic_emptyheart);
                 } else {
+
                     clickedButton.setBackgroundResource(R.drawable.ic_fullheart);
                 }
                 isFullHeart = !isFullHeart;
@@ -127,7 +143,7 @@ public class MainActivity extends AppCompatActivity {
         };
 
         // recipe 컬렉션에서 recipe_like를 기준으로 내림차순으로 정렬
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
+
 
         Query query = db.collection("recipe")
                 .orderBy("recipe_like", Query.Direction.DESCENDING);
@@ -216,7 +232,36 @@ public class MainActivity extends AppCompatActivity {
                                 heartbuttonParams.gravity = Gravity.START | Gravity.TOP;
                                 heartbuttonParams.setMargins(0, 0, 20, 20); // 버튼의 여백 설정
 
-                                button.setOnClickListener(heartclickListener); //버튼의 클릭 리스너 설정
+                                button.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+
+
+                                        Button clickedButton = (Button) view;
+                                        if (isFullHeart) {
+                                            r_id = recipeID;
+                                            u_name = user.getEmail();
+                                            removeRecipeIdFromDocument(u_name,r_id);
+                                            clickedButton.setBackgroundResource(R.drawable.ic_emptyheart);
+                                        } else {
+                                            r_id = recipeID;
+                                            u_name = user.getEmail();
+                                            addDataToFirestore(r_id,u_name);
+                                            clickedButton.setBackgroundResource(R.drawable.ic_fullheart);
+                                        }
+                                        isFullHeart = !isFullHeart;
+
+                                    }
+                                });
+
+
+
+
+
+
+
+
+                                //버튼의 클릭 리스너 설정
 
                                 currentLayout.addView(button, heartbuttonParams); // FrameLayout에 버튼 추가
 
@@ -251,6 +296,128 @@ public class MainActivity extends AppCompatActivity {
         return itemList;
     }
 
+
+    public void addDataToFirestore(int r_id,String u_name) {
+        // 데이터를 저장할 Map 생성
+        Map<String, Object> data = new HashMap<>();
+        data.put("recipe_ID", r_id);
+        data.put("user_id", u_name);
+        // 필요한 만큼의 필드를 추가
+
+        db.collection("favorite")
+                .whereEqualTo("user_id", u_name)
+                .get()
+                .addOnSuccessListener(queryDocumentSnapshots -> {
+                    if (queryDocumentSnapshots.isEmpty()) {
+                        // 문서가 없으면 새로운 문서를 추가
+                        Map<String, Object> newDocumentData = new HashMap<>();
+                        newDocumentData.put("user_id", u_name);
+                        newDocumentData.put("recipe_ID", Arrays.asList(r_id));
+
+                        // 'set()' 메서드를 사용하여 새로운 문서 추가
+                        db.collection("favorite")
+                                .document()
+                                .set(newDocumentData)
+                                .addOnSuccessListener(aVoid -> {
+                                    // 문서 추가 성공 시 실행되는 부분
+                                })
+                                .addOnFailureListener(e -> {
+                                    // 문서 추가 실패 시 실행되는 부분
+                                    // 에러 메시지 등을 처리할 수 있습니다.
+                                });
+                    } else {
+                        // 문서가 이미 존재하면 기존 문서를 업데이트
+                        DocumentSnapshot documentSnapshot = queryDocumentSnapshots.getDocuments().get(0);
+                        List<Integer> recipeIds = (List<Integer>) documentSnapshot.get("recipe_ID");
+
+                        // 새로운 값 추가
+                        if (recipeIds == null) {
+                            recipeIds = new ArrayList<>();
+                        }
+                        recipeIds.add(r_id);
+
+                        // 업데이트할 데이터 생성
+                        Map<String, Object> updateData = new HashMap<>();
+                        updateData.put("recipe_ID", recipeIds);
+
+                        // 'set()' 메서드를 사용하여 문서 업데이트 (기존 문서를 덮어쓰게 됨)
+                        documentSnapshot.getReference().set(updateData, SetOptions.merge())
+                                .addOnSuccessListener(aVoid -> {
+                                    // 업데이트 성공 시 실행되는 부분
+                                })
+                                .addOnFailureListener(e -> {
+                                    // 업데이트 실패 시 실행되는 부분
+                                    // 에러 메시지 등을 처리할 수 있습니다.
+                                });
+                    }
+                })
+                .addOnFailureListener(e -> {
+                    // 문서 가져오기 실패 시 실행되는 부분
+                    // 에러 메시지 등을 처리할 수 있습니다.
+                });
+    }
+
+    public void deleteDataFromFirestore(int targetId, String u_name) {
+        // Firestore의 특정 컬렉션에서 문서 삭제
+        db.collection("favorite")
+                .whereEqualTo("recipe_id", targetId)
+                .whereEqualTo("user_id", u_name)
+                .get()
+                .addOnSuccessListener(queryDocumentSnapshots -> {
+                    for (DocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
+                        // 찾은 문서 삭제
+                        documentSnapshot.getReference().delete()
+                                .addOnSuccessListener(aVoid -> {
+                                    // 데이터 삭제 성공 시 실행되는 부분
+                                })
+                                .addOnFailureListener(e -> {
+                                    // 데이터 삭제 실패 시 실행되는 부분
+                                    // 에러 메시지 등을 처리할 수 있습니다.
+                                });
+                    }
+                })
+                .addOnFailureListener(e -> {
+                    // 검색 실패 시 실행되는 부분
+                    // 에러 메시지 등을 처리할 수 있습니다.
+                });
+    }
+
+
+    public void removeRecipeIdFromDocument(String u_name, int r_id) {
+        // Firestore의 특정 컬렉션에서 문서 가져오기
+        db.collection("your_collection_name")
+                .whereEqualTo("user_id", u_name)
+                .get()
+                .addOnSuccessListener(queryDocumentSnapshots -> {
+                    for (DocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
+                        // 'recipe_id' 배열 필드의 현재 값 가져오기
+                        List<String> recipeIds = (List<String>) documentSnapshot.get("recipe_id");
+
+                        // 특정 값 제거
+                        if (recipeIds != null && recipeIds.contains(r_id)) {
+                            recipeIds.remove(r_id);
+                        }
+
+                        // 업데이트할 데이터 생성
+                        Map<String, Object> updateData = new HashMap<>();
+                        updateData.put("recipe_id", recipeIds);
+
+                        // 'recipe_id' 배열 필드 업데이트
+                        documentSnapshot.getReference().update(updateData)
+                                .addOnSuccessListener(aVoid -> {
+                                    // 업데이트 성공 시 실행되는 부분
+                                })
+                                .addOnFailureListener(e -> {
+                                    // 업데이트 실패 시 실행되는 부분
+                                    // 에러 메시지 등을 처리할 수 있습니다.
+                                });
+                    }
+                })
+                .addOnFailureListener(e -> {
+                    // 문서 가져오기 실패 시 실행되는 부분
+                    // 에러 메시지 등을 처리할 수 있습니다.
+                });
+    }
 
 
 }
