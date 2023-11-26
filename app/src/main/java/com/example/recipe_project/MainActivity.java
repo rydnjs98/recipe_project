@@ -46,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
     TextView user_details;
     Button tosearch;
     Button tofavorite;
+    //ㅇㅇ
     ImageButton login;
     Button  logout;
     FirebaseFirestore db = FirebaseFirestore.getInstance();

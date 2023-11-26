@@ -59,6 +59,8 @@ public class Search extends AppCompatActivity {
     Button tomain;
     Button tofavorite;
 
+
+
     EditText getedt;
     String gotedt;
     ImageButton dosearch;
