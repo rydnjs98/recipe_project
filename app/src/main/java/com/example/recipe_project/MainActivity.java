@@ -400,7 +400,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void removeRecipeIdFromDocument(String u_name, int r_id) {
         // Firestore의 특정 컬렉션에서 문서 가져오기
-        db.collection("your_collection_name")
+        db.collection("favorite")
                 .whereEqualTo("user_id", u_name)
                 .get()
                 .addOnSuccessListener(queryDocumentSnapshots -> {
