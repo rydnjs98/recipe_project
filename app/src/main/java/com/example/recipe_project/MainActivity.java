@@ -46,7 +46,6 @@ public class MainActivity extends AppCompatActivity {
     TextView user_details;
     Button tosearch;
     Button tofavorite;
-    //ㅇㅇ
     ImageButton login;
     Button  logout;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -61,8 +60,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-       tosearch = findViewById(R.id.main_search_btn);
-       tofavorite = findViewById(R.id.main_favorite_btn);
+        tosearch = findViewById(R.id.main_search_btn);
+        tofavorite = findViewById(R.id.main_favorite_btn);
 //       recepices_btn1=findViewById(R.id.recepices_btn1);
 
        login=findViewById(R.id.main_login_btn);
@@ -227,7 +226,8 @@ public class MainActivity extends AppCompatActivity {
                                 });
 
                                 Button button = new Button(MainActivity.this);
-                                button.setBackgroundResource(R.drawable.heart);
+
+                                button.setBackgroundResource(R.drawable.ic_emptyheart);
                                 FrameLayout.LayoutParams heartbuttonParams = new FrameLayout.LayoutParams(
                                         100,
                                         100
@@ -235,6 +235,7 @@ public class MainActivity extends AppCompatActivity {
                                 // 버튼을 이미지 뷰의 왼쪽 위에 위치하도록 설정
                                 heartbuttonParams.gravity = Gravity.START | Gravity.TOP;
                                 heartbuttonParams.setMargins(0, 0, 20, 20); // 버튼의 여백 설정
+
 
                                 button.setOnClickListener(new View.OnClickListener() {
                                     @Override
@@ -254,12 +255,28 @@ public class MainActivity extends AppCompatActivity {
                                             clickedButton.setBackgroundResource(R.drawable.ic_fullheart);
                                         }
                                         isFullHeart = !isFullHeart;
-
                                     }
                                 });
 
 
-
+                                if(user != null) {
+                                    String u_name = user.getEmail();
+                                    db.collection("favorite")
+                                            .whereEqualTo("user_id", u_name)
+                                            .get()
+                                            .addOnSuccessListener(queryDocumentSnapshots -> {
+                                                DocumentSnapshot documentSnapshot = queryDocumentSnapshots.getDocuments().get(0);
+                                                List<Integer> recipeIds = (List<Integer>) documentSnapshot.get("recipe_ID");
+                                                Log.d("tag", recipeIds.toString());
+                                                long r_id = document.getLong("recipe_ID");
+                                                if(recipeIds.contains(r_id)){
+                                                    button.setBackgroundResource(R.drawable.ic_fullheart);
+                                                    isFullHeart = !isFullHeart;
+                                                }else {
+                                                    button.setBackgroundResource(R.drawable.ic_emptyheart);
+                                                }
+                                            });
+                                }
 
 
 
