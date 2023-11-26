@@ -372,6 +372,7 @@ public class MainActivity extends AppCompatActivity {
                 });
     }
 
+    //사용 안함 문서를 지워버리는 코드
     public void deleteDataFromFirestore(int targetId, String u_name) {
         // Firestore의 특정 컬렉션에서 문서 삭제
         db.collection("favorite")
