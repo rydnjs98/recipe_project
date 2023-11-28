@@ -383,7 +383,7 @@ public class Recipe extends AppCompatActivity {
         return currentUser != null;
     }
 
-    public void addDataToFirestore(int r_id, String u_name) {
+    public void addDataToFirestore(int r_id,String u_name) {
         // 데이터를 저장할 Map 생성
         Map<String, Object> data = new HashMap<>();
         data.put("recipe_ID", r_id);
@@ -440,6 +440,24 @@ public class Recipe extends AppCompatActivity {
                 .addOnFailureListener(e -> {
                     // 문서 가져오기 실패 시 실행되는 부분
                     // 에러 메시지 등을 처리할 수 있습니다.
+                });
+        // recipe_like 증가
+        db.collection("recipe")
+                .whereEqualTo("recipe_ID", r_id)
+                .get()
+                .addOnSuccessListener(queryDocumentSnapshots -> {
+                    DocumentSnapshot documentSnapshot = queryDocumentSnapshots.getDocuments().get(0);
+                    Long r_like =  documentSnapshot.getLong("recipe_like") + 1;
+                    Map<String, Object> updateData = new HashMap<>();
+                    updateData.put("recipe_like", r_like);
+                    documentSnapshot.getReference().set(updateData, SetOptions.merge())
+                            .addOnSuccessListener(aVoid -> {
+                                // 업데이트 성공 시 실행되는 부분
+                            })
+                            .addOnFailureListener(e -> {
+                                // 업데이트 실패 시 실행되는 부분
+                                // 에러 메시지 등을 처리할 수 있습니다.
+                            });
                 });
     }
 
