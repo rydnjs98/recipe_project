@@ -82,7 +82,7 @@
             android:background="@drawable/lucky"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-             />
+            />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -105,74 +105,33 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="112dp"
-        android:background="@drawable/home"
-        android:orientation="horizontal">
+        android:layout_height="0px"
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        android:paddingLeft="5dp"
+        tools:layout_editor_absoluteX="-94dp"
+        tools:layout_editor_absoluteY="656dp">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="vertical">
+        <Button
+            android:id="@+id/search_search_btn"
+            android:layout_width="133dp"
+            android:layout_height="53dp"
+            android:layout_marginBottom="24dp"
+            android:text="Search" />
 
-            <Space
-                android:layout_width="match_parent"
-                android:layout_height="22dp" />
+        <Button
+            android:id="@+id/search_main_btn"
+            android:layout_width="133dp"
+            android:layout_height="53dp"
+            android:layout_marginBottom="16dp"
+            android:text="Main" />
 
-            <Space
-                android:layout_width="match_parent"
-                android:layout_height="22dp" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
-
-                <Space
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1" />
-
-                <Button
-                    android:id="@+id/main_search_btn"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="@drawable/search_icon"
-
-                    android:text="" />
-
-                <Space
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1" />
-
-                <Button
-                    android:id="@+id/main_main_btn"
-                    android:layout_width="2dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="@drawable/home_icon"
-                    android:text="" />
-
-                <Space
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1" />
-
-                <Button
-                    android:id="@+id/main_favorite_btn"
-                    android:layout_width="1dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="@drawable/heart_icon"
-                    android:text="" />
-
-                <Space
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1" />
-            </LinearLayout>
-        </LinearLayout>
+        <Button
+            android:id="@+id/search_favotie_btn"
+            android:layout_width="133dp"
+            android:layout_height="54dp"
+            android:layout_marginBottom="16dp"
+            android:text="Favorite" />
+    </LinearLayout>
 
 </LinearLayout>
