@@ -81,17 +81,22 @@ public class Recipe extends AppCompatActivity {
         heartButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (user == null) {
-                    Toast.makeText(Recipe.this, "사용자 정보를 확인할 수 없습니다.", Toast.LENGTH_SHORT).show();
+                if (user == null || user.getEmail() == null) {
+                    Toast.makeText(Recipe.this, "로그인이 필요합니다.", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
                 String u_name = user.getEmail();
+                int recipeID = getIntent().getIntExtra("recipeID", -1);
+
                 if (isFullHeart) {
                     removeRecipeIdFromDocument(u_name, recipeID);
+                    heartButton.setBackgroundResource(R.drawable.ic_emptyheart);
                 } else {
                     addDataToFirestore(recipeID, u_name);
+                    heartButton.setBackgroundResource(R.drawable.ic_fullheart);
                 }
+                isFullHeart = !isFullHeart;
             }
         });
 
