@@ -2,12 +2,14 @@ package com.example.recipe_project;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
@@ -299,7 +301,10 @@ public class MainActivity extends AppCompatActivity {
                         textView.setTextSize(20);
                         textView.setTypeface(typeface);
                         textView.setTextColor(Color.WHITE);
+                        textView.setShadowLayer(15, 0, 0, Color.BLACK);
                         textParams.gravity = Gravity.BOTTOM | Gravity.CENTER;
+
+
                         currentLayout.addView(textView, textParams);
 
                         count++; //2줄로 만들기 위한 변수
