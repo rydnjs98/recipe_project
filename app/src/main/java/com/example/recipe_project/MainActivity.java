@@ -389,6 +389,23 @@ public class MainActivity extends AppCompatActivity {
                     // 문서 가져오기 실패 시 실행되는 부분
                     // 에러 메시지 등을 처리할 수 있습니다.
                 });
+        db.collection("recipe")
+                .whereEqualTo("recipe_ID", r_id)
+                .get()
+                .addOnSuccessListener(queryDocumentSnapshots -> {
+                    DocumentSnapshot documentSnapshot = queryDocumentSnapshots.getDocuments().get(0);
+                    Long r_like =  documentSnapshot.getLong("recipe_like") + 1;
+                    Map<String, Object> updateData = new HashMap<>();
+                    updateData.put("recipe_like", r_like);
+                    documentSnapshot.getReference().set(updateData, SetOptions.merge())
+                            .addOnSuccessListener(aVoid -> {
+                                // 업데이트 성공 시 실행되는 부분
+                            })
+                            .addOnFailureListener(e -> {
+                                // 업데이트 실패 시 실행되는 부분
+                                // 에러 메시지 등을 처리할 수 있습니다.
+                            });
+                });
     }
 
     public void deleteDataFromFirestore(int targetId, String u_name) {
@@ -439,6 +456,23 @@ public class MainActivity extends AppCompatActivity {
                 .addOnFailureListener(e -> {
                     // 문서 가져오기 실패 시 실행되는 부분
                     // 에러 메시지 등을 처리할 수 있습니다.
+                });
+        db.collection("recipe")
+                .whereEqualTo("recipe_ID", r_id)
+                .get()
+                .addOnSuccessListener(queryDocumentSnapshots -> {
+                    DocumentSnapshot documentSnapshot = queryDocumentSnapshots.getDocuments().get(0);
+                    Long r_like =  documentSnapshot.getLong("recipe_like") - 1;
+                    Map<String, Object> updateData = new HashMap<>();
+                    updateData.put("recipe_like", r_like);
+                    documentSnapshot.getReference().set(updateData, SetOptions.merge())
+                            .addOnSuccessListener(aVoid -> {
+                                // 업데이트 성공 시 실행되는 부분
+                            })
+                            .addOnFailureListener(e -> {
+                                // 업데이트 실패 시 실행되는 부분
+                                // 에러 메시지 등을 처리할 수 있습니다.
+                            });
                 });
     }
 
