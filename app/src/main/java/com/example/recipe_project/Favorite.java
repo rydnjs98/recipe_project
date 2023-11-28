@@ -25,9 +25,12 @@ import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.firestore.SetOptions;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Favorite extends AppCompatActivity {
 
@@ -176,6 +179,24 @@ public class Favorite extends AppCompatActivity {
                                                                         db.collection("favorite")
                                                                                 .document(documentName)
                                                                                 .update("recipe_ID", FieldValue.arrayRemove(recipeID));
+
+                                                                        db.collection("recipe")
+                                                                                .whereEqualTo("recipe_ID", recipeID)
+                                                                                .get()
+                                                                                .addOnSuccessListener(queryDocumentSnapshots -> {
+                                                                                    DocumentSnapshot documentSnapshot = queryDocumentSnapshots.getDocuments().get(0);
+                                                                                    Long r_like =  documentSnapshot.getLong("recipe_like") - 1;
+                                                                                    Map<String, Object> updateData = new HashMap<>();
+                                                                                    updateData.put("recipe_like", r_like);
+                                                                                    documentSnapshot.getReference().set(updateData, SetOptions.merge())
+                                                                                            .addOnSuccessListener(aVoid -> {
+                                                                                                // 업데이트 성공 시 실행되는 부분
+                                                                                            })
+                                                                                            .addOnFailureListener(e -> {
+                                                                                                // 업데이트 실패 시 실행되는 부분
+                                                                                                // 에러 메시지 등을 처리할 수 있습니다.
+                                                                                            });
+                                                                                });
 
                                                                         if (finalCurrentLayout != null) {
                                                                             ((LinearLayout) finalCurrentLayout.getParent()).removeView(finalCurrentLayout);
