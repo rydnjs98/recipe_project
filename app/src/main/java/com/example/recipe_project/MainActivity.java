@@ -389,6 +389,7 @@ public class MainActivity extends AppCompatActivity {
                     // 문서 가져오기 실패 시 실행되는 부분
                     // 에러 메시지 등을 처리할 수 있습니다.
                 });
+        // recipe_like 증가
         db.collection("recipe")
                 .whereEqualTo("recipe_ID", r_id)
                 .get()
@@ -457,6 +458,7 @@ public class MainActivity extends AppCompatActivity {
                     // 문서 가져오기 실패 시 실행되는 부분
                     // 에러 메시지 등을 처리할 수 있습니다.
                 });
+        // recipe_like 감소
         db.collection("recipe")
                 .whereEqualTo("recipe_ID", r_id)
                 .get()
