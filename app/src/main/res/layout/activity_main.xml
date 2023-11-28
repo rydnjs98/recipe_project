@@ -75,33 +75,79 @@
 
             <Space
                 android:layout_width="match_parent"
-                android:layout_height="36dp" />
+                android:layout_height="22dp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="62dp"
+                android:layout_height="112dp"
+                android:background="@drawable/home"
                 android:orientation="horizontal">
 
-                <Button
-                    android:id="@+id/main_search_btn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:text="Search" />
+                    android:orientation="vertical">
 
-                <Button
-                    android:id="@+id/main_main_btn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Main" />
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="22dp" />
 
-                <Button
-                    android:id="@+id/main_favorite_btn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Favorite" />
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="22dp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+
+                        <Space
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1" />
+
+                        <Button
+                            android:id="@+id/main_search_btn"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:background="@drawable/round2"
+                            android:gravity="bottom"
+                            android:text="" />
+
+                        <Space
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1" />
+
+                        <Button
+                            android:id="@+id/main_main_btn"
+                            android:layout_width="2dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:background="@drawable/round2"
+                            android:text="Main" />
+
+                        <Space
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1" />
+
+                        <Button
+                            android:id="@+id/main_favorite_btn"
+                            android:layout_width="1dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:background="@drawable/round2"
+                            android:text="fav" />
+
+                        <Space
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1" />
+                    </LinearLayout>
+                </LinearLayout>
 
 
             </LinearLayout>

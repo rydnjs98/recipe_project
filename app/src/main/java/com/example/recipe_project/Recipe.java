@@ -55,6 +55,7 @@ public class Recipe extends AppCompatActivity {
 
     private boolean isFullHeart = false; //빈 하트
     List<Integer> ing_id = new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,27 +65,34 @@ public class Recipe extends AppCompatActivity {
         FirebaseApp.initializeApp(this);
 
         db = FirebaseFirestore.getInstance();
+
         user = FirebaseAuth.getInstance().getCurrentUser();
 
-        Button heartButton = findViewById(R.id.recipe_heart);
+        int recipeID = getIntent().getIntExtra("recipeID", -1);
+
+        heartButton = findViewById(R.id.recipe_heart);
+
+
+
+        // 찜하기 상태 초기화
+        checkIfFavorite(recipeID);
+
         heartButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int recipeID = getIntent().getIntExtra("recipeID", -1);
                 String u_name = user.getEmail();
 
                 if (isFullHeart) {
                     removeRecipeIdFromDocument(u_name, recipeID);
                     heartButton.setBackgroundResource(R.drawable.ic_emptyheart);
+                    isFullHeart = false;
                 } else {
                     addDataToFirestore(recipeID, u_name);
                     heartButton.setBackgroundResource(R.drawable.ic_fullheart);
+                    isFullHeart = true;
                 }
-                isFullHeart = !isFullHeart;
             }
         });
-
-
 
 
         textView1 = findViewById(R.id.textView1);
@@ -109,7 +117,6 @@ public class Recipe extends AppCompatActivity {
                     }
 
 
-
                 } else {
                     Log.d(TAG, "GET FAILED" + task.getException());
                 }
@@ -126,6 +133,7 @@ public class Recipe extends AppCompatActivity {
             }
         });
     }
+
     View.OnClickListener ClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
@@ -172,7 +180,7 @@ public class Recipe extends AppCompatActivity {
             // 서치에서 보낸 인텐트 가져오기
 //            Intent intent = getIntent();
 //            FindItem selectedItem = (FindItem) intent.getSerializableExtra("selectedItem");
-            int recipeID = getIntent().getIntExtra("recipeID",1);
+            int recipeID = getIntent().getIntExtra("recipeID", 1);
 
             // 받은 데이터 사용
             if (recipeID != 0) {
@@ -208,7 +216,7 @@ public class Recipe extends AppCompatActivity {
                     recipeIngredientIDs.add((Long) id);
                 }
             }
-            for(int j=0; j<recipeIngredientIDs.size(); j++){
+            for (int j = 0; j < recipeIngredientIDs.size(); j++) {
 
                 ing_id.add(Math.toIntExact(recipeIngredientIDs.get(j)));
                 System.out.println(ing_id.get(j));
@@ -237,9 +245,9 @@ public class Recipe extends AppCompatActivity {
                 lineLayout.setOrientation(LinearLayout.HORIZONTAL);
                 LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
                         LinearLayout.LayoutParams.MATCH_PARENT,
-                        LinearLayout.LayoutParams.WRAP_CONTENT,1
+                        LinearLayout.LayoutParams.WRAP_CONTENT, 1
                 );
-                layoutParams.setMargins(15,0,15,0);
+                layoutParams.setMargins(15, 0, 15, 0);
                 lineLayout.setLayoutParams(layoutParams);
                 layout.addView(lineLayout);
             }
@@ -260,18 +268,17 @@ public class Recipe extends AppCompatActivity {
                     buttonSize,
                     buttonSize
             );
-            buttonParams.setMargins(20,20,20,20);
+            buttonParams.setMargins(20, 20, 20, 20);
             imageView.setBackgroundColor(Color.BLACK);
             imageView.setLayoutParams(buttonParams);
-
 
 
             imageView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    List<Ing_post> ing_link= new ArrayList<>();
-                    for(int i =0 ; i<inglist.size(); i++){
-                        if(inglist.get(i).ingrediant_ID == (int) (long) id){
+                    List<Ing_post> ing_link = new ArrayList<>();
+                    for (int i = 0; i < inglist.size(); i++) {
+                        if (inglist.get(i).ingrediant_ID == (int) (long) id) {
                             ing_link.add(inglist.get(i));
                         }
 
@@ -279,13 +286,10 @@ public class Recipe extends AppCompatActivity {
 
 
                     Intent intent = new Intent(Recipe.this, Webview.class);
-                    intent.putExtra("Ing_link", ing_link.get(0).ingrediant_link );
+                    intent.putExtra("Ing_link", ing_link.get(0).ingrediant_link);
                     startActivity(intent);
                 }
             });
-
-
-
 
 
             lineLayout.addView(imageView);
@@ -313,11 +317,13 @@ public class Recipe extends AppCompatActivity {
             listenerRegistration.remove();
         }
     }
+
     private boolean isUserLoggedIn() {// 사용자가 로그인한 상태인지 확인
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         return currentUser != null;
     }
-    public void addDataToFirestore(int r_id,String u_name) {
+
+    public void addDataToFirestore(int r_id, String u_name) {
         // 데이터를 저장할 Map 생성
         Map<String, Object> data = new HashMap<>();
         data.put("recipe_ID", r_id);
@@ -376,6 +382,7 @@ public class Recipe extends AppCompatActivity {
                     // 에러 메시지 등을 처리할 수 있습니다.
                 });
     }
+
     public void removeRecipeIdFromDocument(String u_name, int r_id) {
         // Firestore의 특정 컬렉션에서 문서 가져오기
         db.collection("your_collection_name")
@@ -410,5 +417,31 @@ public class Recipe extends AppCompatActivity {
                     // 문서 가져오기 실패 시 실행되는 부분
                     // 에러 메시지 등을 처리할 수 있습니다.
                 });
+    }
+
+    private void checkIfFavorite(int recipeID) {
+        // 사용자가 로그인한 상태인지 확인
+        if (user == null) {
+            return;
+        }
+
+        String userEmail = user.getEmail();
+        db.collection("favorite")
+                .whereEqualTo("user_id", userEmail)
+                .get()
+                .addOnSuccessListener(queryDocumentSnapshots -> {
+                    boolean isFavorited = false;
+                    for (DocumentSnapshot document : queryDocumentSnapshots) {
+                        List<Long> userFavorites = (List<Long>) document.get("recipe_ID");
+                        if (userFavorites != null && userFavorites.contains((long) recipeID)) {
+                            isFavorited = true;
+                            break;
+                        }
+                    }
+
+                    isFullHeart = isFavorited;
+                    heartButton.setBackgroundResource(isFavorited ? R.drawable.ic_fullheart : R.drawable.ic_emptyheart);
+                })
+                .addOnFailureListener(e -> Log.e(TAG, "즐겨찾기 확인 오류", e));
     }
 }
