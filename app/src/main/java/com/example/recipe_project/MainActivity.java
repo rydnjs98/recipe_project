@@ -206,7 +206,9 @@ public class MainActivity extends AppCompatActivity {
 
                         ImageView imageView = new ImageView(MainActivity.this);
                         imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-                        imageView.setBackgroundResource(R.drawable.round);
+                        imageView.setBackgroundResource(R.drawable.rounded_background);
+
+
                         imageView.setImageResource(imageResource);
 
                         FrameLayout.LayoutParams buttonParams = new FrameLayout.LayoutParams(
