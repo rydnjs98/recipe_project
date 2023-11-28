@@ -24,6 +24,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.ListenerRegistration;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -80,20 +81,19 @@ public class Recipe extends AppCompatActivity {
         heartButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String u_name = user.getEmail();
+                if (user == null) {
+                    Toast.makeText(Recipe.this, "사용자 정보를 확인할 수 없습니다.", Toast.LENGTH_SHORT).show();
+                    return;
+                }
 
+                String u_name = user.getEmail();
                 if (isFullHeart) {
                     removeRecipeIdFromDocument(u_name, recipeID);
-                    heartButton.setBackgroundResource(R.drawable.ic_emptyheart);
-                    isFullHeart = false;
                 } else {
                     addDataToFirestore(recipeID, u_name);
-                    heartButton.setBackgroundResource(R.drawable.ic_fullheart);
-                    isFullHeart = true;
                 }
             }
         });
-
 
         textView1 = findViewById(R.id.textView1);
         db = FirebaseFirestore.getInstance();
@@ -384,38 +384,54 @@ public class Recipe extends AppCompatActivity {
     }
 
     public void removeRecipeIdFromDocument(String u_name, int r_id) {
-        // Firestore의 특정 컬렉션에서 문서 가져오기
-        db.collection("your_collection_name")
+        // 찜 목록에서 레시피 제거
+        db.collection("favorite")
                 .whereEqualTo("user_id", u_name)
                 .get()
                 .addOnSuccessListener(queryDocumentSnapshots -> {
-                    for (DocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
-                        // 'recipe_id' 배열 필드의 현재 값 가져오기
-                        List<String> recipeIds = (List<String>) documentSnapshot.get("recipe_id");
+                    if (!queryDocumentSnapshots.isEmpty()) {
+                        DocumentSnapshot documentSnapshot = queryDocumentSnapshots.getDocuments().get(0);
+                        List<Long> recipeIds = (List<Long>) documentSnapshot.get("recipe_ID");
 
-                        // 특정 값 제거
-                        if (recipeIds != null && recipeIds.contains(r_id)) {
-                            recipeIds.remove(r_id);
+                        if (recipeIds != null && recipeIds.contains((long) r_id)) {
+                            recipeIds.remove((Long) (long) r_id);
+
+                            documentSnapshot.getReference().update("recipe_ID", recipeIds)
+                                    .addOnSuccessListener(aVoid -> {
+                                        Log.d(TAG, "레시피 찜 목록에서 제거 성공");
+                                        heartButton.setBackgroundResource(R.drawable.ic_emptyheart);
+                                        isFullHeart = false;
+
+                                        // recipe_like 카운트 감소
+                                        decrementRecipeLike(r_id);
+                                    })
+                                    .addOnFailureListener(e -> {
+                                        Log.e(TAG, "레시피 찜 목록에서 제거 실패", e);
+                                    });
                         }
-
-                        // 업데이트할 데이터 생성
-                        Map<String, Object> updateData = new HashMap<>();
-                        updateData.put("recipe_id", recipeIds);
-
-                        // 'recipe_id' 배열 필드 업데이트
-                        documentSnapshot.getReference().update(updateData)
-                                .addOnSuccessListener(aVoid -> {
-                                    // 업데이트 성공 시 실행되는 부분
-                                })
-                                .addOnFailureListener(e -> {
-                                    // 업데이트 실패 시 실행되는 부분
-                                    // 에러 메시지 등을 처리할 수 있습니다.
-                                });
+                    } else {
+                        Log.d(TAG, "사용자의 찜 목록이 존재하지 않습니다.");
                     }
                 })
                 .addOnFailureListener(e -> {
-                    // 문서 가져오기 실패 시 실행되는 부분
-                    // 에러 메시지 등을 처리할 수 있습니다.
+                    Log.e(TAG, "문서 가져오기 실패", e);
+                });
+    }
+
+    private void decrementRecipeLike(int r_id) {
+        db.collection("recipe")
+                .whereEqualTo("recipe_ID", r_id)
+                .get()
+                .addOnSuccessListener(queryDocumentSnapshots -> {
+                    if (!queryDocumentSnapshots.isEmpty()) {
+                        DocumentSnapshot recipeDocument = queryDocumentSnapshots.getDocuments().get(0);
+                        Long recipeLike = recipeDocument.getLong("recipe_like");
+                        if (recipeLike != null && recipeLike > 0) {
+                            recipeDocument.getReference().update("recipe_like", recipeLike - 1)
+                                    .addOnSuccessListener(aVoid -> Log.d(TAG, "recipe_like 감소 성공"))
+                                    .addOnFailureListener(e -> Log.e(TAG, "recipe_like 감소 실패", e));
+                        }
+                    }
                 });
     }
 
@@ -444,4 +460,5 @@ public class Recipe extends AppCompatActivity {
                 })
                 .addOnFailureListener(e -> Log.e(TAG, "즐겨찾기 확인 오류", e));
     }
+
 }
