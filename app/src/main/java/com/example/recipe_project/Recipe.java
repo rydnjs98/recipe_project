@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.text.method.ScrollingMovementMethod;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Gravity;
@@ -46,7 +47,7 @@ import java.util.Map;
 
 public class Recipe extends AppCompatActivity {
 
-    private TextView textView1;
+    private TextView textView1, textView4;
     private FirebaseFirestore db;
     private ListenerRegistration listenerRegistration;
     private YouTubePlayerView youTubePlayerView;
@@ -213,6 +214,9 @@ public class Recipe extends AppCompatActivity {
 
     private void processRecipeData(DocumentSnapshot recipeSnapshot) {
         String recipeInfo = recipeSnapshot.getString("recipe_info");
+        textView4 = findViewById(R.id.textView4);
+        textView4.setText(recipeInfo);
+        textView4.setMovementMethod(new ScrollingMovementMethod());
         Typeface typeface = ResourcesCompat.getFont(this, R.font.onepop);
 
 
