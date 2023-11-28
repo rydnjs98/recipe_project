@@ -85,7 +85,7 @@ public class Search extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
-
+        Toast.makeText(getApplicationContext(),"네잎 클로버를 누르면 메뉴를 추천해드려요!", Toast.LENGTH_LONG).show();
 
         tomain = findViewById(R.id.search_main_btn);
         tofavorite = findViewById(R.id.search_favotie_btn);
