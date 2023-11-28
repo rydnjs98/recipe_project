@@ -1,3 +1,21 @@
+# recipe_project 2023-11-28
+- 레시피 찜하기 버튼 클릭시 recipe 컬렉션의 recipe_like 도 적용되게 수정
+
+![image](https://github.com/rydnjs98/recipe_project/assets/89891055/85610e59-9bb7-4e66-950f-bf4dff014045)
+
+- Detail 페이지 하트 버튼 추가 및 수정 (DB 중첩 생성, 삭제 기능이 실행되지 않는 문제)
+- Detail 페이지 재료 Infomation 및 재료 이름 추가
+
+![image](https://github.com/rydnjs98/recipe_project/assets/89891055/e2244c52-89ce-466d-a382-d2abdfaaf13c) ![image](https://github.com/rydnjs98/recipe_project/assets/89891055/8769aa44-cc62-42e8-8a37-ed1b2f59c24b)
+
+
+- Search 페이지 네잎 클로버 클릭 안내 Toast 추가
+
+![image](https://github.com/rydnjs98/recipe_project/assets/89891055/78c4da70-d3de-4cb1-b527-64a6f0721859)
+
+
+- Main 페이지 하트 클릭 오류 수정 (클릭 시 Like 수의 감소 오류)
+ 
 # recipe_project 2023-11-26
 - 메인 페이지 출력시 favorite컬렉션 참조하여 하트 버튼 상태 설정
 - 하트 버튼 클릭시 찜하기/찜하기취소 기능 구현
