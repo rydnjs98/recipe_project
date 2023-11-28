@@ -4,9 +4,12 @@ import static com.example.recipe_project.DataAdapter.TAG;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.Gravity;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.view.View;
@@ -16,6 +19,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.res.ResourcesCompat;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -57,6 +61,8 @@ public class Recipe extends AppCompatActivity {
     private boolean isFullHeart = false; //빈 하트
     List<Integer> ing_id = new ArrayList<>();
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,8 +78,6 @@ public class Recipe extends AppCompatActivity {
         int recipeID = getIntent().getIntExtra("recipeID", -1);
 
         heartButton = findViewById(R.id.recipe_heart);
-
-
 
         // 찜하기 상태 초기화
         checkIfFavorite(recipeID);
@@ -209,6 +213,7 @@ public class Recipe extends AppCompatActivity {
 
     private void processRecipeData(DocumentSnapshot recipeSnapshot) {
         String recipeInfo = recipeSnapshot.getString("recipe_info");
+        Typeface typeface = ResourcesCompat.getFont(this, R.font.onepop);
 
 
         // recipe_ingrediantIDs를 가져올 때 타입을 확인하여 List<Long>으로 변환
@@ -249,13 +254,36 @@ public class Recipe extends AppCompatActivity {
                 lineLayout = new LinearLayout(Recipe.this);
                 lineLayout.setOrientation(LinearLayout.HORIZONTAL);
                 LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
-                        LinearLayout.LayoutParams.MATCH_PARENT,
+                        LinearLayout.LayoutParams.WRAP_CONTENT,
                         LinearLayout.LayoutParams.WRAP_CONTENT, 1
                 );
                 layoutParams.setMargins(15, 0, 15, 0);
                 lineLayout.setLayoutParams(layoutParams);
                 layout.addView(lineLayout);
             }
+
+            //weight 속성을 위해 레이아웃 추가
+            LinearLayout line2Layout;
+            line2Layout = new LinearLayout(Recipe.this);
+            LinearLayout.LayoutParams linelayoutParams = new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.MATCH_PARENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT
+            );
+            line2Layout.setLayoutParams(linelayoutParams);
+            lineLayout.addView(line2Layout);
+
+            // 버튼과 텍스트뷰를 겹치기 위해 프레임 레이아웃 사용
+            FrameLayout currentLayout;
+            currentLayout = new FrameLayout(Recipe.this);
+            FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(
+                    FrameLayout.LayoutParams.MATCH_PARENT,
+                    FrameLayout.LayoutParams.WRAP_CONTENT
+            );
+//            layoutParams.setMargins(20,20,20,20);
+            currentLayout.setLayoutParams(layoutParams);
+            line2Layout.addView(currentLayout);
+
+            //재료 imageView 추가
             String imageName = "i_" + id;
             int imageResource = getResources().getIdentifier(imageName, "drawable", getPackageName());
             ImageView imageView = new ImageView(Recipe.this);
@@ -269,14 +297,14 @@ public class Recipe extends AppCompatActivity {
 
             // 버튼의 너비를 화면 가로 크기의 1/3로 설정하여 정사각형으로 만듭니다.
             int buttonSize = (screenWidth / 3) - 50;
-            LinearLayout.LayoutParams buttonParams = new LinearLayout.LayoutParams(
+            FrameLayout.LayoutParams buttonParams = new FrameLayout.LayoutParams(
                     buttonSize,
                     buttonSize
             );
             buttonParams.setMargins(20, 20, 20, 20);
             imageView.setBackgroundColor(Color.BLACK);
             imageView.setLayoutParams(buttonParams);
-
+            currentLayout.addView(imageView);
 
             imageView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -297,7 +325,30 @@ public class Recipe extends AppCompatActivity {
             });
 
 
-            lineLayout.addView(imageView);
+
+            // textview 추가
+            TextView textView = new TextView(Recipe.this);
+            db.collection("ingrediant")
+                    .whereEqualTo("ingrediant_ID", id)
+                    .get()
+                    .addOnSuccessListener(queryDocumentSnapshots -> {
+                                DocumentSnapshot documentSnapshot = queryDocumentSnapshots.getDocuments().get(0);
+                        String ingrediant_name = documentSnapshot.getString("ingrediant_name");
+                        textView.setText(ingrediant_name);
+                    });
+            FrameLayout.LayoutParams textParams = new FrameLayout.LayoutParams(
+                    FrameLayout.LayoutParams.WRAP_CONTENT,
+                    FrameLayout.LayoutParams.WRAP_CONTENT, 10
+            );
+            textView.setTextSize(20);
+            textView.setTypeface(typeface);
+            textView.setTextColor(Color.WHITE);
+            textView.setShadowLayer(15, 0, 0, Color.BLACK);
+            textParams.gravity = Gravity.BOTTOM | Gravity.CENTER;
+
+
+            currentLayout.addView(textView, textParams);
+
             Log.d("RecipeActivity", "id: " + id);
             count++;
         }
