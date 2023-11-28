@@ -70,7 +70,7 @@ public class Recipe extends AppCompatActivity {
         setContentView(R.layout.activity_recipe);
 //        Button btn = findViewById(R.id.btnOne);
         // Firebase 초기화
-        FirebaseApp.initializeApp(this);
+//        FirebaseApp.initializeApp(this);
 
         db = FirebaseFirestore.getInstance();
 
@@ -216,7 +216,7 @@ public class Recipe extends AppCompatActivity {
         String recipeInfo = recipeSnapshot.getString("recipe_info");
         textView4 = findViewById(R.id.textView4);
         textView4.setText(recipeInfo);
-        textView4.setMovementMethod(new ScrollingMovementMethod());
+//        textView4.setMovementMethod(new ScrollingMovementMethod());
         Typeface typeface = ResourcesCompat.getFont(this, R.font.onepop);
 
 

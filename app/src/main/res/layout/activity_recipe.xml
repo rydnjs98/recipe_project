@@ -20,7 +20,9 @@
             android:layout_width="147dp"
             android:layout_height="wrap_content"
             android:textSize="24dp"
-            android:text="요리제목" />
+            android:text="요리제목"
+            android:textColor="@color/black"
+            android:fontFamily="@font/onepop"/>
 
         <Space
             android:layout_width="209dp"
@@ -42,45 +44,60 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center" />
 
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="10dp"
-        android:text="info" />
 
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:textSize="20dp"
-        android:scrollbars="vertical"
-        android:text="" />
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="10dp"
-        android:text="Ingredients"/>
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="10dp" />
+
 
     <ScrollView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="7">
-
         <LinearLayout
-            android:id="@+id/ingrediant_layout"
+            android:id="@+id/L_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:textSize="25dp"
+                android:text="Info" />
 
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20dp"
+                android:fontFamily="@font/onepop"
+                android:textColor="@color/black"
+                android:layout_marginLeft="15dp"
+                android:text="" />
+
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:textSize="25dp"
+                android:text="Ingredients"/>
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="10dp" />
+
+            <LinearLayout
+                android:id="@+id/ingrediant_layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+            </LinearLayout>
         </LinearLayout>
+
     </ScrollView>
 
     <!--    <LinearLayout-->
