@@ -49,6 +49,8 @@ public class Webview  extends AppCompatActivity {
 //        webView.loadUrl("http://www.naver.com");
 
 
+
+
         if (receivedMessage.startsWith("intent:")) {
             try {
                 Intent intents = Intent.parseUri(receivedMessage, Intent.URI_INTENT_SCHEME);

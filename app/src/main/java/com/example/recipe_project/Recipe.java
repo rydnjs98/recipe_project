@@ -1,6 +1,8 @@
 package com.example.recipe_project;
 
-import static com.example.recipe_project.DataAdapter.TAG;
+
+
+import static com.google.firebase.messaging.Constants.MessageNotificationKeys.TAG;
 
 import android.content.Intent;
 import android.graphics.Color;

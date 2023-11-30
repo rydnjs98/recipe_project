@@ -1,6 +1,7 @@
 package com.example.recipe_project;
 
-import static com.example.recipe_project.DataAdapter.TAG;
+
+import static com.google.firebase.messaging.Constants.MessageNotificationKeys.TAG;
 
 import android.content.Context;
 import android.content.Intent;
@@ -74,12 +75,10 @@ public class Search extends AppCompatActivity {
     Date mDate;
     SimpleDateFormat mFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 
-    Context context;
-    TextView textView1, textView2;
-    String text1, text2, text3;
+
     String result;
 
-    Toast toast;
+
     static int j = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
