@@ -189,7 +189,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1" />
 
-                    <Button
+                    <android.widget.Button
                         android:id="@+id/search_search_btn"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
@@ -203,7 +203,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1" />
 
-                    <Button
+                    <android.widget.Button
                         android:id="@+id/search_main_btn"
                         android:layout_width="2dp"
                         android:layout_height="wrap_content"
@@ -216,7 +216,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1" />
 
-                    <Button
+                    <android.widget.Button
                         android:id="@+id/search_favotie_btn"
                         android:layout_width="1dp"
                         android:layout_height="wrap_content"
