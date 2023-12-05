@@ -15,9 +15,9 @@
 
         <EditText
             android:id="@+id/search_edt"
-            android:layout_width="290dp"
-            android:layout_height="53dp"
-            android:layout_marginStart="16dp"
+            android:layout_width="205dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="100dp"
             android:layout_marginTop="16dp"
             android:background="@drawable/edt_back"
             android:hint="Search"
@@ -29,7 +29,7 @@
             android:id="@+id/search_textView"
             android:layout_width="40dp"
             android:layout_height="25dp"
-            android:layout_marginStart="28dp"
+            android:layout_marginStart="16dp"
             android:layout_marginTop="84dp"
             android:background="@drawable/search_back"
             android:gravity="center"
@@ -41,7 +41,7 @@
             android:id="@+id/search_textView2"
             android:layout_width="40dp"
             android:layout_height="25dp"
-            android:layout_marginStart="120dp"
+            android:layout_marginStart="64dp"
             android:layout_marginTop="84dp"
             android:background="@drawable/search_back"
             android:gravity="center"
@@ -53,7 +53,7 @@
             android:id="@+id/search_textView4"
             android:layout_width="40dp"
             android:layout_height="25dp"
-            android:layout_marginStart="220dp"
+            android:layout_marginStart="112dp"
             android:layout_marginTop="84dp"
             android:background="@drawable/search_back"
             android:gravity="center"
@@ -66,23 +66,81 @@
             android:layout_width="40dp"
             android:layout_height="25dp"
             android:layout_marginTop="84dp"
-            android:layout_marginEnd="52dp"
+            android:layout_marginEnd="212dp"
             android:background="@drawable/search_back"
             android:gravity="center"
             android:text="일식"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+
+        <TextView
+            android:id="@+id/search_textView5"
+            android:layout_width="40dp"
+            android:layout_height="25dp"
+            android:layout_marginTop="84dp"
+            android:layout_marginEnd="160dp"
+            android:background="@drawable/search_back"
+            android:gravity="center"
+            android:text="맑음"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/search_textView6"
+            android:layout_width="40dp"
+            android:layout_height="25dp"
+            android:layout_marginTop="84dp"
+            android:layout_marginEnd="112dp"
+            android:background="@drawable/search_back"
+            android:gravity="center"
+            android:text="흐림"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/search_textView7"
+            android:layout_width="40dp"
+            android:layout_height="25dp"
+            android:layout_marginTop="84dp"
+            android:layout_marginEnd="64dp"
+            android:background="@drawable/search_back"
+            android:gravity="center"
+            android:text="비"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/search_textView8"
+            android:layout_width="40dp"
+            android:layout_height="25dp"
+            android:layout_marginTop="84dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/search_back"
+            android:gravity="center"
+            android:text="눈"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <ImageButton
-            android:id="@+id/search_image_btn"
+            android:id="@+id/search_image_btn_time"
+            android:layout_width="60dp"
+            android:layout_height="51dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="332dp"
+            android:background="@drawable/clock"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageButton
+            android:id="@+id/search_image_btn_weather"
             android:layout_width="60dp"
             android:layout_height="51dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
-            android:background="@drawable/lucky"
+            android:background="@drawable/weather"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            />
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
