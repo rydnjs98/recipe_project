@@ -128,27 +128,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        //하트 버튼 클릭 리스너
-        View.OnClickListener heartclickListener = new View.OnClickListener() {
-
-
-
-            @Override
-            public void onClick(View view) {
-
-
-
-                Button clickedButton = (Button) view;
-                if (isFullHeart) {
-                    clickedButton.setBackgroundResource(R.drawable.ic_emptyheart);
-                } else {
-
-                    clickedButton.setBackgroundResource(R.drawable.ic_fullheart);
-                }
-                isFullHeart = !isFullHeart;
-            }
-        };
-
         // recipe 컬렉션에서 recipe_like를 기준으로 내림차순으로 정렬
 
 
@@ -231,58 +210,58 @@ public class MainActivity extends AppCompatActivity {
                             }
                         });
 
-                                Button button = new Button(MainActivity.this);
+                        Button button = new Button(MainActivity.this);
 
-                                button.setBackgroundResource(R.drawable.ic_emptyheart);
-                                FrameLayout.LayoutParams heartbuttonParams = new FrameLayout.LayoutParams(
-                                        100,
-                                        100
-                                );
-                                // 버튼을 이미지 뷰의 왼쪽 위에 위치하도록 설정
-                                heartbuttonParams.gravity = Gravity.START | Gravity.TOP;
-                                heartbuttonParams.setMargins(0, 0, 20, 20); // 버튼의 여백 설정
-
-
-                                button.setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View view) {
+                        button.setBackgroundResource(R.drawable.ic_emptyheart);
+                        FrameLayout.LayoutParams heartbuttonParams = new FrameLayout.LayoutParams(
+                                100,
+                                100
+                        );
+                        // 버튼을 이미지 뷰의 왼쪽 위에 위치하도록 설정
+                        heartbuttonParams.gravity = Gravity.START | Gravity.TOP;
+                        heartbuttonParams.setMargins(0, 0, 20, 20); // 버튼의 여백 설정
 
 
-                                        Button clickedButton = (Button) view;
-                                        if (isFullHeart) {
-                                            r_id = recipeID;
-                                            u_name = user.getEmail();
-                                            removeRecipeIdFromDocument(u_name,r_id);
-                                            clickedButton.setBackgroundResource(R.drawable.ic_emptyheart);
-                                        } else {
-                                            r_id = recipeID;
-                                            u_name = user.getEmail();
-                                            addDataToFirestore(r_id,u_name);
-                                            clickedButton.setBackgroundResource(R.drawable.ic_fullheart);
-                                        }
-                                        isFullHeart = !isFullHeart;
-                                    }
-                                });
+                        button.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
 
 
-                                if(user != null) {
-                                    String u_name = user.getEmail();
-                                    db.collection("favorite")
-                                            .whereEqualTo("user_id", u_name)
-                                            .get()
-                                            .addOnSuccessListener(queryDocumentSnapshots -> {
-                                                DocumentSnapshot documentSnapshot = queryDocumentSnapshots.getDocuments().get(0);
-                                                List<Integer> recipeIds = (List<Integer>) documentSnapshot.get("recipe_ID");
-                                                Log.d("tag", recipeIds.toString());
-                                                long r_id = document.getLong("recipe_ID");
-                                                if(recipeIds.contains(r_id)){
-                                                    button.setBackgroundResource(R.drawable.ic_fullheart);
-                                                    isFullHeart = !isFullHeart;
-                                                }else {
-                                                    button.setBackgroundResource(R.drawable.ic_emptyheart);
-                                                }
-                                            });
+                                Button clickedButton = (Button) view;
+                                if (isFullHeart) {
+                                    r_id = recipeID;
+                                    u_name = user.getEmail();
+                                    removeRecipeIdFromDocument(u_name,r_id);
+                                    clickedButton.setBackgroundResource(R.drawable.ic_emptyheart);
+                                } else {
+                                    r_id = recipeID;
+                                    u_name = user.getEmail();
+                                    addDataToFirestore(r_id,u_name);
+                                    clickedButton.setBackgroundResource(R.drawable.ic_fullheart);
                                 }
+                                isFullHeart = !isFullHeart;
+                            }
+                        });
+
+
+                        if(user != null) {
+                            String u_name = user.getEmail();
+                            db.collection("favorite")
+                                    .whereEqualTo("user_id", u_name)
+                                    .get()
+                                    .addOnSuccessListener(queryDocumentSnapshots -> {
+                                        DocumentSnapshot documentSnapshot = queryDocumentSnapshots.getDocuments().get(0);
+                                        List<Integer> recipeIds = (List<Integer>) documentSnapshot.get("recipe_ID");
+                                        Log.d("tag", recipeIds.toString());
+                                        long r_id = document.getLong("recipe_ID");
+                                        if(recipeIds.contains(r_id)){
+                                            button.setBackgroundResource(R.drawable.ic_fullheart);
+                                            isFullHeart = !isFullHeart;
+                                        }else {
+                                            button.setBackgroundResource(R.drawable.ic_emptyheart);
+                                        }
+                                    });
+                        }
 
 
 
