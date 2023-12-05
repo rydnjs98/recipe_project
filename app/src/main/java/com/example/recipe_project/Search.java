@@ -304,6 +304,14 @@ public class Search extends AppCompatActivity {
                             }
                             mRecyclerAdapter.setFindList(gotlist);
                         }
+                    }
+                    else if (text.equals("안주")) {
+                        for (int i = 0; i < searchlist.size(); i++) {
+                            if (searchlist.get(i).recipe_tag.contains(text)) {
+                                gotlist.add(searchlist.get(i));
+                            }
+                            mRecyclerAdapter.setFindList(gotlist);
+                        }
                     }else {
                         for (int i = 0; i < searchlist.size(); i++) {
                             if (searchlist.get(i).recipe_name.contains(text)) {
