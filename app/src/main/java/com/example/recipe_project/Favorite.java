@@ -1,11 +1,8 @@
 package com.example.recipe_project;
 
-import android.content.Context;
 import android.content.Intent;
-import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
@@ -78,9 +75,9 @@ public class Favorite extends AppCompatActivity {
                                 LinearLayout layout = findViewById(R.id.Favirute_layout); // 레이아웃의 ID를 가져옵니다.
 
                                 for (QueryDocumentSnapshot document : task.getResult()) {
-                                    Log.d(TAG, document.getId() + "=>" + document.getData());
+//                                    Log.d(TAG, document.getId() + "=>" + document.getData());
                                     String documentName = document.getId();
-                                    Log.d(TAG, document.getId() + "=>" + document.getId());
+//                                    Log.d(TAG, document.getId() + "=>" + document.getId());
                                     List<String> arrayData = (List<String>) document.get("recipe_ID");
 
                                     if (arrayData != null) {
@@ -107,7 +104,7 @@ public class Favorite extends AppCompatActivity {
 
 
                                                             for (QueryDocumentSnapshot document : task.getResult()) {
-                                                                Log.d(TAG, document.getId() + "=>" + document.getData().get("recipe_name"));
+//                                                                Log.d(TAG, document.getId() + "=>" + document.getData().get("recipe_name"));
                                                                 String recipeName = document.getString("recipe_name");
 
                                                                 int recipeID = document.getLong("recipe_ID").intValue();

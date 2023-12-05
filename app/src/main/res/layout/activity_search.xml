@@ -8,89 +8,134 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0px"
-        android:layout_weight="2">
+        android:layout_weight="1.8"
+        android:orientation="vertical">
 
-        <EditText
-            android:id="@+id/search_edt"
-            android:layout_width="301dp"
-            android:layout_height="53dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:background="@drawable/edt_back"
-            android:hint="Search"
-            android:paddingLeft="20dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/search_textView"
-            android:layout_width="40dp"
-            android:layout_height="25dp"
-            android:layout_marginStart="28dp"
-            android:layout_marginTop="84dp"
-            android:background="@drawable/search_back"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="양식"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:orientation="horizontal"
+            android:layout_marginBottom="40px"
+            android:layout_marginTop="10px">
 
-        <TextView
-            android:id="@+id/search_textView2"
-            android:layout_width="40dp"
-            android:layout_height="25dp"
-            android:layout_marginStart="120dp"
-            android:layout_marginTop="84dp"
-            android:background="@drawable/search_back"
+            <ImageButton
+                android:id="@+id/search_image_btn_weather"
+                android:layout_width="60dp"
+                android:layout_height="51dp"
+                android:layout_marginRight="40px"
+                android:background="@drawable/weather" />
+
+            <EditText
+                android:id="@+id/search_edt"
+                android:layout_width="205dp"
+                android:layout_height="48dp"
+                android:layout_marginRight="40px"
+                android:background="@drawable/edt_back"
+                android:hint="Search"
+                android:paddingLeft="20dp" />
+
+            <ImageButton
+                android:id="@+id/search_image_btn_time"
+                android:layout_width="60dp"
+                android:layout_height="51dp"
+                android:layout_marginRight="40px"
+                android:background="@drawable/clock" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="중식"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/search_textView4"
-            android:layout_width="40dp"
-            android:layout_height="25dp"
-            android:layout_marginStart="220dp"
-            android:layout_marginTop="84dp"
-            android:background="@drawable/search_back"
-            android:gravity="center"
-            android:text="한식"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            <TextView
+                android:id="@+id/search_textView"
+                android:layout_width="40dp"
+                android:layout_height="25dp"
+                android:layout_marginRight="20px"
+                android:background="@drawable/search_back"
+                android:gravity="center"
+                android:text="양식" />
 
-        <TextView
-            android:id="@+id/search_textView3"
-            android:layout_width="40dp"
-            android:layout_height="25dp"
-            android:layout_marginTop="84dp"
-            android:layout_marginEnd="52dp"
-            android:background="@drawable/search_back"
-            android:gravity="center"
-            android:text="일식"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            <TextView
+                android:id="@+id/search_textView2"
+                android:layout_width="40dp"
+                android:layout_height="25dp"
+                android:layout_marginRight="20px"
+                android:background="@drawable/search_back"
+                android:gravity="center"
+                android:text="중식" />
 
-        <ImageButton
-            android:id="@+id/search_image_btn"
-            android:layout_width="65dp"
-            android:layout_height="51dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            android:background="@drawable/lucky"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            />
+            <TextView
+                android:id="@+id/search_textView4"
+                android:layout_width="40dp"
+                android:layout_height="25dp"
+                android:layout_marginRight="20px"
+                android:background="@drawable/search_back"
+                android:gravity="center"
+                android:text="한식" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <TextView
+                android:id="@+id/search_textView3"
+                android:layout_width="40dp"
+                android:layout_height="25dp"
+                android:layout_marginRight="20px"
+                android:background="@drawable/search_back"
+                android:gravity="center"
+                android:text="일식" />
+
+
+            <TextView
+                android:id="@+id/search_textView5"
+                android:layout_width="40dp"
+                android:layout_height="25dp"
+                android:layout_marginRight="20px"
+                android:background="@drawable/search_back"
+                android:gravity="center"
+                android:text="맑음" />
+
+            <TextView
+                android:id="@+id/search_textView6"
+                android:layout_width="40dp"
+                android:layout_height="25dp"
+                android:layout_marginRight="20px"
+                android:background="@drawable/search_back"
+                android:gravity="center"
+                android:text="흐림" />
+
+            <TextView
+                android:id="@+id/search_textView7"
+                android:layout_width="40dp"
+                android:layout_height="25dp"
+                android:layout_marginRight="20px"
+                android:background="@drawable/search_back"
+                android:gravity="center"
+                android:text="비" />
+
+            <TextView
+                android:id="@+id/search_textView8"
+                android:layout_width="40dp"
+                android:layout_height="25dp"
+                android:layout_marginRight="20px"
+                android:background="@drawable/search_back"
+                android:gravity="center"
+                android:text="눈" />
+        </LinearLayout>
+
+
+    </LinearLayout>
 
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0px"
-        android:layout_weight="7"
+        android:layout_weight="8"
         android:orientation="vertical">
 
         <androidx.recyclerview.widget.RecyclerView
@@ -105,33 +150,110 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0px"
-        android:layout_weight="1"
+        android:layout_height="300px"
+        android:gravity="bottom"
+
         android:orientation="horizontal"
-        android:paddingLeft="5dp"
         tools:layout_editor_absoluteX="-94dp"
         tools:layout_editor_absoluteY="656dp">
 
-        <Button
-            android:id="@+id/search_search_btn"
-            android:layout_width="133dp"
-            android:layout_height="53dp"
-            android:layout_marginBottom="24dp"
-            android:text="Search" />
 
-        <Button
-            android:id="@+id/search_main_btn"
-            android:layout_width="133dp"
-            android:layout_height="53dp"
-            android:layout_marginBottom="16dp"
-            android:text="Main" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="112dp"
+            android:background="@drawable/home"
+            android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/search_favotie_btn"
-            android:layout_width="133dp"
-            android:layout_height="54dp"
-            android:layout_marginBottom="16dp"
-            android:text="Favorite" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="bottom"
+                android:orientation="vertical">
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="22dp" />
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="22dp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <Space
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+
+                    <android.widget.Button
+                        android:id="@+id/search_search_btn"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@drawable/search_icon"
+
+                        android:text="" />
+
+                    <Space
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+
+                    <android.widget.Button
+                        android:id="@+id/search_main_btn"
+                        android:layout_width="2dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@drawable/home_icon"
+                        android:text="" />
+
+                    <Space
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+
+                    <android.widget.Button
+                        android:id="@+id/search_favotie_btn"
+                        android:layout_width="1dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@drawable/heart_icon"
+                        android:text="" />
+
+                    <Space
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+                </LinearLayout>
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <!--        <Button-->
+        <!--            android:id="@+id/search_search_btn"-->
+        <!--            android:layout_width="133dp"-->
+        <!--            android:layout_height="53dp"-->
+        <!--            android:layout_marginBottom="24dp"-->
+        <!--            android:text="Search" />-->
+
+        <!--        <Button-->
+        <!--            android:id="@+id/search_main_btn"-->
+        <!--            android:layout_width="133dp"-->
+        <!--            android:layout_height="53dp"-->
+        <!--            android:layout_marginBottom="16dp"-->
+        <!--            android:text="Main" />-->
+
+        <!--        <Button-->
+        <!--            android:id="@+id/search_favotie_btn"-->
+        <!--            android:layout_width="133dp"-->
+        <!--            android:layout_height="54dp"-->
+        <!--            android:layout_marginBottom="16dp"-->
+        <!--            android:text="Favorite" />-->
     </LinearLayout>
 
 </LinearLayout>

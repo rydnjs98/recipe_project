@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/search_backgr"
     android:orientation="vertical"
     tools:context=".MainActivity">
 
@@ -36,6 +37,14 @@
             android:background="@drawable/ic_emptyheart"
             android:text="" />
 
+        <TextView
+            android:id="@+id/like_num"
+            android:layout_width="58dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="right"
+            android:text="like"
+            android:textSize="25dp" />
+
     </LinearLayout>
 
     <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
@@ -45,36 +54,35 @@
         android:layout_gravity="center" />
 
 
-
-
-
     <ScrollView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="7">
+
         <LinearLayout
             android:id="@+id/L_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
+
             <TextView
                 android:id="@+id/textView3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="10dp"
-                android:textSize="25dp"
-                android:text="Info" />
+                android:text="Info"
+                android:textSize="25dp" />
 
             <TextView
                 android:id="@+id/textView4"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="20dp"
-                android:fontFamily="@font/onepop"
-                android:textColor="@color/black"
                 android:layout_marginLeft="15dp"
-                android:text="" />
+                android:fontFamily="@font/onepop"
+                android:text=""
+                android:textColor="@color/black"
+                android:textSize="20dp" />
 
 
             <TextView
@@ -83,8 +91,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="10dp"
-                android:textSize="25dp"
-                android:text="Ingredients"/>
+                android:text="Ingredients"
+                android:textSize="25dp" />
+
             <Space
                 android:layout_width="match_parent"
                 android:layout_height="10dp" />
@@ -95,10 +104,79 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 
+
             </LinearLayout>
+
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/textView6"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="left"
+                        android:text="추천메뉴"
+                        android:padding="10dp" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_horizontal">
+
+
+                        <RelativeLayout
+                            android:id="@+id/Recipe_reco1"
+                            android:layout_width="108.13dp"
+                            android:layout_height="108.13dp"
+                            android:layout_margin="10dp"
+
+                            android:elevation="4dp">
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:id="@+id/Recipe_reco2"
+                            android:layout_width="108.13dp"
+                            android:layout_height="108.13dp"
+                            android:layout_margin="10dp"
+                            android:background="@color/black"
+                            android:elevation="4dp">
+                        </RelativeLayout>
+                        <RelativeLayout
+                        android:id="@+id/Recipe_reco3"
+                        android:layout_width="108.13dp"
+                        android:layout_height="108.13dp"
+                        android:layout_margin="10dp"
+                        android:background="@color/black"
+                        android:elevation="4dp">
+                    </RelativeLayout>
+                        <RelativeLayout
+                            android:id="@+id/Recipe_reco4"
+                            android:layout_width="108.13dp"
+                            android:layout_height="108.13dp"
+                            android:layout_margin="10dp"
+                            android:background="@color/black"
+                            android:elevation="4dp">
+                        </RelativeLayout>
+
+
+                    </LinearLayout>
+                </LinearLayout>
+            </HorizontalScrollView>
+
         </LinearLayout>
 
+
+
     </ScrollView>
+
+
 
     <!--    <LinearLayout-->
 <!--        android:id="@+id/layout2"-->

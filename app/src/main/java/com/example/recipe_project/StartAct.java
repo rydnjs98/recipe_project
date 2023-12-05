@@ -1,6 +1,6 @@
 package com.example.recipe_project;
 
-import static com.example.recipe_project.DataAdapter.TAG;
+
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -38,88 +38,10 @@ import java.util.Map;
 
 public class StartAct  extends AppCompatActivity {
 
-    ImageView imgWes, imgJap, imgChi, imgKor;
 
-    TextView txtWes, txtJap, txtChi, txtKor;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_start);
 
-        imgWes = findViewById(R.id.start_imgWes);
-        imgJap = findViewById(R.id.start_imgJap);
-        imgChi = findViewById(R.id.start_imgChi);
-        imgKor = findViewById(R.id.start_imgKor);
-
-        txtWes = findViewById(R.id.start_txtWes);
-        txtJap = findViewById(R.id.start_txtJap);
-        txtChi = findViewById(R.id.start_txtChi);
-        txtKor = findViewById(R.id.start_txtKor);
-
-        imgWes.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(StartAct.this, MainActivity.class);
-                intent.putExtra("태그", "양식");
-                startActivity(intent);
-            }
-        });
-        imgJap.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(StartAct.this, MainActivity.class);
-                intent.putExtra("태그", "일식");
-                startActivity(intent);
-            }
-        });
-        imgChi.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(StartAct.this, MainActivity.class);
-                intent.putExtra("태그", "중식");
-                startActivity(intent);
-            }
-        });
-        imgKor.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(StartAct.this, MainActivity.class);
-                intent.putExtra("태그", "한식");
-                startActivity(intent);
-            }
-        });
-
-        txtWes.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(StartAct.this, MainActivity.class);
-                intent.putExtra("태그", "양식");
-                startActivity(intent);
-            }
-        });
-        txtJap.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(StartAct.this, MainActivity.class);
-                intent.putExtra("태그", "일식");
-                startActivity(intent);
-            }
-        });
-        txtChi.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(StartAct.this, MainActivity.class);
-                intent.putExtra("태그", "중식");
-                startActivity(intent);
-            }
-        });
-        txtKor.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(StartAct.this, MainActivity.class);
-                intent.putExtra("태그", "한식");
-                startActivity(intent);
-            }
-        });
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         String TAG = "start";

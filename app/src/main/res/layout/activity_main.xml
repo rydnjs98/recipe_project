@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/search_backgr"
     tools:context=".MainActivity">
 
     <LinearLayout
@@ -84,8 +85,9 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="112dp"
+                android:layout_height="300px"
                 android:background="@drawable/home"
+                android:gravity="bottom"
                 android:orientation="horizontal">
 
                 <LinearLayout
@@ -112,7 +114,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1" />
 
-                        <Button
+                        <android.widget.Button
                             android:id="@+id/main_search_btn"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
@@ -126,7 +128,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1" />
 
-                        <Button
+                        <android.widget.Button
                             android:id="@+id/main_main_btn"
                             android:layout_width="2dp"
                             android:layout_height="wrap_content"
@@ -139,7 +141,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1" />
 
-                        <Button
+                        <android.widget.Button
                             android:id="@+id/main_favorite_btn"
                             android:layout_width="1dp"
                             android:layout_height="wrap_content"

@@ -1,6 +1,8 @@
 package com.example.recipe_project;
 
-import static com.example.recipe_project.DataAdapter.TAG;
+
+
+import static com.google.firebase.messaging.Constants.MessageNotificationKeys.TAG;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -10,11 +12,13 @@ import android.text.method.ScrollingMovementMethod;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.view.View;
 import android.widget.Button;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -44,6 +48,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 public class Recipe extends AppCompatActivity {
 
@@ -57,11 +62,12 @@ public class Recipe extends AppCompatActivity {
 
     Button heartButton;
     private FirebaseUser user;
+    private TextView like_num;
 
 
     private boolean isFullHeart = false; //빈 하트
     List<Integer> ing_id = new ArrayList<>();
-
+    private List<Integer> selectedImageIds = new ArrayList<>();//이미 선택된 이미지id저장
 
 
     @Override
@@ -82,6 +88,12 @@ public class Recipe extends AppCompatActivity {
 
         // 찜하기 상태 초기화
         checkIfFavorite(recipeID);
+
+        setRandomImageToView((RelativeLayout) findViewById(R.id.Recipe_reco1));
+        setRandomImageToView((RelativeLayout) findViewById(R.id.Recipe_reco2));
+        setRandomImageToView((RelativeLayout) findViewById(R.id.Recipe_reco3));
+        setRandomImageToView((RelativeLayout) findViewById(R.id.Recipe_reco4));
+
 
         heartButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -110,6 +122,7 @@ public class Recipe extends AppCompatActivity {
         youTubePlayerView = findViewById(R.id.youtube_player_view);
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         CollectionReference docref = db.collection("ingrediant");
+
 
         docref.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
@@ -218,6 +231,9 @@ public class Recipe extends AppCompatActivity {
         textView4.setText(recipeInfo);
 //        textView4.setMovementMethod(new ScrollingMovementMethod());
         Typeface typeface = ResourcesCompat.getFont(this, R.font.onepop);
+        long recipeLike = recipeSnapshot.getLong("recipe_like");
+        like_num = findViewById(R.id.like_num);
+        like_num.setText(String.valueOf(recipeLike)); // 좋아요 수를 표시합니다.
 
 
         // recipe_ingrediantIDs를 가져올 때 타입을 확인하여 List<Long>으로 변환
@@ -239,7 +255,7 @@ public class Recipe extends AppCompatActivity {
             Log.e("RecipeActivity", "recipe_ingrediantIDs의 타입이 List가 아니거나 null입니다.");
         }
 
-        long recipeLike = recipeSnapshot.getLong("recipe_like");
+
         String recipeLink = recipeSnapshot.getString("recipe_link");
         String recipeName = recipeSnapshot.getString("recipe_name");
         String recipeTag = recipeSnapshot.getString("recipe_tag");
@@ -329,14 +345,13 @@ public class Recipe extends AppCompatActivity {
             });
 
 
-
             // textview 추가
             TextView textView = new TextView(Recipe.this);
             db.collection("ingrediant")
                     .whereEqualTo("ingrediant_ID", id)
                     .get()
                     .addOnSuccessListener(queryDocumentSnapshots -> {
-                                DocumentSnapshot documentSnapshot = queryDocumentSnapshots.getDocuments().get(0);
+                        DocumentSnapshot documentSnapshot = queryDocumentSnapshots.getDocuments().get(0);
                         String ingrediant_name = documentSnapshot.getString("ingrediant_name");
                         textView.setText(ingrediant_name);
                     });
@@ -383,7 +398,7 @@ public class Recipe extends AppCompatActivity {
         return currentUser != null;
     }
 
-    public void addDataToFirestore(int r_id,String u_name) {
+    public void addDataToFirestore(int r_id, String u_name) {
         // 데이터를 저장할 Map 생성
         Map<String, Object> data = new HashMap<>();
         data.put("recipe_ID", r_id);
@@ -447,7 +462,7 @@ public class Recipe extends AppCompatActivity {
                 .get()
                 .addOnSuccessListener(queryDocumentSnapshots -> {
                     DocumentSnapshot documentSnapshot = queryDocumentSnapshots.getDocuments().get(0);
-                    Long r_like =  documentSnapshot.getLong("recipe_like") + 1;
+                    Long r_like = documentSnapshot.getLong("recipe_like") + 1;
                     Map<String, Object> updateData = new HashMap<>();
                     updateData.put("recipe_like", r_like);
                     documentSnapshot.getReference().set(updateData, SetOptions.merge())
@@ -539,4 +554,45 @@ public class Recipe extends AppCompatActivity {
                 .addOnFailureListener(e -> Log.e(TAG, "즐겨찾기 확인 오류", e));
     }
 
+    private void setRandomImageToView(RelativeLayout layout) {
+        ImageView imageView = new ImageView(this);
+        int imageResId = getRandomImageResId();
+        int recipeId = mapImageResIdToRecipeId(imageResId); // 해당하는 레시피 ID를 얻음
+
+        imageView.setImageResource(imageResId);
+        imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+        layout.addView(imageView, new RelativeLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.MATCH_PARENT));
+
+        imageView.setOnClickListener(v -> {
+            loadRecipeDetails(recipeId);
+        });
+    }
+
+    private int getRandomImageResId() {
+        Random random = new Random();
+        int randomNumber;
+
+        do {
+            randomNumber = random.nextInt(20) + 1;
+        } while (selectedImageIds.contains(randomNumber)); // 이미 선택된 이미지가 아닐 때까지 반복
+
+        selectedImageIds.add(randomNumber); // 선택된 이미지 ID를 리스트에 추가
+
+        String imageName = "img_" + randomNumber;
+        return getResources().getIdentifier(imageName, "drawable", getPackageName());
+    }
+
+
+
+    private int mapImageResIdToRecipeId(int imageResId) {
+        // TODO: 이미지 리소스 ID를 레시피 ID로 매핑하는 로직 구현
+        return 0; // 임시 반환값
+    }
+
+    private void loadRecipeDetails(int recipeId) {
+        // TODO: 레시피 ID를 사용하여 레시피 정보를 로드하는 로직 구현
+    }
 }
+
