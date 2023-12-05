@@ -59,6 +59,7 @@ public class Recipe extends AppCompatActivity {
 
     Button heartButton;
     private FirebaseUser user;
+    private TextView like_num;
 
 
     private boolean isFullHeart = false; //빈 하트
@@ -112,6 +113,7 @@ public class Recipe extends AppCompatActivity {
         youTubePlayerView = findViewById(R.id.youtube_player_view);
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         CollectionReference docref = db.collection("ingrediant");
+
 
         docref.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
@@ -220,6 +222,9 @@ public class Recipe extends AppCompatActivity {
         textView4.setText(recipeInfo);
 //        textView4.setMovementMethod(new ScrollingMovementMethod());
         Typeface typeface = ResourcesCompat.getFont(this, R.font.onepop);
+        long recipeLike = recipeSnapshot.getLong("recipe_like");
+        like_num = findViewById(R.id.like_num);
+        like_num.setText(String.valueOf(recipeLike)); // 좋아요 수를 표시합니다.
 
 
         // recipe_ingrediantIDs를 가져올 때 타입을 확인하여 List<Long>으로 변환
@@ -241,7 +246,7 @@ public class Recipe extends AppCompatActivity {
             Log.e("RecipeActivity", "recipe_ingrediantIDs의 타입이 List가 아니거나 null입니다.");
         }
 
-        long recipeLike = recipeSnapshot.getLong("recipe_like");
+
         String recipeLink = recipeSnapshot.getString("recipe_link");
         String recipeName = recipeSnapshot.getString("recipe_name");
         String recipeTag = recipeSnapshot.getString("recipe_tag");
