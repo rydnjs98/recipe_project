@@ -1,3 +1,22 @@
+# recipe_project 2023-12-06
+- 하단 네브바에 추천 페이지 이동 버튼 추가
+
+![image](https://github.com/rydnjs98/recipe_project/assets/89891055/75492f5c-59af-4e19-945e-27c5d7829955)
+
+- 레시피 상세 페이지 하단 추천 메뉴 기능 구현
+
+![image](https://github.com/rydnjs98/recipe_project/assets/89891055/75fb1d82-6f18-45ef-8757-ca33eb126333)
+
+- 로딩 페이지 이미지 추가
+
+![image](https://github.com/rydnjs98/recipe_project/assets/89891055/ffa31fd1-80e0-48f0-adbf-ef26cd74a75a)
+
+- 추천 기능 완성
+
+![image](https://github.com/rydnjs98/recipe_project/assets/89891055/961aa3a9-05f8-4c82-89d3-bc5e1d962be2)
+
+
+
 # recipe_project 2023-12-05
 - 레시피 상세 페이지에 추천 레시피 추가
 - 오른쪽 상단에 레시피의 즐겨찾기된 횟수 확인가능
