@@ -26,6 +26,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -77,14 +79,16 @@ public class Search extends AppCompatActivity {
 
 
     String result;
-
+    FirebaseAuth auth;
+    FirebaseUser user;
 
     static int j = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
-
+        auth = FirebaseAuth.getInstance();
+        user = auth.getCurrentUser();
 
         if(j == 0){
             Toast.makeText(getApplicationContext(),"버튼을 통해 날씨와 시간에따라 메뉴를 추천해드려요!", Toast.LENGTH_LONG).show();
@@ -337,8 +341,13 @@ public class Search extends AppCompatActivity {
         tofavorite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(Search.this, Favorite.class);
-                startActivity(intent);
+                if(user != null) {
+                    Intent intent = new Intent(Search.this, Favorite.class);
+                    startActivity(intent);
+                }
+                else {
+                    Toast.makeText(Search.this, "로그인을 먼저 해주세요.", Toast.LENGTH_SHORT).show();
+                }
             }
         });
         tag1.setOnClickListener(new View.OnClickListener() {
