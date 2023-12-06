@@ -212,7 +212,31 @@ public class MainActivity extends AppCompatActivity {
 
                         Button button = new Button(MainActivity.this);
 
-                        button.setBackgroundResource(R.drawable.ic_emptyheart);
+
+                        // 사용자의 즐겨찾기를 기반으로 isFullHeart를 초기화합니다.
+                        if(user != null) {
+                            String u_name = user.getEmail();
+                            db.collection("favorite")
+                                    .whereEqualTo("user_id", u_name)
+                                    .get()
+                                    .addOnSuccessListener(queryDocumentSnapshots -> {
+                                        DocumentSnapshot documentSnapshot = queryDocumentSnapshots.getDocuments().get(0);
+                                        List<Integer> recipeIds = (List<Integer>) documentSnapshot.get("recipe_ID");
+                                        Log.d("tag", recipeIds.toString());
+                                        long r_id = document.getLong("recipe_ID");
+                                        if(recipeIds.contains(r_id)){
+                                            isFullHeart = true; // 레시피가 즐겨찾기에 있으면 true로 설정
+                                            button.setBackgroundResource(R.drawable.ic_fullheart);
+                                        } else {
+                                            isFullHeart = false; // 레시피가 즐겨찾기에 없으면 false로 설정
+                                            button.setBackgroundResource(R.drawable.ic_emptyheart);
+                                        }
+                                    });
+                        } else {
+                            isFullHeart = false; // 사용자가 로그인하지 않은 경우 false로 설정
+                            button.setBackgroundResource(R.drawable.ic_emptyheart);
+                        }
+
                         FrameLayout.LayoutParams heartbuttonParams = new FrameLayout.LayoutParams(
                                 100,
                                 100
@@ -226,18 +250,17 @@ public class MainActivity extends AppCompatActivity {
                             @Override
                             public void onClick(View view) {
 
-
-                                Button clickedButton = (Button) view;
-                                if (isFullHeart) {
+//                                Button clickedButton = (Button) view;
+                                if (isFullHeart == true) {
                                     r_id = recipeID;
                                     u_name = user.getEmail();
                                     removeRecipeIdFromDocument(u_name,r_id);
-                                    clickedButton.setBackgroundResource(R.drawable.ic_emptyheart);
+                                    button.setBackgroundResource(R.drawable.ic_emptyheart);
                                 } else {
                                     r_id = recipeID;
                                     u_name = user.getEmail();
                                     addDataToFirestore(r_id,u_name);
-                                    clickedButton.setBackgroundResource(R.drawable.ic_fullheart);
+                                    button.setBackgroundResource(R.drawable.ic_fullheart);
                                 }
                                 isFullHeart = !isFullHeart;
                             }
