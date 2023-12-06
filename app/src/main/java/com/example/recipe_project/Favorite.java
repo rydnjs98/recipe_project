@@ -30,7 +30,7 @@ import java.util.List;
 import java.util.Map;
 
 public class Favorite extends AppCompatActivity {
-
+    Button torecommend;
     Button tosearch, tomain, tofavorite;
     FirebaseAuth auth;
     FirebaseUser user;
@@ -45,7 +45,7 @@ public class Favorite extends AppCompatActivity {
         tosearch = findViewById(R.id.favorite_search_btn);
         tomain = findViewById(R.id.favorite_main_btn);
         tofavorite = findViewById(R.id.favorite_favorite_btn);
-
+        torecommend = findViewById(R.id.favorite_frypan);
         login=findViewById(R.id.Favorite_login_btn);
         logout = findViewById(R.id.Favorite_logout_btn);
         auth = FirebaseAuth.getInstance();
@@ -254,6 +254,17 @@ public class Favorite extends AppCompatActivity {
                 Intent intent = new Intent(Favorite.this, MainActivity.class);
                 startActivity(intent);
                 finish();
+            }
+        });
+
+        torecommend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent intent = new Intent(Favorite.this, Recomend.class);
+                startActivity(intent);
+
+
             }
         });
 

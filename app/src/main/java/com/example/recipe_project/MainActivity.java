@@ -49,6 +49,8 @@ public class MainActivity extends AppCompatActivity {
     TextView user_details;
     Button tosearch;
     Button tofavorite;
+
+    Button torecommend;
     //ㅇㅇ
     ImageButton login;
     Button  logout;
@@ -67,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
         tosearch = findViewById(R.id.main_search_btn);
         tofavorite = findViewById(R.id.main_favorite_btn);
 //       recepices_btn1=findViewById(R.id.recepices_btn1);
-
+        torecommend = findViewById(R.id.main_frypan);
         login=findViewById(R.id.main_login_btn);
         logout = findViewById(R.id.main_logout_btn);
         auth = FirebaseAuth.getInstance();
@@ -125,6 +127,16 @@ public class MainActivity extends AppCompatActivity {
                 else {
                     Toast.makeText(MainActivity.this, "로그인을 먼저 해주세요.", Toast.LENGTH_SHORT).show();
                 }
+            }
+        });
+        torecommend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                    Intent intent = new Intent(MainActivity.this, Recomend.class);
+                    startActivity(intent);
+
+
             }
         });
 

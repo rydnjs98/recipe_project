@@ -81,7 +81,7 @@ public class Search extends AppCompatActivity {
     String result;
     FirebaseAuth auth;
     FirebaseUser user;
-
+    Button torecommend;
     static int j = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,7 +95,7 @@ public class Search extends AppCompatActivity {
             j++;
         }
 
-
+        torecommend = findViewById(R.id.search_frypan);
         tomain = findViewById(R.id.search_main_btn);
         tofavorite = findViewById(R.id.search_favotie_btn);
         getedt = findViewById(R.id.search_edt);
@@ -348,6 +348,16 @@ public class Search extends AppCompatActivity {
                 else {
                     Toast.makeText(Search.this, "로그인을 먼저 해주세요.", Toast.LENGTH_SHORT).show();
                 }
+            }
+        });
+        torecommend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent intent = new Intent(Search.this, Recomend.class);
+                startActivity(intent);
+
+
             }
         });
         tag1.setOnClickListener(new View.OnClickListener() {
