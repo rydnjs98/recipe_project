@@ -562,6 +562,25 @@ public class Search extends AppCompatActivity {
 
                     // 다른 액티비티 시작
                     startActivity(intent);
+                }else if(result.contains("구름")){
+                    for(int i=0; i< searchlist.size();i++)
+                    {
+                        if (searchlist.get(i).recipe_tag.contains("흐림")) {
+                            gotlist.add(searchlist.get(i));
+                        }
+                    }
+
+
+                    ran = r.nextInt(gotlist.size());
+
+                    int rann = ran;
+                    Intent intent = new Intent(Search.this, Recipe.class);
+                    Toast.makeText(getApplicationContext(),"현재 날씨는 " + result + " 상태 입니다. 추천 메뉴: " + gotlist.get(rann).recipe_name , Toast.LENGTH_LONG).show();
+                    // 데이터를 인텐트에 추가
+                    intent.putExtra("recipeID", gotlist.get(rann).getRecipe_ID());
+
+                    // 다른 액티비티 시작
+                    startActivity(intent);
                 }else if(result.contains("눈")){
                     for(int i=0; i< searchlist.size();i++)
                     {

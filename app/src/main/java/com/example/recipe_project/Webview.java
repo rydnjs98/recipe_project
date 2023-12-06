@@ -1,15 +1,20 @@
 package com.example.recipe_project;
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 
 
 import android.webkit.WebChromeClient;
 
+import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import java.net.URISyntaxException;
 
 public class Webview  extends AppCompatActivity {
     private String TAG = Webview.class.getSimpleName();
@@ -63,10 +68,17 @@ public class Webview  extends AppCompatActivity {
                     startActivity(marketIntent);
                 }
 
+            }catch (URISyntaxException uriSyntaxException) {
+                uriSyntaxException.printStackTrace();
+                // URL 구문 오류 처리
+            } catch (ActivityNotFoundException activityNotFoundException) {
+                activityNotFoundException.printStackTrace();
+                // 앱 실행 오류 처리
             } catch (Exception e) {
                 e.printStackTrace();
             }
         } else {
+
             webView.loadUrl(receivedMessage);
         }
     }
