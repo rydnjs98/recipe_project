@@ -1,3 +1,30 @@
+# recipe_project 2023-12-05
+- 레시피 상세 페이지에 추천 레시피 추가
+- 오른쪽 상단에 레시피의 즐겨찾기된 횟수 확인가능
+
+![image](https://github.com/rydnjs98/recipe_project/assets/89891055/8e48836f-a2ac-4c05-9da3-94361ef043b9)
+
+- 검색 페이지에서 날씨 및 시간으로 레시피를 추천하는 기능 추가
+
+![image](https://github.com/rydnjs98/recipe_project/assets/89891055/2ffb4af0-a160-475e-828e-f4a584da6568)
+
+- 어플 아이콘과 이름, splash 이미지 추가
+
+![image](https://github.com/rydnjs98/recipe_project/assets/89891055/ca9faf3f-91dd-438e-98c1-806743f2b664)
+
+![image](https://github.com/rydnjs98/recipe_project/assets/89891055/bb68c770-477f-4bf7-8efb-c88079977c04)
+
+- Firebase recipe_tags 추가 (String → Array)
+
+![image](https://github.com/rydnjs98/recipe_project/assets/89891055/52757148-99d3-43a8-93b3-6ee5104cc858)
+
+- 태그를 이용하여 레시피를 추천하는 기능 작성 중
+
+![image](https://github.com/rydnjs98/recipe_project/assets/89891055/b0259f1c-30f1-43cb-ab96-7d2744f7d84b)
+
+
+
+
 # recipe_project 2023-11-28
 - 레시피 찜하기 버튼 클릭시 recipe 컬렉션의 recipe_like 도 적용되게 수정
 
