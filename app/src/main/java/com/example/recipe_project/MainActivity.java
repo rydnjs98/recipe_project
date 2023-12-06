@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
 
     Button torecommend;
     //ㅇㅇ
-    ImageButton login;
+    Button login;
     Button  logout;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     private boolean isFullHeart = false;

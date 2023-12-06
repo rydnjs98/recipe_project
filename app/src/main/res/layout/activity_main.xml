@@ -22,25 +22,37 @@
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_weight="1"/>
+
+
             <TextView
                 android:id="@+id/user_details"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="match_parent"
+                android:gravity="center_horizontal"
+                android:layout_marginTop="8dp"
+                android:layout_marginRight="5dp"
+                android:textSize="15dp"
+                android:textStyle="bold" />
+
 
             <Button
                 android:id="@+id/main_logout_btn"
-                android:visibility="gone"
-                android:layout_width="54dp"
+                android:layout_width="wrap_content"
                 android:layout_height="38dp"
-                android:text="Logout" />
+                android:layout_gravity="right"
+                android:background="@drawable/round"
+                android:backgroundTint="#FF3FB3B0"
+                android:text="Logout"
+                android:visibility="gone" />
 
-            <ImageButton
+            <Button
                 android:id="@+id/main_login_btn"
-                android:layout_width="95dp"
+                android:layout_width="wrap_content"
                 android:layout_height="38dp"
-                android:background="@color/white"
-                android:text="Login"
-                app:srcCompat="@drawable/login_img" />
+                android:layout_gravity="right"
+                android:background="@drawable/round"
+                android:backgroundTint="#FF3FB3B0"
+                android:text="Login" />
         </LinearLayout>
 
 
