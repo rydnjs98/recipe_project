@@ -217,13 +217,25 @@
                         android:layout_weight="1" />
 
                     <android.widget.Button
+                        android:id="@+id/search_frypan"
+                        android:layout_width="1dp"
+                        android:layout_height="50dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/fry_pan"
+                        android:text="" />
+
+                    <Space
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+
+                    <android.widget.Button
                         android:id="@+id/search_favotie_btn"
                         android:layout_width="1dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:background="@drawable/heart_icon"
                         android:text="" />
-
                     <Space
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
