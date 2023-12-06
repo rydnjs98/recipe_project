@@ -5,6 +5,7 @@ package com.example.recipe_project;
 import static com.google.firebase.messaging.Constants.MessageNotificationKeys.TAG;
 
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -265,6 +266,8 @@ public class Recipe extends AppCompatActivity {
         textView1.setText(recipeName);
 
         LinearLayout layout = findViewById(R.id.ingrediant_layout);
+        layout.removeAllViews();
+
         int count = 0;
         LinearLayout lineLayout = null;
         List<Object> ingredientIDsList = (List<Object>) ingredientIDsObject;
@@ -557,15 +560,17 @@ public class Recipe extends AppCompatActivity {
     private void setRandomImageToView(RelativeLayout layout) {
         ImageView imageView = new ImageView(this);
         int imageResId = getRandomImageResId();
-        int recipeId = mapImageResIdToRecipeId(imageResId); // 해당하는 레시피 ID를 얻음
-
         imageView.setImageResource(imageResId);
+        imageView.setTag(imageResId); // 이미지 리소스 ID를 태그로 저장
         imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+
         layout.addView(imageView, new RelativeLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.MATCH_PARENT));
 
         imageView.setOnClickListener(v -> {
+            int clickedImageResId = (Integer) v.getTag(); // 태그에서 이미지 리소스 ID를 가져옴
+            int recipeId = mapImageResIdToRecipeId(clickedImageResId);
             loadRecipeDetails(recipeId);
         });
     }
@@ -585,14 +590,32 @@ public class Recipe extends AppCompatActivity {
     }
 
 
-
     private int mapImageResIdToRecipeId(int imageResId) {
-        // TODO: 이미지 리소스 ID를 레시피 ID로 매핑하는 로직 구현
-        return 0; // 임시 반환값
+        Resources resources = getResources();
+        String resourceName = resources.getResourceEntryName(imageResId);
+        String numberPart = resourceName.substring(4); // "img_" 다음 부분을 추출
+        return Integer.parseInt(numberPart); // 숫자 부분을 정수로 변환
     }
 
     private void loadRecipeDetails(int recipeId) {
-        // TODO: 레시피 ID를 사용하여 레시피 정보를 로드하는 로직 구현
-    }
-}
+        Log.d("RecipeActivity", "Selected Recipe ID: " + recipeId);
 
+        // Firestore에서 특정 recipe_ID에 해당하는 문서 검색
+        db.collection("recipe")
+                .whereEqualTo("recipe_ID", recipeId)
+                .get()
+                .addOnSuccessListener(queryDocumentSnapshots -> {
+                    if (!queryDocumentSnapshots.isEmpty()) {
+                        DocumentSnapshot documentSnapshot = queryDocumentSnapshots.getDocuments().get(0);
+                        processRecipeData(documentSnapshot); // 레시피 데이터 처리
+                    } else {
+                        Toast.makeText(Recipe.this, "레시피 정보를 찾을 수 없습니다.", Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .addOnFailureListener(e -> {
+                    Log.e("RecipeActivity", "Error fetching recipe details", e);
+                    Toast.makeText(Recipe.this, "레시피 정보를 불러오는 데 실패했습니다.", Toast.LENGTH_SHORT).show();
+                });
+    }
+
+}
