@@ -1,3 +1,20 @@
+# recipe_project 2023-12-07
+- 전체적인 이미지뷰 테두리 변경
+  
+![image](https://github.com/rydnjs98/recipe_project/assets/89891089/4934f383-fd2e-424c-9e5a-9e5d1d1a42cc) 				![image](https://github.com/rydnjs98/recipe_project/assets/89891089/f9ae75f3-5c4c-499d-a6e6-b4ac033d74da)
+
+
+![image](https://github.com/rydnjs98/recipe_project/assets/89891089/e14bf4cd-c28e-4bea-8532-768b36108bf2) 				![image](https://github.com/rydnjs98/recipe_project/assets/89891089/d4c29fca-293d-4953-9dc9-f0f78f1b6312) 
+
+
+
+![image](https://github.com/rydnjs98/recipe_project/assets/89891089/53e5e489-e26c-411a-9cb6-a8b796954b00)
+
+
+
+
+
+
 # recipe_project 2023-12-06
 - 하단 네브바에 추천 페이지 이동 버튼 추가
 
