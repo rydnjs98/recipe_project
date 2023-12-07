@@ -71,7 +71,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="10dp"
-                android:text="Info"
+                android:text="재료"
                 android:textSize="25dp" />
 
             <TextView
@@ -91,7 +91,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="10dp"
-                android:text="Ingredients"
+                android:text="재료 구매 링크"
                 android:textSize="25dp" />
 
             <Space
