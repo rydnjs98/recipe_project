@@ -2,6 +2,7 @@ package com.example.recipe_project;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -10,13 +11,18 @@ import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -32,11 +38,108 @@ import java.util.List;
 import java.util.Set;
 
 public class Recomend extends AppCompatActivity {
+
+
+
+    FirebaseAuth auth;
+    FirebaseUser user;
+    Button login;
+    TextView user_details;
+    Button tosearch;
+    Button tofavorite, tomain;
+
+    Button torecommend;
+    Button  logout;
     private FirebaseFirestore db;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recomend);
+        login=findViewById(R.id.main_login_btn);
+        logout = findViewById(R.id.main_logout_btn);
+        auth = FirebaseAuth.getInstance();
+        user = auth.getCurrentUser();
+        user_details = findViewById(R.id.user_details);
+        tosearch = findViewById(R.id.frypan_search_btn);
+        tofavorite = findViewById(R.id.frypan_favorite_btn);
+        tomain = findViewById(R.id.frypan_main_btn);
+        torecommend = findViewById(R.id.frypan_frypan);
+
+
+        if(user != null){
+            user_details.setText(user.getEmail());
+            login.setVisibility(View.GONE);
+            logout.setVisibility(View.VISIBLE);
+        } else {
+            login.setVisibility(View.VISIBLE);
+            logout.setVisibility(View.GONE);
+        }
+        login.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), Login.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+        logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                user_details.setText(null);
+                FirebaseAuth.getInstance().signOut();
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
+
+        tosearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Recomend.this, Search.class);
+                startActivity(intent);
+            }
+        });
+        // 즐겨찾기 페이지 이동 버튼
+        tofavorite.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(user != null) {
+                    Intent intent = new Intent(Recomend.this, Favorite.class);
+                    startActivity(intent);
+                }
+                else {
+                    Toast.makeText(Recomend.this, "로그인을 먼저 해주세요.", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+        torecommend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent intent = new Intent(Recomend.this, Recomend.class);
+                startActivity(intent);
+
+
+            }
+        });
+
+        tomain.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent intent = new Intent(Recomend.this, MainActivity.class);
+                startActivity(intent);
+
+
+            }
+        });
+
+
+
+
+
 
         init(null, null);
     }
@@ -125,10 +228,15 @@ public class Recomend extends AppCompatActivity {
                                     buttonSize
                             );
                             button.setText(uniqueTagsArray[i]);
+
+
                             buttonParams.setMargins(20, 20, 20, 20);
-//                        button.setBackgroundColor(Color.BLACK);
+//                        //button.setBackgroundColor(Color.BLACK);
                             button.setLayoutParams(buttonParams);
                             currentLayout.addView(button);
+                            button.setBackgroundResource(R.drawable.rec_rounded_background);
+                            button.setTextSize(20);
+
 
                             button.setOnClickListener(new View.OnClickListener() {
                                 @Override
@@ -280,6 +388,8 @@ public class Recomend extends AppCompatActivity {
                                         buttonParams.setMargins(20, 20, 20, 20);
                                         button.setLayoutParams(buttonParams);
                                         currentLayout.addView(button);
+                                        button.setBackgroundResource(R.drawable.rec_rounded_background);
+                                        button.setTextSize(20);
 
                                         button.setOnClickListener(new View.OnClickListener() {
                                             @Override
@@ -443,6 +553,8 @@ public class Recomend extends AppCompatActivity {
                                 buttonParams.setMargins(20, 20, 20, 20);
                                 button.setLayoutParams(buttonParams);
                                 currentLayout.addView(button);
+                                button.setBackgroundResource(R.drawable.rec_rounded_background);
+                                button.setTextSize(20);
 
                                 button.setOnClickListener(new View.OnClickListener() {
                                     @Override

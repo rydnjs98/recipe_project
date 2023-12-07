@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
     Button tofavorite;
 
     Button torecommend;
-    //ㅇㅇ
+
     Button login;
     Button  logout;
     FirebaseFirestore db = FirebaseFirestore.getInstance();

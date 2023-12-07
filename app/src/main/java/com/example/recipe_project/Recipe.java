@@ -571,7 +571,13 @@ public class Recipe extends AppCompatActivity {
         imageView.setOnClickListener(v -> {
             int clickedImageResId = (Integer) v.getTag(); // 태그에서 이미지 리소스 ID를 가져옴
             int recipeId = mapImageResIdToRecipeId(clickedImageResId);
-            loadRecipeDetails(recipeId);
+
+            Intent retent = new Intent(Recipe.this,Recipe.class);
+            retent.putExtra("recipeID", recipeId);
+            startActivity(retent);
+
+
+            //loadRecipeDetails(recipeId);
         });
     }
 
