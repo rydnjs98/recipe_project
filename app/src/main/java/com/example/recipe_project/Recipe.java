@@ -136,8 +136,8 @@ public class Recipe extends AppCompatActivity {
 
                     }
                     for (Ing_post ing_item : inglist) {
-                        Log.d(TAG, "ing name = " + ing_item.getingrediant_name());
-                        Log.d(TAG, "ing link = " + ing_item.getingrediant_link());
+                      //  Log.d(TAG, "ing name = " + ing_item.getingrediant_name());
+                      //  Log.d(TAG, "ing link = " + ing_item.getingrediant_link());
                     }
 
 
@@ -199,7 +199,7 @@ public class Recipe extends AppCompatActivity {
                 }
             }
 
-            Log.d("RecipeActivity", "Recipe IDs: " + recipeIds.toString());
+           // Log.d("RecipeActivity", "Recipe IDs: " + recipeIds.toString());
 
             // 서치에서 보낸 인텐트 가져오기
 //            Intent intent = getIntent();
@@ -325,8 +325,11 @@ public class Recipe extends AppCompatActivity {
                     buttonSize
             );
             buttonParams.setMargins(20, 20, 20, 20);
-            imageView.setBackgroundColor(Color.BLACK);
+            //imageView.setBackgroundColor(Color.BLACK);
             imageView.setLayoutParams(buttonParams);
+//            imageView.setPadding(20,20,20,20);
+            imageView.setBackgroundResource(R.drawable.recipe_rounded_background);
+            imageView.setClipToOutline(true);
             currentLayout.addView(imageView);
 
             imageView.setOnClickListener(new View.OnClickListener() {
@@ -371,19 +374,19 @@ public class Recipe extends AppCompatActivity {
 
             currentLayout.addView(textView, textParams);
 
-            Log.d("RecipeActivity", "id: " + id);
+           // Log.d("RecipeActivity", "id: " + id);
             count++;
         }
 
         // 로그로 출력
-        Log.d("RecipeActivity", "Recipe Info: " + recipeInfo);
-        Log.d("RecipeActivity", "Recipe Ingredient IDs: " + recipeIngredientIDs);
-        Log.d("RecipeActivity", "Recipe Like: " + recipeLike);
-        Log.d("RecipeActivity", "Recipe Link: " + recipeLink);
-        Log.d("RecipeActivity", "Recipe Name: " + recipeName);
-        Log.d("RecipeActivity", "Recipe Tag: " + recipeTag);
+      //  Log.d("RecipeActivity", "Recipe Info: " + recipeInfo);
+      //  Log.d("RecipeActivity", "Recipe Ingredient IDs: " + recipeIngredientIDs);
+      //  Log.d("RecipeActivity", "Recipe Like: " + recipeLike);
+     //   Log.d("RecipeActivity", "Recipe Link: " + recipeLink);
+      //  Log.d("RecipeActivity", "Recipe Name: " + recipeName);
+       // Log.d("RecipeActivity", "Recipe Tag: " + recipeTag);
         int recipeID = getIntent().getIntExtra("recipeID", 1);
-        Log.d("RecipeActivity", "Recipe ID: " + recipeID);
+      //  Log.d("RecipeActivity", "Recipe ID: " + recipeID);
     }
 
     @Override
@@ -563,6 +566,9 @@ public class Recipe extends AppCompatActivity {
         imageView.setImageResource(imageResId);
         imageView.setTag(imageResId); // 이미지 리소스 ID를 태그로 저장
         imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+        imageView.setBackgroundResource(R.drawable.recipe_rounded_background);
+        imageView.setClipToOutline(true);
+
 
         layout.addView(imageView, new RelativeLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
@@ -604,7 +610,7 @@ public class Recipe extends AppCompatActivity {
     }
 
     private void loadRecipeDetails(int recipeId) {
-        Log.d("RecipeActivity", "Selected Recipe ID: " + recipeId);
+      //  Log.d("RecipeActivity", "Selected Recipe ID: " + recipeId);
 
         // Firestore에서 특정 recipe_ID에 해당하는 문서 검색
         db.collection("recipe")

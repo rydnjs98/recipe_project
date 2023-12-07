@@ -172,7 +172,7 @@ public class Recomend extends AppCompatActivity {
                         String[] uniqueTagsArray = uniqueTags.toArray(new String[0]);
                         // 변환된 배열 출력
                         for (int i = 0; i < uniqueTagsArray.length; i++) {
-                            Log.d("tag", uniqueTagsArray[i]);
+                           // Log.d("tag", uniqueTagsArray[i]);
                         }
                         LinearLayout layout = findViewById(R.id.recomend_btnlayout); // 레이아웃의 ID를 가져옵니다.
 
@@ -274,7 +274,7 @@ public class Recomend extends AppCompatActivity {
                                 DocumentSnapshot document2 = task.getResult().getDocuments().get(0);
                                 if (document2.exists()) {
                                     // 결과가 하나일 때 "결과!" 출력
-                                    Log.d("결과", "결과!" + document2.getId() + document2.getData());
+                                   // Log.d("결과", "결과!" + document2.getId() + document2.getData());
 
                                     int recipeID = document2.getLong("recipe_ID").intValue();
                                     // recipe_ID 값을 기반으로 이미지 리소스 ID 가져오기
@@ -326,7 +326,7 @@ public class Recomend extends AppCompatActivity {
                                     // 중복 없는 태그들이 저장된 Set을 배열로 변환
                                     String[] uniqueTagsArray = uniqueTags.toArray(new String[0]);
                                     for (int i = 0; i < uniqueTagsArray.length; i++) {
-                                        Log.d("tag", uniqueTagsArray[i]);
+                                      //  Log.d("tag", uniqueTagsArray[i]);
                                     }
                                     LinearLayout layout = findViewById(R.id.recomend_btnlayout); // 레이아웃의 ID를 가져옵니다.
 
@@ -398,7 +398,7 @@ public class Recomend extends AppCompatActivity {
                                                 for (QueryDocumentSnapshot document : task.getResult()) {
                                                     result.add(document.getLong("recipe_ID").intValue());
                                                 }
-                                                Log.d("tag2", result.toString());
+                                             //   Log.d("tag2", result.toString());
 
                                                 init(result, selecttag);
                                             }
@@ -410,7 +410,7 @@ public class Recomend extends AppCompatActivity {
 
                                         if (document.exists()) {
                                             // 검색된 recipe 처리 (여기에서는 document.getData() 등을 활용하여 처리할 수 있습니다.)
-                                            Log.d("tag", document.getId() + " => " + document.get("recipe_tags"));
+                                       //     Log.d("tag", document.getId() + " => " + document.get("recipe_tags"));
                                         }
                                     }
                                 }
@@ -439,7 +439,7 @@ public class Recomend extends AppCompatActivity {
                             DocumentSnapshot document2 = task.getResult().getDocuments().get(0);
                             if (document2.exists()) {
                                 // 결과가 하나일 때 "결과!" 출력
-                                Log.d("결과", "결과!" + document2.getId() + document2.getData());
+                             //   Log.d("결과", "결과!" + document2.getId() + document2.getData());
 
                                 int recipeID = document2.getLong("recipe_ID").intValue();
                                 // recipe_ID 값을 기반으로 이미지 리소스 ID 가져오기
@@ -491,7 +491,7 @@ public class Recomend extends AppCompatActivity {
                             // 중복 없는 태그들이 저장된 Set을 배열로 변환
                             String[] uniqueTagsArray = uniqueTags.toArray(new String[0]);
                             for (int i = 0; i < uniqueTagsArray.length; i++) {
-                                Log.d("tag", uniqueTagsArray[i]);
+                            //    Log.d("tag", uniqueTagsArray[i]);
                             }
                             LinearLayout layout = findViewById(R.id.recomend_btnlayout); // 레이아웃의 ID를 가져옵니다.
 
@@ -573,7 +573,7 @@ public class Recomend extends AppCompatActivity {
 
                                 if (document.exists()) {
                                     // 검색된 recipe 처리 (여기에서는 document.getData() 등을 활용하여 처리할 수 있습니다.)
-                                    Log.d("tag", document.getId() + " => " + document.get("recipe_tags"));
+                               //     Log.d("tag", document.getId() + " => " + document.get("recipe_tags"));
                                 }
                             }
                         }

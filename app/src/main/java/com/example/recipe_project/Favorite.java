@@ -148,6 +148,8 @@ public class Favorite extends AppCompatActivity {
                                                                 textViewParams.setMargins(70, 0, 0, 0);
 
                                                                 imageView.setLayoutParams(imageViewParams);
+                                                                imageView.setBackgroundResource(R.drawable.round);
+                                                                imageView.setClipToOutline(true);
                                                                 textView.setLayoutParams(textViewParams);
                                                                 LikeButton.setLayoutParams(buttonParams);
 

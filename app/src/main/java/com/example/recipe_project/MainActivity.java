@@ -198,6 +198,7 @@ public class MainActivity extends AppCompatActivity {
                         ImageView imageView = new ImageView(MainActivity.this);
                         imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
                         imageView.setBackgroundResource(R.drawable.rounded_background);
+                        imageView.setClipToOutline(true);
 
 
                         imageView.setImageResource(imageResource);
@@ -234,7 +235,7 @@ public class MainActivity extends AppCompatActivity {
                                     .addOnSuccessListener(queryDocumentSnapshots -> {
                                         DocumentSnapshot documentSnapshot = queryDocumentSnapshots.getDocuments().get(0);
                                         List<Integer> recipeIds = (List<Integer>) documentSnapshot.get("recipe_ID");
-                                        Log.d("tag", recipeIds.toString());
+                                      //  Log.d("tag", recipeIds.toString());
                                         long r_id = document.getLong("recipe_ID");
                                         if(recipeIds.contains(r_id)){
                                             isFullHeart = true; // 레시피가 즐겨찾기에 있으면 true로 설정
@@ -287,7 +288,7 @@ public class MainActivity extends AppCompatActivity {
                                     .addOnSuccessListener(queryDocumentSnapshots -> {
                                         DocumentSnapshot documentSnapshot = queryDocumentSnapshots.getDocuments().get(0);
                                         List<Integer> recipeIds = (List<Integer>) documentSnapshot.get("recipe_ID");
-                                        Log.d("tag", recipeIds.toString());
+                                     //   Log.d("tag", recipeIds.toString());
                                         long r_id = document.getLong("recipe_ID");
                                         if(recipeIds.contains(r_id)){
                                             button.setBackgroundResource(R.drawable.ic_fullheart);

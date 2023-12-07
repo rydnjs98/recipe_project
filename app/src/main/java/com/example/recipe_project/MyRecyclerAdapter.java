@@ -110,6 +110,7 @@ public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.Vi
 
 
             profile.setImageResource(images.get(item.getRecipe_ID()).intValue() );
+            profile.setClipToOutline(true);
             name.setText(item.getRecipe_Name());
 
 
