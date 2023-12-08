@@ -169,7 +169,7 @@ public class Recipe extends AppCompatActivity {
 
     private void loadYouTubeVideo(String videoId) {
         if (youTubePlayer != null) {
-            youTubePlayer.loadVideo(videoId, 0);
+            youTubePlayer.cueVideo(videoId, 0);
         }
     }
 
