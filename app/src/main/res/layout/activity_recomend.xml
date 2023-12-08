@@ -101,7 +101,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="300px"
+            android:layout_height="200px"
             android:background="@drawable/home"
 
             android:gravity="bottom"
@@ -113,13 +113,10 @@
                 android:layout_weight="1"
                 android:orientation="vertical">
 
-                <Space
-                    android:layout_width="match_parent"
-                    android:layout_height="22dp" />
 
                 <Space
                     android:layout_width="match_parent"
-                    android:layout_height="22dp" />
+                    android:layout_height="15dp" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
