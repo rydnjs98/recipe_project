@@ -335,17 +335,17 @@ public class MainActivity extends AppCompatActivity {
 
     private ArrayList<Integer> getIdolList() {
         ArrayList<Integer> itemList = new ArrayList<>();
-        Random random = new Random();
-        int ran[] = new int[3];
-        for (int i = 0;i<3;i++) {
-            int r = random.nextInt(20) + 1;
-            ran[i] = r;
-            for(int j = 0;j<i;j++) {
-                if(ran[j] == r) i--;
-            }
-        }
-        for(int i = 0;i<3;i++) {
-            String imageName = "img_" + ran[i];
+//        Random random = new Random();
+//        int ran[] = new int[3];
+//        for (int i = 0;i<3;i++) {
+//            int r = random.nextInt(20) + 1;
+//            ran[i] = r;
+//            for(int j = 0;j<i;j++) {
+//                if(ran[j] == r) i--;
+//            }
+//        }
+        for(int i = 1;i<5;i++) {
+            String imageName = "slide" + i;
             int imageResource = getResources().getIdentifier(imageName, "drawable", getPackageName());
             itemList.add(imageResource);
         }

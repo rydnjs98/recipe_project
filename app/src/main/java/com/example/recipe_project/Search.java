@@ -513,17 +513,19 @@ public class Search extends AppCompatActivity {
             }
         });
 
+        //날씨 버튼 클릭 이벤트
         dosearch2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String noww = result;
 
                 System.out.println(noww);
-
+                // 리스트 초기화
                 gotlist.clear();
                 int ran=0;
                 Random r = new Random();
 
+                // 웹 크롤링 결과에 따라서 리스트에 해당하는 태그를 가진 레시피 추가
                 if(result.contains("비")){
                     for(int i=0; i< searchlist.size();i++)
                     {
@@ -653,6 +655,7 @@ public class Search extends AppCompatActivity {
     }
 
 
+    //네이버 날씨(익산시)에서 현재 날씨를 가져옴
 
     private String performWebCrawling() {
         try {
