@@ -1,3 +1,16 @@
+# recipe_project 2023-12-09
+- 추천 페이지 결과 화면 완성
+
+![image](https://github.com/rydnjs98/recipe_project/assets/89891055/1b6ca0fc-17cf-4da6-bfa2-3f044b275c70)
+
+- 메인 페이지 슬라이더 수정
+
+![image](https://github.com/rydnjs98/recipe_project/assets/89891055/cb5b82a9-f57b-43e4-b565-b0083b61be1b) ![image](https://github.com/rydnjs98/recipe_project/assets/89891055/76687357-af29-4a42-b119-be1758fc3ac9) ![image](https://github.com/rydnjs98/recipe_project/assets/89891055/a2637c36-4c90-43bc-b1e4-4dcddfae9383)
+
+
+
+
+
 # recipe_project 2023-12-07
 - 전체적인 이미지뷰 테두리 변경
   
