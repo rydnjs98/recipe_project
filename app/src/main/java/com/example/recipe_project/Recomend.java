@@ -401,9 +401,9 @@ public class Recomend extends AppCompatActivity {
                                     for (int i = 0; i < uniqueTagsArray.length; i++) {
                                         String selecttag = uniqueTagsArray[i];
                                         List<Integer> result = new ArrayList<Integer>();
-                                        DocumentSnapshot document = task.getResult().getDocuments().get(0);
-                                        int recipeID = document.getLong("recipe_ID").intValue();
-                                        if(uniqueTagsArray[i] != selectedtag) {
+//                                        DocumentSnapshot document = task.getResult().getDocuments().get(0);
+//                                        int recipeID = document.getLong("recipe_ID").intValue();
+                                        if(stag.contains(uniqueTagsArray[i]) != true) {
                                             if (count % 3 == 0) {
                                                 // 새로운 줄을 만듭니다.
                                                 lineLayout = new LinearLayout(Recomend.this);
