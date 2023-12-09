@@ -299,7 +299,7 @@ public class MainActivity extends AppCompatActivity {
                                     });
                         }
 
-
+//
 
 
 
@@ -344,7 +344,7 @@ public class MainActivity extends AppCompatActivity {
 //                if(ran[j] == r) i--;
 //            }
 //        }
-        for(int i = 1;i<5;i++) {
+        for(int i = 1;i<7;i++) {
             String imageName = "slide" + i;
             int imageResource = getResources().getIdentifier(imageName, "drawable", getPackageName());
             itemList.add(imageResource);
