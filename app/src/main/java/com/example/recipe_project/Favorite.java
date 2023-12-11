@@ -130,8 +130,9 @@ public class Favorite extends AppCompatActivity {
                                                                 imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
 
                                                                 LinearLayout.LayoutParams imageViewParams = new LinearLayout.LayoutParams(300, 300);
-                                                                imageViewParams.setMargins(100, 0, 0, 40);
-
+                                                               imageViewParams.setMargins(100, 0, 0, 40);
+                                                                imageView.setBackgroundResource(R.drawable.recipe_rounded_background);
+                                                                imageView.setClipToOutline(true);
                                                                 imageView.setLayoutParams(imageViewParams);
 
 
@@ -148,10 +149,12 @@ public class Favorite extends AppCompatActivity {
                                                                 textViewParams.setMargins(70, 0, 0, 0);
 
                                                                 imageView.setLayoutParams(imageViewParams);
-                                                                imageView.setBackgroundResource(R.drawable.round);
-                                                                imageView.setClipToOutline(true);
+
                                                                 textView.setLayoutParams(textViewParams);
                                                                 LikeButton.setLayoutParams(buttonParams);
+
+                                                                imageView.setBackgroundResource(R.drawable.recipe_rounded_background);
+                                                                imageView.setClipToOutline(true);
 
                                                                 currentLayout.addView(imageView);
                                                                 currentLayout.addView(LikeButton);

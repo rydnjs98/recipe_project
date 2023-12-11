@@ -361,6 +361,7 @@ public class Recomend extends AppCompatActivity {
                                     Button button = new Button(Recomend.this);
 
                                     button.setText("처음으로");
+                                    button.setTextSize(20);
                                     LinearLayout.LayoutParams button2Params = new LinearLayout.LayoutParams(
                                             LinearLayout.LayoutParams.MATCH_PARENT,
                                             LinearLayout.LayoutParams.WRAP_CONTENT
@@ -585,6 +586,7 @@ public class Recomend extends AppCompatActivity {
                                 Button button = new Button(Recomend.this);
 
                                 button.setText("처음으로");
+                                button.setTextSize(20);
                                 LinearLayout.LayoutParams button2Params = new LinearLayout.LayoutParams(
                                         LinearLayout.LayoutParams.MATCH_PARENT,
                                         LinearLayout.LayoutParams.WRAP_CONTENT
