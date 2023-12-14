@@ -51,7 +51,7 @@ dependencies {
     implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:core:12.1.0'
 
 //웹크롤링
-    implementation 'org.jsoup:jsoup:1.11.3'
+    implementation 'org.jsoup:jsoup:1.15.3'
     implementation 'io.github.ParkSangGwon:tedpermission-normal:3.3.0'
     implementation 'io.github.ParkSangGwon:tedpermission-coroutine:3.3.0'
     implementation 'io.github.ParkSangGwon:tedpermission-rx2:3.3.0'

@@ -6,7 +6,10 @@ import static com.google.firebase.messaging.Constants.MessageNotificationKeys.TA
 import android.content.Context;
 import android.content.Intent;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -114,7 +117,7 @@ public class Search extends AppCompatActivity {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                 result = performWebCrawling();
+                result = performWebCrawling();
 
                 // UI 업데이트를 위해 runOnUiThread 사용
                 runOnUiThread(new Runnable() {
@@ -127,10 +130,14 @@ public class Search extends AppCompatActivity {
                         } else {
                             Log.e("Weather", "Failed to retrieve weather information");
                         }
+
                     }
                 });
             }
         }).start();
+
+
+
 
         //리사이클뷰 어뎁터
         RecyclerView mRecyclerView = (RecyclerView) findViewById(R.id.recyclerView);
@@ -517,16 +524,136 @@ public class Search extends AppCompatActivity {
         dosearch2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String noww = result;
 
-                System.out.println(noww);
                 // 리스트 초기화
                 gotlist.clear();
                 int ran=0;
                 Random r = new Random();
 
-                // 웹 크롤링 결과에 따라서 리스트에 해당하는 태그를 가진 레시피 추가
-                if(result.contains("비")){
+                if(result != null){
+
+                    String noww = result;
+
+                    System.out.println(noww);
+
+                    // 웹 크롤링 결과에 따라서 리스트에 해당하는 태그를 가진 레시피 추가
+                    if(result.contains("비")){
+                        for(int i=0; i< searchlist.size();i++)
+                        {
+                            if (searchlist.get(i).recipe_tag.contains("비")) {
+                                gotlist.add(searchlist.get(i));
+                            }
+                        }
+
+
+                        ran = r.nextInt(gotlist.size());
+
+                        int rann = ran;
+                        Intent intent = new Intent(Search.this, Recipe.class);
+                        Toast.makeText(getApplicationContext(),"현재 날씨는 " + result + " 입니다. 추천 메뉴: " + gotlist.get(rann).recipe_name , Toast.LENGTH_LONG).show();
+                        // 데이터를 인텐트에 추가
+                        intent.putExtra("recipeID", gotlist.get(rann).getRecipe_ID());
+
+                        // 다른 액티비티 시작
+                        startActivity(intent);
+                    }else if(result.contains("흐림")){
+                        for(int i=0; i< searchlist.size();i++)
+                        {
+                            if (searchlist.get(i).recipe_tag.contains("흐림")) {
+                                gotlist.add(searchlist.get(i));
+                            }
+                        }
+
+
+                        ran = r.nextInt(gotlist.size());
+
+                        int rann = ran;
+                        Intent intent = new Intent(Search.this, Recipe.class);
+                        Toast.makeText(getApplicationContext(),"현재 날씨는 " + result + "상태 입니다. 추천 메뉴: " + gotlist.get(rann).recipe_name , Toast.LENGTH_LONG).show();
+                        // 데이터를 인텐트에 추가
+                        intent.putExtra("recipeID", gotlist.get(rann).getRecipe_ID());
+
+                        // 다른 액티비티 시작
+                        startActivity(intent);
+                    }else if(result.contains("비")){
+                        for(int i=0; i< searchlist.size();i++)
+                        {
+                            if (searchlist.get(i).recipe_tag.contains("비")) {
+                                gotlist.add(searchlist.get(i));
+                            }
+                        }
+
+
+                        ran = r.nextInt(gotlist.size());
+
+                        int rann = ran;
+                        Intent intent = new Intent(Search.this, Recipe.class);
+                        Toast.makeText(getApplicationContext(),"현재 날씨는 " + result + "가 오는 상태 입니다. 추천 메뉴: " + gotlist.get(rann).recipe_name , Toast.LENGTH_LONG).show();
+                        // 데이터를 인텐트에 추가
+                        intent.putExtra("recipeID", gotlist.get(rann).getRecipe_ID());
+
+                        // 다른 액티비티 시작
+                        startActivity(intent);
+                    }else if(result.contains("구름")){
+                        for(int i=0; i< searchlist.size();i++)
+                        {
+                            if (searchlist.get(i).recipe_tag.contains("흐림")) {
+                                gotlist.add(searchlist.get(i));
+                            }
+                        }
+
+
+                        ran = r.nextInt(gotlist.size());
+
+                        int rann = ran;
+                        Intent intent = new Intent(Search.this, Recipe.class);
+                        Toast.makeText(getApplicationContext(),"현재 날씨는 " + result + " 상태 입니다. 추천 메뉴: " + gotlist.get(rann).recipe_name , Toast.LENGTH_LONG).show();
+                        // 데이터를 인텐트에 추가
+                        intent.putExtra("recipeID", gotlist.get(rann).getRecipe_ID());
+
+                        // 다른 액티비티 시작
+                        startActivity(intent);
+                    }else if(result.contains("눈")){
+                        for(int i=0; i< searchlist.size();i++)
+                        {
+                            if (searchlist.get(i).recipe_tag.contains("눈")) {
+                                gotlist.add(searchlist.get(i));
+                            }
+                        }
+
+
+                        ran = r.nextInt(gotlist.size());
+
+                        int rann = ran;
+                        Intent intent = new Intent(Search.this, Recipe.class);
+                        Toast.makeText(getApplicationContext(),"현재 날씨는 " + result + "이 오는 상태 입니다. 추천 메뉴: " + gotlist.get(rann).recipe_name , Toast.LENGTH_LONG).show();
+                        // 데이터를 인텐트에 추가
+                        intent.putExtra("recipeID", gotlist.get(rann).getRecipe_ID());
+
+                        // 다른 액티비티 시작
+                        startActivity(intent);
+                    }else if(result.contains("맑음")){
+                        for(int i=0; i< searchlist.size();i++)
+                        {
+                            if (searchlist.get(i).recipe_tag.contains("맑음")) {
+                                gotlist.add(searchlist.get(i));
+                            }
+                        }
+
+
+                        ran = r.nextInt(gotlist.size());
+
+                        int rann = ran;
+                        Intent intent = new Intent(Search.this, Recipe.class);
+                        Toast.makeText(getApplicationContext(),"현재 날씨는 " + result + "상태 입니다. 추천 메뉴: " + gotlist.get(rann).recipe_name , Toast.LENGTH_LONG).show();
+                        // 데이터를 인텐트에 추가
+                        intent.putExtra("recipeID", gotlist.get(rann).getRecipe_ID());
+
+                        // 다른 액티비티 시작
+                        startActivity(intent);
+                    }
+
+                }else{
                     for(int i=0; i< searchlist.size();i++)
                     {
                         if (searchlist.get(i).recipe_tag.contains("비")) {
@@ -539,108 +666,17 @@ public class Search extends AppCompatActivity {
 
                     int rann = ran;
                     Intent intent = new Intent(Search.this, Recipe.class);
-                    Toast.makeText(getApplicationContext(),"현재 날씨는 " + result + " 입니다. 추천 메뉴: " + gotlist.get(rann).recipe_name , Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(),"현재 날씨는 비 입니다. 추천 메뉴: " + gotlist.get(rann).recipe_name , Toast.LENGTH_LONG).show();
                     // 데이터를 인텐트에 추가
                     intent.putExtra("recipeID", gotlist.get(rann).getRecipe_ID());
 
                     // 다른 액티비티 시작
                     startActivity(intent);
-                }else if(result.contains("흐림")){
-                    for(int i=0; i< searchlist.size();i++)
-                    {
-                        if (searchlist.get(i).recipe_tag.contains("흐림")) {
-                            gotlist.add(searchlist.get(i));
-                        }
-                    }
 
 
-                    ran = r.nextInt(gotlist.size());
 
-                    int rann = ran;
-                    Intent intent = new Intent(Search.this, Recipe.class);
-                    Toast.makeText(getApplicationContext(),"현재 날씨는 " + result + "상태 입니다. 추천 메뉴: " + gotlist.get(rann).recipe_name , Toast.LENGTH_LONG).show();
-                    // 데이터를 인텐트에 추가
-                    intent.putExtra("recipeID", gotlist.get(rann).getRecipe_ID());
-
-                    // 다른 액티비티 시작
-                    startActivity(intent);
-                }else if(result.contains("비")){
-                    for(int i=0; i< searchlist.size();i++)
-                    {
-                        if (searchlist.get(i).recipe_tag.contains("비")) {
-                            gotlist.add(searchlist.get(i));
-                        }
-                    }
-
-
-                    ran = r.nextInt(gotlist.size());
-
-                    int rann = ran;
-                    Intent intent = new Intent(Search.this, Recipe.class);
-                    Toast.makeText(getApplicationContext(),"현재 날씨는 " + result + "가 오는 상태 입니다. 추천 메뉴: " + gotlist.get(rann).recipe_name , Toast.LENGTH_LONG).show();
-                    // 데이터를 인텐트에 추가
-                    intent.putExtra("recipeID", gotlist.get(rann).getRecipe_ID());
-
-                    // 다른 액티비티 시작
-                    startActivity(intent);
-                }else if(result.contains("구름")){
-                    for(int i=0; i< searchlist.size();i++)
-                    {
-                        if (searchlist.get(i).recipe_tag.contains("흐림")) {
-                            gotlist.add(searchlist.get(i));
-                        }
-                    }
-
-
-                    ran = r.nextInt(gotlist.size());
-
-                    int rann = ran;
-                    Intent intent = new Intent(Search.this, Recipe.class);
-                    Toast.makeText(getApplicationContext(),"현재 날씨는 " + result + " 상태 입니다. 추천 메뉴: " + gotlist.get(rann).recipe_name , Toast.LENGTH_LONG).show();
-                    // 데이터를 인텐트에 추가
-                    intent.putExtra("recipeID", gotlist.get(rann).getRecipe_ID());
-
-                    // 다른 액티비티 시작
-                    startActivity(intent);
-                }else if(result.contains("눈")){
-                    for(int i=0; i< searchlist.size();i++)
-                    {
-                        if (searchlist.get(i).recipe_tag.contains("눈")) {
-                            gotlist.add(searchlist.get(i));
-                        }
-                    }
-
-
-                    ran = r.nextInt(gotlist.size());
-
-                    int rann = ran;
-                    Intent intent = new Intent(Search.this, Recipe.class);
-                    Toast.makeText(getApplicationContext(),"현재 날씨는 " + result + "이 오는 상태 입니다. 추천 메뉴: " + gotlist.get(rann).recipe_name , Toast.LENGTH_LONG).show();
-                    // 데이터를 인텐트에 추가
-                    intent.putExtra("recipeID", gotlist.get(rann).getRecipe_ID());
-
-                    // 다른 액티비티 시작
-                    startActivity(intent);
-                }else if(result.contains("맑음")){
-                    for(int i=0; i< searchlist.size();i++)
-                    {
-                        if (searchlist.get(i).recipe_tag.contains("맑음")) {
-                            gotlist.add(searchlist.get(i));
-                        }
-                    }
-
-
-                    ran = r.nextInt(gotlist.size());
-
-                    int rann = ran;
-                    Intent intent = new Intent(Search.this, Recipe.class);
-                    Toast.makeText(getApplicationContext(),"현재 날씨는 " + result + "상태 입니다. 추천 메뉴: " + gotlist.get(rann).recipe_name , Toast.LENGTH_LONG).show();
-                    // 데이터를 인텐트에 추가
-                    intent.putExtra("recipeID", gotlist.get(rann).getRecipe_ID());
-
-                    // 다른 액티비티 시작
-                    startActivity(intent);
                 }
+
 
             }
         });
@@ -655,6 +691,7 @@ public class Search extends AppCompatActivity {
     }
 
 
+
     //네이버 날씨(익산시)에서 현재 날씨를 가져옴
 
     private String performWebCrawling() {
@@ -667,7 +704,9 @@ public class Search extends AppCompatActivity {
             if (weatherElement != null) {
                 return weatherElement.text();
             }
+
         } catch (IOException e) {
+
             e.printStackTrace();
         }
 
